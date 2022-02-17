@@ -1,0 +1,21 @@
+{
+  "name": "openclassrooms-project-7",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/RomainCEZ/OpenClassrooms-project-7.git",
+  "author": "Romain <hercez92@hotmail.fr>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon back/server",
+    "test": "jest"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "vite": "^2.8.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "jest": "^27.5.1",
+    "prettier": "^2.5.1"
+  }
+}
