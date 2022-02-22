@@ -17,7 +17,7 @@ const Posts = [
     {
         id: 4,
         title: "Post en japonais",
-        body: "よ !"
+        body: "おはよう !"
     }
 ]
 
