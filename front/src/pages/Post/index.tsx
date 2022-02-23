@@ -12,8 +12,8 @@ export default function Post() {
     return ( 
         <section>
             <Link to="/" className="flex justify-center p-2 mb-3 rounded bg-blue-900 text-white">Retour</Link>
-            <div className="p-2 border h-80">
-                <h2 className="text-xl p-2 border-b-2 border-blue-900">{post.title}</h2>
+            <div className="p-2 rounded h-80 bg-white border border-indigo-900">
+                <h2 className="text-xl font-semibold p-2 border-b-2 border-blue-900">{post.title}</h2>
                 <p className="p-3">{post.body}</p>
             </div>
         </section>
