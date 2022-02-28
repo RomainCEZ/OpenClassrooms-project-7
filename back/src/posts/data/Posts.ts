@@ -1,4 +1,4 @@
-const Posts = [
+export const PostsData = [
     { 
         id: 1, 
         title: "Post en français", 
@@ -20,5 +20,3 @@ const Posts = [
         body: "おはよう !"
     }
 ]
-
-module.exports = Posts
