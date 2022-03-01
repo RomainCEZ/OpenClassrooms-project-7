@@ -1,5 +1,5 @@
 import axios from "axios";
-import Post from "src/utils/interfaces/Post";
+import {Post} from "src/utils/interfaces/Post";
 
 class ApiProvider {
     constructor() {

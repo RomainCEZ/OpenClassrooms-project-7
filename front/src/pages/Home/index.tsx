@@ -5,7 +5,7 @@ import SideContent from '../../components/SideContent'
 export default function Main() {
 
     return (
-        <MainContainer children={undefined}>
+        <MainContainer>
             <MainContent />
             <SideContent />
         </MainContainer>

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { apiProvider } from "../../domain/ApiProvider";
-import Button from "../../components/Button";
-import Post from "../../utils/interfaces/Post";
+import BlueButton from "../../components/BlueButton";
+import {Post} from "../../utils/interfaces/Post";
 import { useNavigate } from "react-router-dom";
 
 export default function NewPost() {
@@ -35,7 +35,7 @@ export default function NewPost() {
 
     return (
         <section className='flex flex-col content-center justify-center border-indigo-900 rounded'>
-            <Button path="/">Retour</Button>
+            <BlueButton path="/">Retour</BlueButton>
             <form onSubmit={postContent} className="flex flex-col h-80 p-4 gap-3 bg-blue-900 rounded">
                 <input type="text" placeholder="Titre" className='p-2 rounded' onChange={(event) => changeTitle(event)} value={form.title} required />
                 <textarea placeholder="Tapez votre message ici !" className='p-2 h-4/5 rounded' onChange={(event) => changeBody(event)} value={form.body} required />
