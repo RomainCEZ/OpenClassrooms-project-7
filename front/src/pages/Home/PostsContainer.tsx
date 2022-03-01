@@ -1,18 +1,31 @@
-import { useContext } from "react"
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react"
+import Loader from "../../components/Loader"
+import BlueButton from "../../components/BlueButton"
 import PostPreview from "./PostPreview"
-import { ApiDataContext } from "../../utils/context/ApiDatas"
-
+import {Post} from "../../utils/interfaces/Post"
+import { apiProvider } from "../../domain/ApiProvider"
 
 export default function PostWrap() {
-    const {posts} = useContext(ApiDataContext)
-    const postsData: { id: number; title: string; body: string }[] = posts.map( (post: { id: number; title: string; body: string }) => <PostPreview key={post.id} id={post.id} title={post.title} body={post.body} />)
+
+    const [posts, setPosts] = useState<Post[]>([])
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    
+    const postsElements: JSX.Element[] = posts.map( (post: Post) => <PostPreview key={post.id} id={post.id} title={post.title} body={post.body} />)
+    
+    useEffect( () => {
+        setIsLoading(true)
+        apiProvider.getAllPosts().then( postsData => {
+            setPosts(postsData)
+            setIsLoading(false)
+        })
+    }, [])
 
     return (
         <>
-            <Link to="newpost" className="flex justify-center p-2 mb-3 rounded bg-blue-900 text-white">Nouveau Post</Link>
+            <BlueButton path="newPost">Nouveau post</BlueButton>
+            {isLoading && <Loader />}
             <section className="flex flex-col gap-1 w-full">
-                {postsData}
+                {postsElements}
             </section>
         </>
     )
