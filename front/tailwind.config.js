@@ -10,5 +10,7 @@ module.exports = {
         "align-content": "center"
       }}, 
   },
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 }
