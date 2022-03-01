@@ -14,6 +14,10 @@ export class InMemoryPostsRepository {
     }
 
     savePost(postData: Post) {
-        this.data.unshift(postData)
+        this.data = [postData, ...this.data]
+    }
+
+    getById(id: number): Post {
+        return this.data.find( post => post.id === id)
     }
 }

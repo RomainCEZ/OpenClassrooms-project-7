@@ -9,7 +9,8 @@ export class PostsController {
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
-    return this.postsService.create(createPostDto);
+    this.postsService.create(createPostDto);
+    return "Post créé !"
   }
 
   @Get()
