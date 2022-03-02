@@ -23,10 +23,11 @@ export default function Thread() {
         <section>
             <BlueButton path="/">Retour</BlueButton>
             {isLoading && <Loader />}
-            <div className="p-2 rounded h-80 bg-white border border-indigo-900">
-                <h2 className="text-xl font-semibold p-2 border-b-2 border-blue-900">{post.title}</h2>
-                <p className="p-3">{post.body}</p>
-            </div>
+            <div className="mt-2 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900 divide-blue-900 divide-y-2">
+                <h2 className="text-xl font-semibold p-2 sm:px-0">{post.title}</h2>
+                {post.imageUrl && <img src={post.imageUrl} className="pt-3 w-full" />}
+                <p className="p-2">{post.body}</p>
+            </div>        
         </section>
     )
 }
