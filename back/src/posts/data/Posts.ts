@@ -1,4 +1,10 @@
 export const PostsData = [
+    {
+        body: "Le commentaire est caché sur la page d'accueil",
+        id: 1646256698879,
+        imageUrl: "http://192.168.0.10:8000/images/fatcat.jpeg",
+        title: "Post avec une image"
+    },
     { 
         id: 1, 
         title: "Post en français", 
