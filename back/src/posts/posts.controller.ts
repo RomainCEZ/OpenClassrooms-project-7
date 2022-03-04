@@ -1,18 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { join } from 'path';
-
-@Controller("images")
-export class ImagesController {
-  @Get(":imagename")
-  findImage(@Param("imagename") imagename: string, @Res() res: any) {
-    return res.sendFile(join(process.cwd(), "images/" + imagename))
-  }
-}
 
 class PostPipe {
   transform(value: string) {
@@ -26,7 +17,7 @@ export class PostsController {
 
   @Post()
   @UseInterceptors(FileInterceptor('file'))
-  create(@UploadedFile() file: Express.Multer.File, @Body("data", PostPipe) createPostDto: CreatePostDto) {
+    createPost(@UploadedFile() file: Express.Multer.File, @Body("data", PostPipe) createPostDto: CreatePostDto) {
     if (file) {
       createPostDto = {
         ...createPostDto,
@@ -34,26 +25,33 @@ export class PostsController {
       }
     }
     this.postsService.create(createPostDto);
-    return "Post créé !"
   }
   
   @Get()
-  findAll() {
+  getAllPosts() {
     return this.postsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(+id);
+  @Get(':postId')
+  getPostById(@Param('postId') postId: string) {
+    return this.postsService.findOne(+postId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(+id, updatePostDto);
+  @Patch(':postId')
+  @UseInterceptors(FileInterceptor('file'))
+  updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", PostPipe) updatePostDto: UpdatePostDto,@Param('postId') postId: string) {
+    if (file) {
+      updatePostDto = {
+        ...updatePostDto,
+        imageUrl: `http://192.168.0.10:8000/images/${file.filename}`
+      }
+    }
+    console.log(postId)
+    this.postsService.update(+postId, updatePostDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(+id);
+  @Delete(':postId')
+  deletePostById(@Param('postId') postId: string) {
+    this.postsService.delete(+postId);
   }
 }

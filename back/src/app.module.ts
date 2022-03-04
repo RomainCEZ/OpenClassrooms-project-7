@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { CommentsModule } from './comments/comments.module';
 import { UsersModule } from './users/users.module';
-import { PostsModule } from './posts/posts.module';
+import { ForumModule } from './forum/forum.module';
+import { ImagesModule } from './images/images.module';
 
 @Module({
-  imports: [UsersModule, CommentsModule, PostsModule]
+  imports: [UsersModule, ForumModule, ImagesModule]
 })
 export class AppModule {}

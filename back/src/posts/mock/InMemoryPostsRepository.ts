@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostsData } from '../data/Posts';
+import { UpdatePostDto } from '../dto/update-post.dto';
 import { Post } from '../interfaces/Post.interface';
 
 @Injectable()
@@ -14,10 +15,28 @@ export class InMemoryPostsRepository {
     }
 
     savePost(postData: Post) {
-        this.data = [postData, ...this.data]
+        this.data.unshift(postData)
     }
 
-    getById(id: number): Post {
-        return this.data.find( post => post.id === id)
+    getById(postId: number): Post {
+        const post = this.data.find( post => post.id === postId)
+        if (!post) {
+            throw new NotFoundException("Ce post n'existe pas !")
+        }
+        return this.data.find( post => post.id === postId)
+    }
+
+    update(postId: number, updatePostDto: UpdatePostDto) {
+        const post = this.getById(postId)
+        this.delete(postId)
+        const updatedPost = {
+            ...post,
+            ...updatePostDto
+        }
+        this.savePost(updatedPost)
+    }
+
+    delete(postId: number) {
+        this.data = this.data.filter( post => post.id !== postId )
     }
 }
