@@ -1,13 +1,12 @@
 import { useState } from "react"
 import { apiProvider } from "../../domain/ApiProvider";
 import BlueButton from "../../components/BlueButton";
-import {Post} from "../../utils/interfaces/Post";
+import { Post, NewPostType } from "../../utils/interfaces/Post";
 import { useNavigate } from "react-router-dom";
 import {useForm} from "react-hook-form"
-import axios from "axios";
 
 export default function NewPost() {
-    const [form, setForm] = useState({ title: "", body: "", file: null, src: null })
+    const [form, setForm] = useState<NewPostType>({ title: "", body: "", file: null, imageUrl: null })
     const [image, setImage] = useState(null)
     const [preview, setPreview] = useState(false)
     const { register, watch, handleSubmit, formState: { errors } } = useForm({
@@ -42,16 +41,14 @@ export default function NewPost() {
     async function postContent(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         if (form.title && form.body) {
-
-                let formData = new FormData()
-                formData.append("data", JSON.stringify({
-                    id: Date.now(),
-                    title: form.title,
-                    body: form.body
-                }))
-                formData.append("file", image)
-                await apiProvider.createPost(formData)
-            
+            let formData = new FormData()
+            formData.append("data", JSON.stringify({
+                id: Date.now(),
+                title: form.title,
+                body: form.body
+            }))
+            formData.append("file", image)
+            await apiProvider.createPost(formData)
             navigate('/');
         } else {
             console.log("erreur")
@@ -73,7 +70,7 @@ export default function NewPost() {
             </form>
             {preview && <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-indigo-900 divide-blue-900 divide-y-2">
                 <h2 className="text-xl font-semibold p-2 border-blue-900">{form.title}</h2>
-                {image && <img src={form.src} className="pt-3 w-full" />}
+                {image && <img src={form.imageUrl} className="pt-3 w-full" />}
                 <p className="p-3">{form.body}</p>
             </div> }       
         </section>

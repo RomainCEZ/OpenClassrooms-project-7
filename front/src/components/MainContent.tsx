@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import PostsContainer from "../pages/Home/PostsContainer"
 import NewPost from "../pages/NewPost/index"
+import EditPost from '../pages/Post/EditPost'
 import Post from "../pages/Post/index"
 
 export default function MainContent() {
@@ -11,6 +12,8 @@ export default function MainContent() {
                 <Route path="/" element={<PostsContainer />} />
                 <Route path='/:id' element={<Post />} />
                 <Route path="newpost" element={<NewPost />} />
+                <Route path="/:id/edit" element={<EditPost />} />
+                {/* <Route path="/:id/delete" element={<DeletePost />} /> */}
             </Routes>
         </div>
     )

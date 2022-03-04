@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Post} from "src/utils/interfaces/Post";
+import { Post } from "../utils/interfaces/Post"
 
 class ApiProvider {
     constructor() {
@@ -14,12 +14,21 @@ class ApiProvider {
         return response.data
     }
 
-    async createPost(postData: Post) {
+    async createPost(postData: FormData) {
         await axios.post("/posts", postData)
     }
+
     async getPostById(id: number): Promise<Post> {
         const post = await axios.get(`/posts/${id}`)
         return post.data
+    }
+
+    async editPost(id: number, data: FormData) {
+        await axios.patch(`/posts/${id}`, data)
+    }
+
+    async deletePost(id: number) {
+        await axios.delete(`/posts/${id}`)
     }
 }
 
