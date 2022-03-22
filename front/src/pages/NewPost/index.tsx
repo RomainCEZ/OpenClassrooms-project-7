@@ -58,8 +58,7 @@ export default function NewPost() {
     return (
         <section className='flex flex-col content-center justify-center rounded'>
             <BlueButton path="/">Retour</BlueButton>
-            {/* <form onSubmit={postContent} className="flex flex-col p-4 gap-3 border bg-gray-300 border-blue-900 rounded"> */}
-            <form onSubmit={postContent} className="flex flex-col p-4 gap-3 border bg-gray-300 border-blue-900 rounded">
+            <form onSubmit={postContent} className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded">
                 <input {...register("title")} placeholder="Titre" className='p-2 border border-blue-900 rounded'onChange={(event) => changeTitle(event)} value={form.title} required />
                 <textarea {...register("body")} placeholder="Tapez votre message ici !" className='p-2 h-40 border border-blue-900 rounded' onChange={(event) => changeBody(event)} value={form.body} required />
                     <input {...register("image")} type="file" className="" accept="image/png, image/jpeg" onChange={(event) => changeImage(event)} />
