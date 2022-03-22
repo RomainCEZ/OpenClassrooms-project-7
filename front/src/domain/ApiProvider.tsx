@@ -7,6 +7,7 @@ class ApiProvider {
         const localIp = "http://192.168.0.10:8000"
 
         axios.defaults.baseURL = `${localIp}/api`
+        axios.defaults.withCredentials = true
     }
 
     async getAllPosts(): Promise<Post[]> {
@@ -16,6 +17,16 @@ class ApiProvider {
 
     async createPost(postData: FormData) {
         await axios.post("/posts", postData)
+    }
+
+    async login(loginInfo): Promise<any> {
+        const loginResponse = await axios.post("/users/login", loginInfo)
+        console.log(loginResponse.data)
+        return loginResponse.data
+    }
+
+    async signup(userInfo) {
+        await axios.post("/users/signup", userInfo)
     }
 
     async getPostById(id: number): Promise<Post> {
