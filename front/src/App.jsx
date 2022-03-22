@@ -1,20 +1,19 @@
-import { Fragment } from "react";
 import Header from "./components/Header";
-import Home from "./pages/Home/index"
-import PostsContainer from "./pages/Home/PostsContainer"
+import Main from "./pages/Home/index"
 import { ApiDatasProvider } from "./utils/context/ApiDatas"
+import { SessionProvider } from "./pages/Auth/context/SessionContext"
 
 function App() {
 
     return (
-        <Fragment>
+        <>
+            <SessionProvider>
             <Header />
             <ApiDatasProvider>
-                <Home>
-                    <PostsContainer />
-                </Home>
+                <Main />
             </ApiDatasProvider>
-        </Fragment>
+            </SessionProvider>
+        </>
     );
 }
 

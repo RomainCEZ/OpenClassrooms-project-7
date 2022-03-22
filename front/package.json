@@ -3,18 +3,26 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
+    "@types/react": "^17.0.39",
     "axios": "^0.26.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "styled-components": "^5.3.3"
+    "react-hook-form": "^7.27.1",
+    "react-router-dom": "^6.2.1",
+    "react-use": "^17.3.2",
+    "tw-elements": "^1.0.0-alpha11"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.6",
+    "tailwindcss": "^3.0.23",
     "vite": "^2.8.0"
   }
 }
