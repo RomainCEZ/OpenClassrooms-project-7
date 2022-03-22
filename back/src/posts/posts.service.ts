@@ -3,7 +3,7 @@ import * as fs from "fs"
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { InMemoryPostsRepository } from './mock/InMemoryPostsRepository';
-import { Post } from './interfaces/Post.interface';
+import { Post } from './interfaces/postInterface';
 
 @Injectable()
 export class PostsService {
