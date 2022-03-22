@@ -74,7 +74,7 @@ export default function EditPost() {
         <section>
             <BlueButton path={`/${id}`}>Retour</BlueButton>
             {isLoading && <Loader />}
-            <form onSubmit={editPost} className="flex flex-col p-4 gap-3 border bg-gray-300 border-blue-900 rounded">
+            <form onSubmit={editPost} className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded">
                 <input name="title" placeholder="Titre" className='p-2 border border-blue-900 rounded'onChange={(event) => changeTitle(event)} value={form.title} required />
                 <textarea name="body" placeholder="Tapez votre message ici !" className='p-2 h-40 border border-blue-900 rounded' onChange={(event) => changeBody(event)} value={form.body} required />
                 {form.imageUrl && <img src={form.imageUrl} className="pt-3 w-full" />}
@@ -84,7 +84,7 @@ export default function EditPost() {
                     <div className='text-center flex-grow p-2 border bg-white border-blue-900 rounded cursor-pointer' onClick={() => setPreview(prevPreview => !prevPreview)}>Aperçu</div>
                 </div>
             </form>
-            {preview && <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-indigo-900 divide-blue-900 divide-y-2">
+            {preview && <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-blue-900 divide-blue-900 divide-y-2">
                 <h2 className="text-xl font-semibold p-2 border-blue-900">{form.title}</h2>
                 {form.imageUrl && <img src={form.imageUrl} className="pt-3 w-full" />}
                 <p className="p-3">{form.body}</p>
