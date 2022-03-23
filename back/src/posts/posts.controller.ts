@@ -21,7 +21,7 @@ export class PostsController {
         if (file) {
             createPostDto = {
                 ...createPostDto,
-                imageUrl: `http://192.168.0.10:8000/images/${file.filename}`
+                imageUrl: `${process.env.DOMAIN_ADDRESS}/images/${file.filename}`
             }
         }
         this.postsService.create(createPostDto);

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostsData } from '../data/Posts';
 import { UpdatePostDto } from '../dto/update-post.dto';
-import { Post } from '../interfaces/Post.interface';
+import { Post } from '../interfaces/postInterface';
 
 @Injectable()
 export class InMemoryPostsRepository {
