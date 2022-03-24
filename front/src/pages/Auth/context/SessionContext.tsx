@@ -23,11 +23,7 @@ export const SessionProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        if (session.username !== null && session.token !== null) {
-            setLoggedIn(true);
-        } else {
-            setLoggedIn(false);
-        }
+        setLoggedIn(session.username !== null && session.token !== null);
     }, []);
 
     function logout() {
