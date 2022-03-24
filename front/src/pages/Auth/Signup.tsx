@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { apiProvider } from "../../domain/ApiProvider";
 import BlueButton from "../../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { authProvider } from "../../domain/AuthProvider";
 
 export default function Signup() {
     const [form, setForm] = useState({
@@ -56,7 +56,7 @@ export default function Signup() {
                 username: form.username,
                 password: form.password,
             };
-            const signupResponse = await apiProvider.signup(loginInfo);
+            const signupResponse = await authProvider.signup(loginInfo);
             // await apiProvider.login({email: form.email, password: form.password})
             navigate("/login");
         } else {

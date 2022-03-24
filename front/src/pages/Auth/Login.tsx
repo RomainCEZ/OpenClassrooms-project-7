@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { apiProvider } from "../../domain/ApiProvider";
 import { SessionContext } from "./context/SessionContext";
 import BlueButton from "../../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { authProvider } from "../../domain/AuthProvider";
 
 export default function Login() {
     const [form, setForm] = useState({ email: "", password: "" });
@@ -38,7 +38,7 @@ export default function Login() {
                 email: form.email,
                 password: form.password,
             };
-            const loginResponse = await apiProvider.login(loginInfo);
+            const loginResponse = await authProvider.login(loginInfo);
             await setLoggedIn(true);
             await createSession(loginResponse);
             navigate("/");
