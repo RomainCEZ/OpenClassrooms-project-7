@@ -9,4 +9,6 @@ export interface UsersRepository {
 
     getByEmail(email: string): UserData 
 
+    getById(id: string): UserData
+
 }

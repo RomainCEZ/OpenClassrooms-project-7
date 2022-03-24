@@ -12,7 +12,6 @@ export class InMemoryUsersRepository implements UsersRepository {
         this.data = UsersData
     }
 
-
     saveUser(user: User) {
         this.isUnique(user)
         this.data.push({
@@ -22,9 +21,17 @@ export class InMemoryUsersRepository implements UsersRepository {
             password: user.password
         })
     }
-
+    
     getByEmail(email: string): UserData {
         const user = this.data.find(user => user.email === email)
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        return user
+    }
+    
+    getById(id: string): UserData {
+        const user = this.data.find(user => user.id === id)
         if (!user) {
             throw new NotFoundException("Utilisateur introuvable !")
         }
