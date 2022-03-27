@@ -1,5 +1,4 @@
-import { User } from "../entities/User.entity";
-import { UserData } from "./User.interface";
+import { User } from "../entities/User";
 
 export interface UsersRepository {
 
@@ -7,6 +6,8 @@ export interface UsersRepository {
 
     saveUser(user: User): void
 
-    getByEmail(email: string): UserData 
+    getByEmail(email: string): User 
+
+    getById(id: string): User
 
 }

@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/Auth/Login'
 import Signup from '../pages/Auth/Signup'
+import Error from '../pages/Error/Error'
 import PostsContainer from "../pages/Home/PostsContainer"
 import NewPost from "../pages/NewPost/index"
 import EditPost from '../pages/Post/EditPost'
@@ -18,6 +19,7 @@ export default function MainContent() {
                 <Route path="newpost" element={<NewPost />} />
                 <Route path="/:id/edit" element={<EditPost />} />
                 {/* <Route path="/:id/delete" element={<DeletePost />} /> */}
+                <Route path="*" element={<Error />} />
             </Routes>
         </div>
     )

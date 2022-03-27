@@ -3,7 +3,7 @@ import { PostsService } from './posts.service';
 import { PostsController } from './posts.controller';
 import { InMemoryPostsRepository } from './mock/InMemoryPostsRepository';
 import { MulterModule } from '@nestjs/platform-express';
-import { multerConfig } from '../common/MulterConfig';
+import { multerConfig } from '../../common/MulterConfig';
 
 @Module({
   imports: [MulterModule.register(multerConfig)],

@@ -1,10 +1,8 @@
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Email } from './entities/Email.entity';
-import { User } from './entities/User.entity';
+import { User } from './entities/User';
 import { UserPassword } from './entities/UserPassword.entity';
 import { UsersRepository } from './interfaces/UsersRepository.interface';
 import { InMemoryUsersRepository } from './mock/InMemoryUsersRepository';
@@ -13,7 +11,6 @@ import { InMemoryUsersRepository } from './mock/InMemoryUsersRepository';
 export class UsersService {
     constructor(
         @Inject(InMemoryUsersRepository) private usersRepository: UsersRepository,
-        @Inject (JwtService) private jwtService: JwtService
     ) { }
 
     async createUser(createUserDto: CreateUserDto) {
@@ -25,25 +22,20 @@ export class UsersService {
         return this.usersRepository.saveUser(user)
     }
 
-    createSession(loginUserDto: LoginUserDto) {
-        const user = this.usersRepository.getByEmail(loginUserDto.email.toLowerCase())
-        this.verifyPassword(UserPassword.createPlainText(loginUserDto.password).password, user.password)
-        return { userId: user.id, token: this.jwtService.sign({userId: user.id, username: user.username}), username: user.username }
-    }
-
-    private verifyPassword(plainText: string, hash: string) {
-        const isEqual = UserPassword.isEqual(plainText, hash)
-        if (!isEqual) {
-            throw new UnauthorizedException('Mot de passe invalide !')
-        }
+    saveUser(user) {
+        return this.usersRepository.saveUser(user)
     }
 
     findAll() {
         return `This action returns all users`;
     }
 
-    findOne(id: string) {
-        return `This action returns a #${id} user`;
+    findByEmail(email: string) {
+        return this.usersRepository.getByEmail(email.toLowerCase())
+    }
+
+    findById(id: string) {
+        return this.usersRepository.getById(id)
     }
 
     update(id: string, updateUserDto: UpdateUserDto) {
