@@ -1,6 +1,7 @@
 export class CreatePostDto {
-    id: number
+    id: string
     title: string
     body: string
     imageUrl?: string
+    userId: string
 }

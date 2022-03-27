@@ -1,28 +1,35 @@
-export const PostsData = [
+import { Post } from "../entities/post.entity";
+
+export const PostsData: Post[] = [
     {
         body: "Le commentaire est caché sur la page d'accueil",
-        id: 1646256698879,
+        id: "1646256698879",
         imageUrl: "http://192.168.0.10:8000/images/fatcat.jpeg",
-        title: "Post avec une image"
+        title: "Post avec une image",
+        userId: "admin"
     },
     { 
-        id: 1, 
+        id: "1", 
         title: "Post en français", 
-        body: "Salut !" 
+        body: "Salut !",
+        userId: "admin" 
     },
     {
-        id: 2,
+        id: "2",
         title: "Post en anglais",
-        body: "Hello !"
+        body: "Hello !",
+        userId: "admin"
     },
     {
-        id: 3,
+        id: "3",
         title: "Post en allemand",
-        body: "Hallo !"
+        body: "Hallo !",
+        userId: "admin"
     },
     {
-        id: 4,
+        id: "4",
         title: "Post en japonais",
-        body: "おはよう !"
+        body: "おはよう !",
+        userId: "admin"
     }
 ]
