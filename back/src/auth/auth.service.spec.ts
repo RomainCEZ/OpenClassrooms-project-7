@@ -1,7 +1,7 @@
 import { PassportModule } from '@nestjs/passport';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService } from './auth.service';
-import { LocalStrategy } from './local.strategy';
+import { LocalStrategy } from './guard/local.strategy';
 import { UsersModule } from '../users/users.module';
 
 describe('AuthService', () => {
