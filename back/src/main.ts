@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   dotenv.config()
   app.enableCors({
-    origin: 'http://192.168.0.10:3000',
+    origin: `${process.env.CLIENT_ADDRESS}`,
     credentials: true
   });
   
@@ -18,7 +18,7 @@ async function bootstrap() {
   }));
   app.use(
     session({
-      secret: `${process.env.SUPER_SECRET_SESSION_SECRET}`,
+      secret: `${process.env.SESSION_SECRET}`,
       resave: false,
       saveUninitialized: false,
       cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24h
