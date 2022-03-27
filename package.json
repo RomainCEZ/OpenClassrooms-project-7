@@ -9,7 +9,8 @@
     "dev": "vite --host",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "build": "vite build && nest build"
+    "build": "vite build && nest build",
+    "test": "jest"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
