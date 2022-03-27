@@ -1,10 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, UseGuards, Req } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { SessionGuard } from '../../auth/session.guard';
+import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 
 class ParseJsonPipe {
     transform(value: string) {
@@ -12,7 +12,7 @@ class ParseJsonPipe {
     }
 }
 
-@UseGuards(SessionGuard)
+@UseGuards(AuthenticationGuard)
 @Controller('api/posts')
 export class PostsController {
     constructor(private readonly postsService: PostsService) { }
@@ -36,24 +36,33 @@ export class PostsController {
 
     @Get(':postId')
     getPostById(@Param('postId') postId: string) {
-        return this.postsService.findOne(+postId);
+        return this.postsService.findOne(postId);
     }
 
     @Patch(':postId')
     @UseInterceptors(FileInterceptor('file'))
-    updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string) {
-        if (file) {
-            updatePostDto = {
-                ...updatePostDto,
-                imageUrl: `http://192.168.0.10:8000/images/${file.filename}`
+    updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
+        const post = this.postsService.findOne(postId)
+        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+            if (file) {
+                updatePostDto = {
+                    ...updatePostDto,
+                    imageUrl: `http://192.168.0.10:8000/images/${file.filename}`
+                }
             }
+            this.postsService.update(postId, updatePostDto);
+        } else {
+            return "Requête non autorisée !"
         }
-        console.log(postId)
-        this.postsService.update(+postId, updatePostDto);
     }
 
     @Delete(':postId')
-    deletePostById(@Param('postId') postId: string) {
-        this.postsService.delete(+postId);
+    deletePostById(@Param('postId') postId: string, @Req() req) {
+        const post = this.postsService.findOne(postId)
+        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+            this.postsService.delete(postId);
+        } else {
+            return "Requête non autorisée !"
+        }
     }
 }
