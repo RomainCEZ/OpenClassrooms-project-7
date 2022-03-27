@@ -7,7 +7,7 @@ class ApiProvider {
         const localIp = "http://192.168.0.10:8000"
         const heroku = "https://nestjs-backend-groupomania.herokuapp.com"
 
-        axios.defaults.baseURL = `${localIp}`
+        axios.defaults.baseURL = `${process.env.DOMAIN_ADDRESS}`
         axios.defaults.withCredentials = true
     }
 
