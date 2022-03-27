@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Email } from './entities/Email.entity';
-import { User } from './entities/User.entity';
+import { User } from './entities/User';
 import { UserPassword } from './entities/UserPassword.entity';
 import { UsersRepository } from './interfaces/UsersRepository.interface';
 import { InMemoryUsersRepository } from './mock/InMemoryUsersRepository';
