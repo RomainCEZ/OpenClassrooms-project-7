@@ -1,34 +1,54 @@
 import { createContext, useEffect, useState } from "react";
-import { useLocalStorage } from "react-use";
+import { useNavigate } from "react-router-dom";
+import { authProvider } from "../../../domain/AuthProvider";
 
 export const SessionContext = createContext({
     loggedIn: false,
     setLoggedIn: null,
-    user: { username: null, token: null },
+    user: { id: null, username: null, role: null },
     createSession: null,
     logout: null,
 });
 
 export const SessionProvider = ({ children }) => {
-    const [session, setSession, removeSession] = useLocalStorage("session", {
-        username: null,
-        token: null,
-    });
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState(session);
-
+    const [user, setUser] = useState({ id: null, username: null, role: null });
+    const navigate = useNavigate()
+    
     function createSession(sessionInfo) {
-        setSession(sessionInfo);
         setUser(sessionInfo);
     }
-
     useEffect(() => {
-        setLoggedIn(session.username !== null && session.token !== null);
+        const relog = async () => {
+            const userInfo = await authProvider.relog()
+            console.log(userInfo)
+            switch (userInfo) {
+                case 401:
+                case 403:
+                    navigate("/login")
+                    break;
+                default:
+                    if (userInfo) {
+                        setUser(userInfo)
+                        setLoggedIn(true)
+                        navigate("/")
+                    }
+                    break;
+            }
+        }
+            relog().catch(
+                error => {
+                    if ((location.pathname !== '/login' && location.pathname !== '/signup')) {
+                        navigate('/login')
+                }
+            })
+        // }
     }, []);
 
     function logout() {
-        removeSession();
+        authProvider.logout();
         setLoggedIn(false);
+        navigate("/login")
     }
 
     return (
