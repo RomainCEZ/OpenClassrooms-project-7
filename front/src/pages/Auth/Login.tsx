@@ -40,7 +40,7 @@ export default function Login() {
             };
             const loginResponse = await authProvider.login(loginInfo);
             await setLoggedIn(true);
-            await createSession(loginResponse);
+            await createSession(loginResponse.data);
             navigate("/");
         } else {
             console.log("erreur");
