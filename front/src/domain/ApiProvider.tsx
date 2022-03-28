@@ -17,7 +17,7 @@ class ApiProvider {
     }
 
     async createPost(postData: FormData) {
-        await axios.post("/posts", postData)
+        await axios.post("/api/posts", postData)
     }
 
     async getPostById(id: number): Promise<Post> {
