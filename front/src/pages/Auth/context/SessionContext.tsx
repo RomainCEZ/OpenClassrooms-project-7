@@ -8,6 +8,7 @@ export const SessionContext = createContext({
     user: { id: null, username: null, role: null },
     createSession: null,
     logout: null,
+    navigate: null,
 });
 
 export const SessionProvider = ({ children }) => {
@@ -21,19 +22,18 @@ export const SessionProvider = ({ children }) => {
     useEffect(() => {
         const relog = async () => {
             const userInfo = await authProvider.relog()
-            console.log(userInfo)
-            switch (userInfo) {
-                case 401:
-                case 403:
-                    navigate("/login")
-                    break;
-                default:
-                    if (userInfo) {
+            // switch (userInfo) {
+            //     case 401:
+            //     case 403:
+            //         navigate("/login")
+            //         break;
+            //     default:
+                    if (userInfo === NaN ) {
                         setUser(userInfo)
                         setLoggedIn(true)
                         navigate("/")
-                    }
-                    break;
+                    // }
+                    // break;
             }
         }
             relog().catch(
@@ -53,7 +53,7 @@ export const SessionProvider = ({ children }) => {
 
     return (
         <SessionContext.Provider
-            value={{ loggedIn, setLoggedIn, user, createSession, logout }}
+            value={{ loggedIn, setLoggedIn, user, createSession, logout, navigate }}
         >
             {children}
         </SessionContext.Provider>
