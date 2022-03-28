@@ -2,6 +2,6 @@ export class CreatePostDto {
     id: string
     title: string
     body: string
-    imageUrl?: string
+    imageName?: string
     userId: string
 }
