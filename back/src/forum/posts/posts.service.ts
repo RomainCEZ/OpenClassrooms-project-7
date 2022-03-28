@@ -10,7 +10,7 @@ export class PostsService {
   constructor(private readonly postsRepository: InMemoryPostsRepository) {}
 
   create(createPostDto: CreatePostDto) {
-    this.postsRepository.savePost(createPostDto);
+    this.postsRepository.savePost(Post.create(createPostDto));
   }
 
   findAll(): Post[] {
@@ -22,14 +22,21 @@ export class PostsService {
   }
 
   update(postId: string, updatePostDto: UpdatePostDto) {
+    const post = this.postsRepository.getById(postId)
+    if (updatePostDto.imageName) {
+      fs.unlink(`./${process.env.IMAGE_FOLDER}/${post.imageName}`, error => {
+        if (error) {
+          throw new Error(`${error}`)
+        }
+      })
+    }
     this.postsRepository.update(postId, updatePostDto)
   }
 
   delete(postId: string) {
     const post = this.postsRepository.getById(postId)
-    if (post.imageUrl) {
-      const fileName = post.imageUrl.split("/images/")[1]
-      fs.unlink(`./images/${fileName}`, error => {
+    if (post.imageName) {
+      fs.unlink(`./${process.env.IMAGE_FOLDER}/${post.imageName}`, error => {
         if (error) {
           throw new Error(`${error}`)
         }
