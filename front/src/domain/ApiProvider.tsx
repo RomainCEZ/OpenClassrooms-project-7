@@ -5,9 +5,9 @@ class ApiProvider {
     constructor() {
         const localhost = "http://localhost:8000"
         const localIp = "http://192.168.0.10:8000"
-        const heroku = "https://nestjs-backend-groupomania.herokuapp.com"
+        const heroku = "https://groupomania-socials.herokuapp.com"
 
-        axios.defaults.baseURL = `${process.env.DOMAIN_ADDRESS}`
+        axios.defaults.baseURL = `${heroku}`
         axios.defaults.withCredentials = true
     }
 
@@ -17,7 +17,7 @@ class ApiProvider {
     }
 
     async createPost(postData: FormData) {
-        await axios.post("/posts", postData)
+        await axios.post("/api/posts", postData)
     }
 
     async getPostById(id: number): Promise<Post> {
