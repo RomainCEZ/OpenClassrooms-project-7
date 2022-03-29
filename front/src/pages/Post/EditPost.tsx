@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react"
 import Loader from "../../components/Loader"
 import BlueButton from "../../components/BlueButton"
-import {NewPostType, Post} from "../../utils/interfaces/Post"
+import { Post } from "../../utils/interfaces/Post"
 import { apiProvider } from "../../domain/ApiProvider"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 export default function EditPost() {
     
     const [post, setPost] = useState<Post>({title: "", body: "", imageUrl: ""})
-    const [form, setForm] = useState<NewPostType>({ title: "", body: "", file: null, imageUrl: null })
+    const [form, setForm] = useState<Post>({ title: "", body: "", file: null, imageUrl: null })
     const [image, setImage] = useState(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [preview, setPreview] = useState(false)
 
-    const id = Number(document.location.pathname.split("/")[1])
+    const id = document.location.pathname.split("/")[1]
     const navigate = useNavigate()
 
     useEffect( () => {

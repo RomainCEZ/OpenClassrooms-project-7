@@ -1,12 +1,5 @@
 import { nanoid } from 'nanoid'
-
-interface UserProps {
-    id?: string
-    email: string
-    username: string
-    password: string
-    role?: string
-}
+import { UserProps } from '../interfaces/UserProps'
 
 export class User {
     readonly id: string

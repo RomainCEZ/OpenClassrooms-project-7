@@ -12,43 +12,60 @@ class ParseJsonPipe {
     }
 }
 
-@UseGuards(AuthenticationGuard)
 @Controller('api/posts')
 export class PostsController {
     constructor(private readonly postsService: PostsService) { }
 
+    @UseGuards(AuthenticationGuard)
     @Post()
     @UseInterceptors(FileInterceptor('file'))
-    createPost(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) createPostDto: CreatePostDto) {
+    createPost(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) createPostDto: CreatePostDto, @Req() req) {
         if (file) {
-            createPostDto = {
-                ...createPostDto,
-                imageUrl: `${process.env.DOMAIN_ADDRESS}/images/${file.filename}`
-            }
+            createPostDto.imageName = `${file.filename}`
         }
+        createPostDto.userId = req.user.id
         this.postsService.create(createPostDto);
     }
 
     @Get()
     getAllPosts() {
-        return this.postsService.findAll();
+        const allPosts = this.postsService.findAll();
+        const allPostsDto = allPosts.map( post => {
+            if (post.imageName) {
+                const postResponseDto = {
+                    ...post,
+                    imageUrl: `${process.env.DOMAIN_ADDRESS}/${process.env.IMAGE_FOLDER}/${post.imageName}`
+                }
+                delete postResponseDto.imageName
+                return postResponseDto
+            }
+            return post
+        })
+        return allPostsDto
     }
 
     @Get(':postId')
     getPostById(@Param('postId') postId: string) {
-        return this.postsService.findOne(postId);
+        const post = this.postsService.findOne(postId);
+        if (post.imageName) {
+            const postResponseDto = {
+                ...post,
+                imageUrl: `${process.env.DOMAIN_ADDRESS}/${process.env.IMAGE_FOLDER}/${post.imageName}`
+            }
+            delete postResponseDto.imageName
+            return postResponseDto
+        }
+        return post
     }
 
+    @UseGuards(AuthenticationGuard)
     @Patch(':postId')
     @UseInterceptors(FileInterceptor('file'))
     updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
         const post = this.postsService.findOne(postId)
         if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
             if (file) {
-                updatePostDto = {
-                    ...updatePostDto,
-                    imageUrl: `http://192.168.0.10:8000/images/${file.filename}`
-                }
+                updatePostDto.imageName = `${file.filename}`
             }
             this.postsService.update(postId, updatePostDto);
         } else {
@@ -56,6 +73,7 @@ export class PostsController {
         }
     }
 
+    @UseGuards(AuthenticationGuard)
     @Delete(':postId')
     deletePostById(@Param('postId') postId: string, @Req() req) {
         const post = this.postsService.findOne(postId)

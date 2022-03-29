@@ -1,13 +1,8 @@
 export type Post =  {
-    id?: number,
+    id?: string,
     title: string,
     body: string,
-    imageUrl?: string
-}
-
-export type NewPostType = { 
-    title: string, 
-    body: string, 
-    file?: File,
-    imageUrl?: string
+    imageUrl?: string,
+    userId?: string,
+    file?: File
 }
