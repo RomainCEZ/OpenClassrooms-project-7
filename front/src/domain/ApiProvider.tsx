@@ -20,16 +20,16 @@ class ApiProvider {
         await axios.post("/api/posts", postData)
     }
 
-    async getPostById(id: number): Promise<Post> {
+    async getPostById(id: string): Promise<Post> {
         const post = await axios.get(`/api/posts/${id}`)
         return post.data
     }
 
-    async editPost(id: number, data: FormData) {
+    async editPost(id: string, data: FormData) {
         await axios.patch(`/api/posts/${id}`, data)
     }
 
-    async deletePost(id: number) {
+    async deletePost(id: string) {
         await axios.delete(`/api/posts/${id}`)
     }
 }
