@@ -1,18 +1,17 @@
 import { useState } from "react"
 import { apiProvider } from "../../domain/ApiProvider";
 import BlueButton from "../../components/BlueButton";
-import { Post, NewPostType } from "../../utils/interfaces/Post";
+import { Post } from "../../utils/interfaces/Post";
 import { useNavigate } from "react-router-dom";
-import {useForm} from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 export default function NewPost() {
-    const [form, setForm] = useState<NewPostType>({ title: "", body: "", file: null, imageUrl: null })
+    const [form, setForm] = useState<Post>({ title: "", body: "", file: null, imageUrl: null })
     const [image, setImage] = useState(null)
     const [preview, setPreview] = useState(false)
     const { register, watch, handleSubmit, formState: { errors } } = useForm({
         reValidateMode: "onBlur",
         defaultValues: {
-            id: Date.now(),
             title: "",
             body: "",
             image: null
@@ -43,7 +42,6 @@ export default function NewPost() {
         if (form.title && form.body) {
             let formData = new FormData()
             formData.append("data", JSON.stringify({
-                id: Date.now(),
                 title: form.title,
                 body: form.body
             }))
