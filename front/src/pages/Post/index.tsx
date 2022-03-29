@@ -1,17 +1,17 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import Loader from "../../components/Loader"
 import BlueButton from "../../components/BlueButton"
 import {Post} from "../../utils/interfaces/Post"
 import { apiProvider } from "../../domain/ApiProvider"
 import { Link } from "react-router-dom"
+import { SessionContext } from "../Auth/context/SessionContext"
 
 export default function Thread() {
 
-    const [post, setPost] = useState<Post>({id: 0, title: "", body: ""})
+    const [post, setPost] = useState<Post>({id: "", title: "", body: ""})
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    const id = Number(document.location.pathname.split("/")[1])
-
-
+    const { user } = useContext(SessionContext)
+    const id = document.location.pathname.split("/")[1]
 
     useEffect( () => {
         setIsLoading(true)
@@ -31,10 +31,11 @@ export default function Thread() {
                 {post.imageUrl && <img src={post.imageUrl} className="pt-3 w-full" />}
                 <p className="p-2">{post.body}</p>
             </div>
+            {((user.id === post.userId) || user.role === "admin") &&
             <div className="flex justify-end items-center p-2 gap-2">
                 <BlueButton path={`/${id}/edit`}>Éditer</BlueButton>
                 <Link to="/" className="flex justify-center p-2 px-6 mb-3 rounded bg-red-900 text-white" onClick={() => apiProvider.deletePost(id)}>Supprimer</Link>
-            </div>
+            </div>}
         </section>
     )
 }
