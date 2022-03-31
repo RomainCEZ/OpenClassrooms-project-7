@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import BlueButton from "../../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { authProvider } from "../../domain/AuthProvider";
+import { SessionContext } from "./context/SessionContext";
 
 export default function Signup() {
+    const { setLoggedIn, createSession } = useContext(SessionContext);
+
     const [form, setForm] = useState({
         email: "",
         username: "",
@@ -57,8 +60,10 @@ export default function Signup() {
                 password: form.password,
             };
             const signupResponse = await authProvider.signup(loginInfo);
-            // await apiProvider.login({email: form.email, password: form.password})
-            navigate("/login");
+            const loginResponse = await authProvider.login(loginInfo);
+            await setLoggedIn(true);
+            await createSession(loginResponse.data);
+            navigate("/");
         } else {
             console.log("erreur");
         }
