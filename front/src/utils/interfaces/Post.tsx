@@ -4,5 +4,6 @@ export type Post =  {
     body: string,
     imageUrl?: string,
     userId?: string,
-    file?: File
+    file?: File,
+    editorContent?: Object
 }
