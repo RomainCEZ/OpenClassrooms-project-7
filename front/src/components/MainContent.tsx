@@ -10,7 +10,7 @@ import Post from "../pages/Post/index"
 export default function MainContent() {
 
     return (
-        <div className='flex flex-col w-full my-10 sm:max-w-xl mx-auto'>
+        <div className='flex flex-col w-full my-10 sm:max-w-xl xl:max-w-2xl mx-auto'>
             <Routes>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />

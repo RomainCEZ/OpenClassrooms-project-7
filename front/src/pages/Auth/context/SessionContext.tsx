@@ -28,7 +28,7 @@ export const SessionProvider = ({ children }) => {
             //         navigate("/login")
             //         break;
             //     default:
-                    if (userInfo === NaN ) {
+                    if ((userInfo !== 401) && (userInfo !== 403) ) {
                         setUser(userInfo)
                         setLoggedIn(true)
                         navigate("/")
@@ -48,7 +48,6 @@ export const SessionProvider = ({ children }) => {
     function logout() {
         authProvider.logout();
         setLoggedIn(false);
-        navigate("/login")
     }
 
     return (

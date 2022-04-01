@@ -4,20 +4,27 @@ import BlueButton from "../../components/BlueButton"
 import { Post } from "../../utils/interfaces/Post"
 import { apiProvider } from "../../domain/ApiProvider"
 import { useNavigate } from "react-router-dom"
+import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js';
+import DraftjsView from "../../components/Draftjs/DraftjsView"
+import DraftjsEditor from "../../components/Draftjs/DraftjsEditor"
+
 
 export default function EditPost() {
-    
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createEmpty(),
+    );
+    const rawEditorContent = convertToRaw(editorState.getCurrentContent())
+
     const [post, setPost] = useState<Post>({title: "", body: "", imageUrl: ""})
     const [form, setForm] = useState<Post>({ title: "", body: "", file: null, imageUrl: null })
     const [image, setImage] = useState(null)
-    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [preview, setPreview] = useState(false)
 
     const id = document.location.pathname.split("/")[1]
     const navigate = useNavigate()
 
     useEffect( () => {
-        setIsLoading(true)
         apiProvider.getPostById(id).then(
             postData => {
                 setPost({
@@ -32,6 +39,24 @@ export default function EditPost() {
                 })
                 setIsLoading(false)
             })
+        apiProvider.getPostById(id).then(
+            postData => {
+                if (typeof postData.body === "string") {
+                    const contentState = ContentState.createFromText(postData.body)
+                    const editorState = EditorState.createWithContent(contentState)
+                    setEditorState(editorState)
+                    setPost({id: postData.id, title: postData.title, body: "",
+                        imageUrl: postData.imageUrl})
+                } else {
+                    const contentState = convertFromRaw(postData.body)
+                    const editorState = EditorState.createWithContent(contentState)
+                    setEditorState(editorState)
+                    setPost({id: postData.id, title: postData.title, body: "",
+                        imageUrl: postData.imageUrl})
+                }
+                setIsLoading(false)
+            })
+            return
     }, [])
     
     function changeTitle(event: React.ChangeEvent<HTMLInputElement>) {
@@ -57,7 +82,7 @@ export default function EditPost() {
             let data = new FormData()
             data.append("data", JSON.stringify({
                 title: form.title,
-                body: form.body
+                body: rawEditorContent
             }))
             if (image) {
                 data.append("file", image)
@@ -76,7 +101,10 @@ export default function EditPost() {
             {isLoading && <Loader />}
             <form onSubmit={editPost} className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded">
                 <input name="title" placeholder="Titre" className='p-2 border border-blue-900 rounded'onChange={(event) => changeTitle(event)} value={form.title} required />
-                <textarea name="body" placeholder="Tapez votre message ici !" className='p-2 h-40 border border-blue-900 rounded' onChange={(event) => changeBody(event)} value={form.body} required />
+                <DraftjsEditor 
+                    editorState={editorState}
+                    setEditorState={setEditorState}
+                />
                 {form.imageUrl && <img src={form.imageUrl} className="pt-3 w-full" />}
                 <input name="image" type="file" className="" accept="image/png, image/jpeg" onChange={(event) => changeImage(event)} />
                 <div className="flex justify-between gap-2">
@@ -87,7 +115,9 @@ export default function EditPost() {
             {preview && <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-blue-900 divide-blue-900 divide-y-2">
                 <h2 className="text-xl font-semibold p-2 border-blue-900">{form.title}</h2>
                 {form.imageUrl && <img src={form.imageUrl} className="pt-3 w-full" />}
-                <p className="p-3">{form.body}</p>
+                <DraftjsView
+                    editorState={editorState}
+                />
             </div> }
         </section>
     )
