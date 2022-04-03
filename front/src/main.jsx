@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import TimeAgo from "javascript-time-ago";
-import fr from "./utils/TimeAgoConfig/fr.json";
+import fr from "javascript-time-ago/locale/fr.json";
 
 TimeAgo.addDefaultLocale(fr);
 
