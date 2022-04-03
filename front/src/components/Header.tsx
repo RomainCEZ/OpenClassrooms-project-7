@@ -12,16 +12,16 @@ export default function Header() {
         <header className="flex items-center justify-between bg-blue-900 p-5">
             <Logo />
             <nav className='right-6 text-white'>
-            {!loggedIn 
+            {loggedIn 
                 ? 
+                <DropDownNav username={user.username} />
+                :
                 <Link to="./login" 
                     className="px-6 py-3.5 bg-blue-700 text-white text-md rounded shadow-md
                     hover:bg-blue-600 hover:shadow-lg
                     focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
                     transition duration-150 ease-in-out"
                 >Se connecter</Link>
-                :
-                <DropDownNav username={user.username} />
             }
             </nav> 
         </header>
