@@ -3795,6 +3795,13 @@ iterare@1.2.1:
   resolved "https://registry.yarnpkg.com/iterare/-/iterare-1.2.1.tgz#139c400ff7363690e33abffa33cbba8920f00042"
   integrity sha512-RKYVTCjAnRthyJes037NX/IiqeidgN1xc3j1RjFfECFp28A1GVwK9nA+i0rJPaHqSZwygLzRnFlzUuHFoWWy+Q==
 
+javascript-time-ago@^2.3.13:
+  version "2.3.13"
+  resolved "https://registry.yarnpkg.com/javascript-time-ago/-/javascript-time-ago-2.3.13.tgz#ccea41f5c07d26483e1b707c28b1ec71442ccdca"
+  integrity sha512-LiNqRLERXpePGLejdqjbxfMkFlwx+2RDz21Jfw/3l2mH20fTa6nAtwOFQmAK5l0SfaV7HvixJgTCxyph9VmG1Q==
+  dependencies:
+    relative-time-format "^1.0.7"
+
 jest-changed-files@^27.5.1:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-27.5.1.tgz#a348aed00ec9bf671cc58a66fcbe7c3dfd6a68f5"
@@ -4461,6 +4468,11 @@ memfs@^3.1.2:
   dependencies:
     fs-monkey "1.0.3"
 
+memoize-one@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/memoize-one/-/memoize-one-6.0.0.tgz#b2591b871ed82948aee4727dc6abceeeac8c1045"
+  integrity sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==
+
 merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
@@ -4961,6 +4973,11 @@ perfect-scrollbar@^1.5.0:
   resolved "https://registry.yarnpkg.com/perfect-scrollbar/-/perfect-scrollbar-1.5.5.tgz#41a211a2fb52a7191eff301432134ea47052b27f"
   integrity sha512-dzalfutyP3e/FOpdlhVryN4AJ5XDVauVWxybSkLZmakFE2sS3y3pc4JnSprw8tGmHvkaG5Edr5T7LBTZ+WWU2g==
 
+performance-now@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+  integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
 pg-connection-string@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/pg-connection-string/-/pg-connection-string-2.5.0.tgz#538cadd0f7e603fc09a12590f3b8a452c2c0cf34"
@@ -5232,6 +5249,13 @@ quick-lru@^5.1.1:
   resolved "https://registry.yarnpkg.com/quick-lru/-/quick-lru-5.1.1.tgz#366493e6b3e42a3a6885e2e99d18f80fb7a8c932"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
+raf@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+  integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
+  dependencies:
+    performance-now "^2.1.0"
+
 random-bytes@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/random-bytes/-/random-bytes-1.0.0.tgz#4f68a1dc0ae58bd3fb95848c30324db75d64360b"
@@ -5318,6 +5342,15 @@ react-testing-library@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/react-testing-library/-/react-testing-library-8.0.1.tgz#b3dd43bce3fa88423cf0a23292fb819023c227cc"
   integrity sha512-Gq4JC9r3prA4hYwo7afcbHHMFckO29+5Nrh2KblAEPuK/DWaU0bJE1vtpAgLhzhY9bBirmcgjjIHljHEwGAXKw==
+
+react-time-ago@^7.1.9:
+  version "7.1.9"
+  resolved "https://registry.yarnpkg.com/react-time-ago/-/react-time-ago-7.1.9.tgz#df3999f1184b71ab09aaf1d05dda2a19b76e0bb8"
+  integrity sha512-jN4EsEgqm3a5eLJV0ZrRpom3iG+w4bullS2NHc2htIucGUIr2FbgHXjU0wIkuN9uWM87aFvIfkUDpS/ju7Mazg==
+  dependencies:
+    memoize-one "^6.0.0"
+    prop-types "^15.7.2"
+    raf "^3.4.1"
 
 react-universal-interface@^0.6.2:
   version "0.6.2"
@@ -5412,6 +5445,11 @@ regexpp@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-3.2.0.tgz#0425a2768d8f23bad70ca4b90461fa2f1213e1b2"
   integrity sha512-pq2bWo9mVD43nbts2wGv17XLiNLya+GklZ8kaDLV2Z08gDCsGpnKn9BFMepvWuHCbyVvY7J5o5+BVvoQbmlJLg==
+
+relative-time-format@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/relative-time-format/-/relative-time-format-1.0.7.tgz#c88423fa3fd7ee6d0d87e4e74a9260b4f367f201"
+  integrity sha512-BoLPaoL5y94ngPI4iJ9mNHqRS8NA+Hjs6oYHL5UYkbnA7/iTlvJiMoQQt8txhHhc+Y3e6yXWhwTAKvsQhnx2yg==
 
 require-directory@^2.1.1:
   version "2.1.1"
