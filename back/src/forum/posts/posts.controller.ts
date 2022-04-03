@@ -23,7 +23,8 @@ export class PostsController {
         if (file) {
             createPostDto.imageName = `${file.filename}`
         }
-        createPostDto.userId = req.user.id
+        createPostDto.author = req.user.username
+        createPostDto.authorId = req.user.id
         this.postsService.create(createPostDto);
     }
 
@@ -63,7 +64,7 @@ export class PostsController {
     @UseInterceptors(FileInterceptor('file'))
     updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
         const post = this.postsService.findOne(postId)
-        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+        if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             if (file) {
                 updatePostDto.imageName = `${file.filename}`
             }
@@ -77,7 +78,7 @@ export class PostsController {
     @Delete(':postId')
     deletePostById(@Param('postId') postId: string, @Req() req) {
         const post = this.postsService.findOne(postId)
-        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+        if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             this.postsService.delete(postId);
         } else {
             return "Requête non autorisée !"

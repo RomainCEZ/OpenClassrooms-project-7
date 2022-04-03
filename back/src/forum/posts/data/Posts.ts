@@ -6,30 +6,40 @@ export const PostsData: Post[] = [
         id: "1646256698879",
         imageName: "fatcat.jpeg",
         title: "Post avec une image",
-        userId: "admin"
+        author: "admin",
+        authorId: "0",
+        timestamp: 1648926465412
     },
-    { 
-        id: "1", 
-        title: "Post en français", 
+    {
+        id: "1",
+        title: "Post en français",
         body: "Salut !",
-        userId: "admin" 
+        author: "admin",
+        authorId: "0",
+        timestamp: 1648926465412
     },
     {
         id: "2",
         title: "Post en anglais",
         body: "Hello !",
-        userId: "admin"
+        author: "admin",
+        authorId: "0",
+        timestamp: 1648926465412
     },
     {
         id: "3",
         title: "Post en allemand",
         body: "Hallo !",
-        userId: "admin"
+        author: "admin",
+        authorId: "0",
+        timestamp: 1648926465412
     },
     {
         id: "4",
         title: "Post en japonais",
         body: "おはよう !",
-        userId: "admin"
+        author: "admin",
+        authorId: "0",
+        timestamp: 1648926465412
     }
 ]

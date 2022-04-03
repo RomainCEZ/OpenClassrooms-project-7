@@ -3,5 +3,7 @@ export interface PostProps {
     title: string
     body: string
     imageName?: string
-    userId: string
+    author: string
+    authorId: string
+    timestamp?: number
 }
