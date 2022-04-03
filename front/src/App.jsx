@@ -1,13 +1,16 @@
 import Header from "./components/Header";
-import Home from "./pages/Home/Home";
 import { SessionProvider } from "./pages/Auth/context/SessionContext";
+import MainContainer from "./components/MainContainer";
+import MainContent from "./components/MainContent";
 
 function App() {
     return (
         <>
             <SessionProvider>
                 <Header />
-                <Home />
+                <MainContainer>
+                    <MainContent />
+                </MainContainer>
             </SessionProvider>
         </>
     );
