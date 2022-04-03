@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "../pages/Auth/Login";
 import Signup from "../pages/Auth/Signup";
 import Error from "../pages/Error/Error";
-import PostsContainer from "../pages/Home/PostsContainer";
+import Home from "../pages/Home/Home";
 import NewPost from "../pages/NewPost/NewPost";
 import EditPost from "../pages/Post/EditPost";
 import PostView from "../pages/Post/PostView";
@@ -13,7 +13,7 @@ export default function MainContent() {
             <Routes>
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/" element={<PostsContainer />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/post/:id" element={<PostView />} />
                 <Route path="newpost" element={<NewPost />} />
                 <Route path="/post/:id/edit" element={<EditPost />} />
