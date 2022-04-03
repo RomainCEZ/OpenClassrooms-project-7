@@ -21,7 +21,7 @@ export default function EditPost() {
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [preview, setPreview] = useState(false)
 
-    const id = document.location.pathname.split("/")[1]
+    const id = document.location.pathname.split("/")[2]
     const navigate = useNavigate()
 
     useEffect( () => {
@@ -88,7 +88,7 @@ export default function EditPost() {
                 data.append("file", image)
             }
             await apiProvider.editPost(id, data)
-            navigate(`/${id}`);
+            navigate(`/post/${id}`);
         } else {
             console.log("erreur")
         }
@@ -97,7 +97,7 @@ export default function EditPost() {
 
     return ( 
         <section>
-            <BlueButton path={`/${id}`}>Retour</BlueButton>
+            <BlueButton path={`/post/${id}`}>Retour</BlueButton>
             {isLoading && <Loader />}
             <form onSubmit={editPost} className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded">
                 <input name="title" placeholder="Titre" className='p-2 border border-blue-900 rounded'onChange={(event) => changeTitle(event)} value={form.title} required />
