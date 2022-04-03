@@ -1,0 +1,260 @@
+{
+	"locale": "fr",
+	"long": {
+		"year": {
+			"previous": "L’année dernière",
+			"current": "Cette année",
+			"next": "L’année prochaine",
+			"past": {
+				"one": "Il y a {0} an",
+				"other": "Il y a {0} ans"
+			},
+			"future": {
+				"one": "Dans {0} an",
+				"other": "Dans {0} ans"
+			}
+		},
+		"quarter": {
+			"previous": "Le trimestre dernier",
+			"current": "Ce trimestre",
+			"next": "Le trimestre prochain",
+			"past": {
+				"one": "Il y a {0} trimestre",
+				"other": "Il y a {0} trimestres"
+			},
+			"future": {
+				"one": "Dans {0} trimestre",
+				"other": "Dans {0} trimestres"
+			}
+		},
+		"month": {
+			"previous": "Le mois dernier",
+			"current": "Ce mois-ci",
+			"next": "Le mois prochain",
+			"past": "Il y a {0} mois",
+			"future": "Dans {0} mois"
+		},
+		"week": {
+			"previous": "La semaine dernière",
+			"current": "Cette semaine",
+			"next": "La semaine prochaine",
+			"past": {
+				"one": "Il y a {0} semaine",
+				"other": "Il y a {0} semaines"
+			},
+			"future": {
+				"one": "Dans {0} semaine",
+				"other": "Dans {0} semaines"
+			}
+		},
+		"day": {
+			"previous": "Hier",
+			"previous-2": "Avant-hier",
+			"current": "Aujourd’hui",
+			"next": "Demain",
+			"next-2": "Après-demain",
+			"past": {
+				"one": "Il y a {0} jour",
+				"other": "Il y a {0} jours"
+			},
+			"future": {
+				"one": "Dans {0} jour",
+				"other": "Dans {0} jours"
+			}
+		},
+		"hour": {
+			"current": "Dette heure-ci",
+			"past": {
+				"one": "Il y a {0} heure",
+				"other": "Il y a {0} heures"
+			},
+			"future": {
+				"one": "Dans {0} heure",
+				"other": "Dans {0} heures"
+			}
+		},
+		"minute": {
+			"current": "Cette minute-ci",
+			"past": {
+				"one": "Il y a {0} minute",
+				"other": "Il y a {0} minutes"
+			},
+			"future": {
+				"one": "Dans {0} minute",
+				"other": "Dans {0} minutes"
+			}
+		},
+		"second": {
+			"current": "Maintenant",
+			"past": {
+				"one": "Il y a {0} seconde",
+				"other": "Il y a {0} secondes"
+			},
+			"future": {
+				"one": "Dans {0} seconde",
+				"other": "Dans {0} secondes"
+			}
+		}
+	},
+	"short": {
+		"year": {
+			"previous": "l’année dernière",
+			"current": "cette année",
+			"next": "l’année prochaine",
+			"past": "il y a {0} a",
+			"future": "dans {0} a"
+		},
+		"quarter": {
+			"previous": "le trimestre dernier",
+			"current": "ce trimestre",
+			"next": "le trimestre prochain",
+			"past": "il y a {0} trim.",
+			"future": "dans {0} trim."
+		},
+		"month": {
+			"previous": "le mois dernier",
+			"current": "ce mois-ci",
+			"next": "le mois prochain",
+			"past": "il y a {0} m.",
+			"future": "dans {0} m."
+		},
+		"week": {
+			"previous": "la semaine dernière",
+			"current": "cette semaine",
+			"next": "la semaine prochaine",
+			"past": "il y a {0} sem.",
+			"future": "dans {0} sem."
+		},
+		"day": {
+			"previous": "hier",
+			"previous-2": "avant-hier",
+			"current": "aujourd’hui",
+			"next": "demain",
+			"next-2": "après-demain",
+			"past": "il y a {0} j",
+			"future": "dans {0} j"
+		},
+		"hour": {
+			"current": "cette heure-ci",
+			"past": "il y a {0} h",
+			"future": "dans {0} h"
+		},
+		"minute": {
+			"current": "cette minute-ci",
+			"past": "il y a {0} min",
+			"future": "dans {0} min"
+		},
+		"second": {
+			"current": "maintenant",
+			"past": "il y a {0} s",
+			"future": "dans {0} s"
+		}
+	},
+	"narrow": {
+		"year": {
+			"previous": "l’année dernière",
+			"current": "cette année",
+			"next": "l’année prochaine",
+			"past": "-{0} a",
+			"future": "+{0} a"
+		},
+		"quarter": {
+			"previous": "le trimestre dernier",
+			"current": "ce trimestre",
+			"next": "le trimestre prochain",
+			"past": "-{0} trim.",
+			"future": "+{0} trim."
+		},
+		"month": {
+			"previous": "le mois dernier",
+			"current": "ce mois-ci",
+			"next": "le mois prochain",
+			"past": "-{0} m.",
+			"future": "+{0} m."
+		},
+		"week": {
+			"previous": "la semaine dernière",
+			"current": "cette semaine",
+			"next": "la semaine prochaine",
+			"past": "-{0} sem.",
+			"future": "+{0} sem."
+		},
+		"day": {
+			"previous": "hier",
+			"previous-2": "avant-hier",
+			"current": "aujourd’hui",
+			"next": "demain",
+			"next-2": "après-demain",
+			"past": "-{0} j",
+			"future": "+{0} j"
+		},
+		"hour": {
+			"current": "cette heure-ci",
+			"past": "-{0} h",
+			"future": "+{0} h"
+		},
+		"minute": {
+			"current": "cette minute-ci",
+			"past": "-{0} min",
+			"future": "+{0} min"
+		},
+		"second": {
+			"current": "maintenant",
+			"past": "-{0} s",
+			"future": "+{0} s"
+		}
+	},
+	"now": {
+		"now": {
+			"current": "Maintenant",
+			"future": "Dans un instant",
+			"past": "À l'instant"
+		}
+	},
+	"mini": {
+		"year": {
+			"one": "{0} an",
+			"other": "{0} ans"
+		},
+		"month": "{0} mois",
+		"week": "{0} sem.",
+		"day": {
+			"one": "{0} jour",
+			"other": "{0} jours"
+		},
+		"hour": "{0} h",
+		"minute": "{0} min.",
+		"second": "{0} sec.",
+		"now": "maintenant"
+	},
+	"long-time": {
+		"year": {
+			"one": "{0} an",
+			"other": "{0} ans"
+		},
+		"month": {
+			"one": "{0} mois",
+			"other": "{0} mois"
+		},
+		"week": {
+			"one": "{0} semaine",
+			"other": "{0} semaines"
+		},
+		"day": {
+			"one": "{0} jour",
+			"other": "{0} jours"
+		},
+		"hour": {
+			"one": "{0} heure",
+			"other": "{0} heures"
+		},
+		"minute": {
+			"one": "{0} minute",
+			"other": "{0} minutes"
+		},
+		"second": {
+			"one": "{0} seconde",
+			"other": "{0} secondes"
+		}
+	}
+}
