@@ -1,14 +1,13 @@
 import Header from "./components/Header";
-import Main from "./pages/Home/index"
-import { SessionProvider } from "./pages/Auth/context/SessionContext"
+import Home from "./pages/Home/Home";
+import { SessionProvider } from "./pages/Auth/context/SessionContext";
 
 function App() {
-
     return (
         <>
             <SessionProvider>
                 <Header />
-                <Main />
+                <Home />
             </SessionProvider>
         </>
     );
