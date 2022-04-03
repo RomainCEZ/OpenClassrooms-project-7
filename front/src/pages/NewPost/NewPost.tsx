@@ -78,7 +78,7 @@ export default function NewPost() {
             <BlueButton path="/">Retour</BlueButton>
             <form
                 onSubmit={postContent}
-                className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
+                className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
             >
                 <input
                     {...register("title")}
