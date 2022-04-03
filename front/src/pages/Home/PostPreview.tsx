@@ -35,10 +35,10 @@ export default function PostPreview({
         >
             <article>
                 <div className="mb-3 pb-2 border-b-2 border-indigo-900 group-hover:border-indigo-600 transition-all">
-                    <h2 className="mb-2 text-lg font-semibold decoration-2 underline underline-offset-2  text-blue-800 group-hover:text-blue-500 transition-all">
+                    <h2 className="mb-2 text-xl font-semibold decoration-2 underline underline-offset-2  text-blue-800 group-hover:text-blue-500 transition-all">
                         {title}
                     </h2>
-                    <p className="text-sm ml-2 group-hover:text-gray-600 transition-all">
+                    <p className="text-sm ml-2 group-hover:text-gray-600 transition-all first-letter:capitalize">
                         <ReactTimeAgo
                             date={timestamp}
                             locale="fr-FR"
@@ -47,7 +47,7 @@ export default function PostPreview({
                         par <span className="font-bold">{author}</span>
                     </p>
                 </div>
-                <div className="pb-2 border-b-[1px] border-indigo-900 group-hover:border-indigo-600 transition-all">
+                <div className="pb-2 border-b border-indigo-900 group-hover:border-indigo-600 transition-all">
                     {src ? (
                         <img src={src} className="pt-3 w-full object-contain" />
                     ) : (
