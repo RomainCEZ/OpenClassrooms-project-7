@@ -24,7 +24,6 @@ export const SessionProvider = ({ children }) => {
             if (userInfo !== 401 && userInfo !== 403) {
                 setUser(userInfo);
                 setLoggedIn(true);
-                navigate("/");
             }
         };
         relog().catch((error) => {});
