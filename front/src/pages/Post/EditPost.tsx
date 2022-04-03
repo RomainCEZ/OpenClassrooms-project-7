@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Loader from "../../components/Loader";
 import BlueButton from "../../components/BlueButton";
-import { Post } from "../../utils/interfaces/Post";
+import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,12 +19,12 @@ export default function EditPost() {
     );
     const rawEditorContent = convertToRaw(editorState.getCurrentContent());
 
-    const [post, setPost] = useState<Post>({
+    const [post, setPost] = useState<PostProps>({
         title: "",
         body: "",
         imageUrl: "",
     });
-    const [form, setForm] = useState<Post>({
+    const [form, setForm] = useState<PostProps>({
         title: "",
         body: "",
         file: null,
@@ -80,19 +80,19 @@ export default function EditPost() {
 
     function changeTitle(event: React.ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
-        setForm((form: Post) => ({ ...form, title: value }));
+        setForm((form: PostProps) => ({ ...form, title: value }));
     }
 
     function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const value = event.target.value;
-        setForm((form: Post) => ({ ...form, body: value }));
+        setForm((form: PostProps) => ({ ...form, body: value }));
     }
 
     function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
         const file = event.target.files[0];
         const imageUrl = URL.createObjectURL(event.target.files[0]);
         setImage(file);
-        setForm((form: Post) => ({ ...form, imageUrl }));
+        setForm((form: PostProps) => ({ ...form, imageUrl }));
     }
 
     async function editPost(e: React.FormEvent<HTMLFormElement>) {

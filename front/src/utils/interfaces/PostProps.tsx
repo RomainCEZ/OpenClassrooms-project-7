@@ -1,4 +1,4 @@
-export type Post = {
+export interface PostProps {
     id?: string;
     title: string;
     body: string;
@@ -8,4 +8,4 @@ export type Post = {
     timestamp?: Date;
     file?: File;
     editorContent?: Object;
-};
+}

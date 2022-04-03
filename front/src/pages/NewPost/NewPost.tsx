@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { apiProvider } from "../../domain/ApiProvider";
 import BlueButton from "../../components/BlueButton";
-import { Post } from "../../utils/interfaces/Post";
+import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { EditorState, convertToRaw } from "draft-js";
@@ -14,7 +14,7 @@ export default function NewPost() {
         EditorState.createEmpty()
     );
     const rawEditorContent = convertToRaw(editorState.getCurrentContent());
-    const [form, setForm] = useState<Post>({
+    const [form, setForm] = useState<PostProps>({
         title: "",
         body: "",
         file: null,
@@ -40,19 +40,19 @@ export default function NewPost() {
 
     function changeTitle(event: React.ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
-        setForm((form: Post) => ({ ...form, title: value }));
+        setForm((form: PostProps) => ({ ...form, title: value }));
     }
 
     function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const value = event.target.value;
-        setForm((form: Post) => ({ ...form, body: editorState }));
+        setForm((form: PostProps) => ({ ...form, body: editorState }));
     }
 
     function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
         const file = event.target.files[0];
         const src = URL.createObjectURL(event.target.files[0]);
         setImage(file);
-        setForm((form: Post) => ({ ...form, src }));
+        setForm((form: PostProps) => ({ ...form, src }));
     }
     async function postContent(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();

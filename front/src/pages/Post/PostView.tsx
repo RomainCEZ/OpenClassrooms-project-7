@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import BlueButton from "../../components/BlueButton";
-import { Post } from "../../utils/interfaces/Post";
+import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
 import { Link } from "react-router-dom";
 import { SessionContext } from "../Auth/context/SessionContext";
@@ -13,7 +13,7 @@ import Comment from "./Comment";
 import ReactTimeAgo from "react-time-ago";
 
 export default function PostView() {
-    const [post, setPost] = useState<Post>({
+    const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
         body: "",

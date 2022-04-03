@@ -1,18 +1,18 @@
 import { useState, useEffect, useContext } from "react";
 import BlueButton from "../../components/BlueButton";
 import PostPreview from "./PostPreview";
-import { Post } from "../../utils/interfaces/Post";
+import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostPreviewLoader from "./PostPreviewLoader";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [posts, setPosts] = useState<PostProps[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { loggedIn } = useContext(SessionContext);
 
-    const postsElements: JSX.Element[] = posts.map((post: Post) => (
+    const postsElements: JSX.Element[] = posts.map((post: PostProps) => (
         <PostPreview
             key={post.id}
             id={post.id}
