@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { SessionContext } from "./context/SessionContext";
-import BlueButton from "../../components/BlueButton";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { authProvider } from "../../domain/AuthProvider";
