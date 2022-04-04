@@ -30,7 +30,7 @@ export default function Login() {
         const value = event.target.value;
         setForm((form) => ({ ...form, password: value }));
     }
-    async function postContent(e: React.FormEvent<HTMLFormElement>) {
+    async function login(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (form.email && form.password) {
             const loginInfo = {
@@ -49,7 +49,7 @@ export default function Login() {
     return (
         <section className="flex flex-col content-center justify-center rounded">
             <form
-                onSubmit={postContent}
+                onSubmit={login}
                 className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
             >
                 <input
