@@ -11,6 +11,7 @@ export class CommentsController {
   @UseGuards(AuthenticationGuard)
   @Post(":postId")
   async create(@Body() createCommentDto: CreateCommentDto, @Req() req, @Param("postId") postId: string) {
+    createCommentDto.content = req.body.content
     createCommentDto.postId = postId
     createCommentDto.author = req.user.username
     createCommentDto.authorId = req.user.id
