@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import BlueButton from "../../components/BlueButton";
+import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import { EditorState, convertFromRaw, ContentState } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Comment from "./Comment";
-// import CommentLoader from "./CommentLoader";
+import CommentLoader from "./CommentLoader";
 import ReactTimeAgo from "react-time-ago";
 
 export default function PostView() {
@@ -21,6 +21,11 @@ export default function PostView() {
         imageUrl: "",
     });
     const [commentsData, setCommentsData] = useState([
+        {
+            content: "J'adore !!!",
+            author: "Author",
+            timestamp: 1648975642144,
+        },
         {
             content: "J'adore !!!",
             author: "Author",
@@ -69,7 +74,7 @@ export default function PostView() {
 
     return (
         <section>
-            <BlueButton path="/">Retour</BlueButton>
+            <BlueLinkButton path="/">Retour</BlueLinkButton>
             {isLoading ? (
                 <PostLoader />
             ) : (
@@ -102,12 +107,12 @@ export default function PostView() {
                     </div>
                     {(user.id === post.authorId || user.role === "admin") && (
                         <div className="flex justify-end items-center m-1 mr-2 gap-2">
-                            <BlueButton path={`/post/${id}/edit`}>
+                            <BlueLinkButton path={`/post/${id}/edit`}>
                                 Éditer
-                            </BlueButton>
+                            </BlueLinkButton>
                             <Link
                                 to="/"
-                                className="flex justify-center p-2 px-6 rounded bg-red-900 text-white"
+                                className="flex justify-center p-2 px-6 text-white font-bold rounded bg-red-800 hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow active:bg-red-500 transition-all"
                                 onClick={() => apiProvider.deletePost(id)}
                             >
                                 Supprimer
@@ -116,9 +121,11 @@ export default function PostView() {
                     )}
                 </div>
             )}
-            <div className="flex mt-2 bg-white border border-indigo-800 rounded-sm divide-x divide-indigo-800">
-                {comments}
-            </div>
+            {isLoading ? (
+                <CommentLoader />
+            ) : (
+                <div className="flex flex-col mt-2 gap-1">{comments}</div>
+            )}
         </section>
     );
 }
