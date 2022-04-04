@@ -11,8 +11,10 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Comment from "./Comment";
 import CommentLoader from "./CommentLoader";
 import ReactTimeAgo from "react-time-ago";
+import NewComment from "./NewComment";
 
 export default function PostView() {
+    const { user } = useContext(SessionContext);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
@@ -20,7 +22,6 @@ export default function PostView() {
         editorContent: "",
         imageUrl: "",
     });
-
     const [commentsData, setCommentsData] = useState([]);
 
     const commentsElements = commentsData.map((comment) => {
@@ -35,8 +36,13 @@ export default function PostView() {
     });
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { user } = useContext(SessionContext);
     const id = document.location.pathname.split("/post/")[1];
+
+    const getComments = () => {
+        apiProvider.getCommentsByPostId(id).then((commentsData) => {
+            return setCommentsData(commentsData);
+        });
+    };
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
@@ -58,10 +64,7 @@ export default function PostView() {
             }
             setIsLoading(false);
         });
-        apiProvider.getCommentsByPostId(id).then((commentsData) => {
-            return setCommentsData(commentsData);
-        });
-        return;
+        getComments();
     }, []);
 
     return (
@@ -113,6 +116,7 @@ export default function PostView() {
                     )}
                 </div>
             )}
+            <NewComment postId={id} getComments={getComments} />
             {isLoading ? (
                 <CommentLoader />
             ) : (
