@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Loader from "../../components/Loader";
-import BlueButton from "../../components/BlueButton";
+import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
 import { useNavigate } from "react-router-dom";
@@ -118,8 +117,7 @@ export default function EditPost() {
 
     return (
         <section>
-            <BlueButton path={`/post/${id}`}>Retour</BlueButton>
-            {isLoading && <Loader />}
+            <BlueLinkButton path={`/post/${id}`}>Retour</BlueLinkButton>
             <form
                 onSubmit={editPost}
                 className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"

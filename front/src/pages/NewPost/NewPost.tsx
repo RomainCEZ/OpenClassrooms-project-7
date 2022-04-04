@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { apiProvider } from "../../domain/ApiProvider";
-import BlueButton from "../../components/BlueButton";
+import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -75,7 +75,7 @@ export default function NewPost() {
 
     return (
         <section className="flex flex-col content-center justify-center rounded">
-            <BlueButton path="/">Retour</BlueButton>
+            <BlueLinkButton path="/">Retour</BlueLinkButton>
             <form
                 onSubmit={postContent}
                 className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
@@ -100,11 +100,11 @@ export default function NewPost() {
                     onChange={(event) => changeImage(event)}
                 />
                 <div className="flex justify-between gap-2">
-                    <button className="text-white bg-blue-900 p-2 w-3/4 rounded">
+                    <button className="text-white font-bold bg-blue-900 p-2 w-3/4 rounded">
                         Publier
                     </button>
                     <div
-                        className="text-center flex-grow p-2 border bg-white border-blue-900 rounded cursor-pointer"
+                        className="text-center font-bold flex-grow p-2 border bg-white border-blue-900 rounded cursor-pointer"
                         onClick={() =>
                             setPreview((prevPreview) => !prevPreview)
                         }
@@ -116,7 +116,7 @@ export default function NewPost() {
 
             {preview && (
                 <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-indigo-900 divide-blue-900 divide-y-2">
-                    <h2 className="text-xl font-semibold p-2 border-blue-900">
+                    <h2 className="text-xl font-bold p-2 border-blue-900">
                         {form.title}
                     </h2>
                     {image && (

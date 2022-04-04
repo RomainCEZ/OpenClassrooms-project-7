@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import BlueButton from "../../components/BlueButton";
+import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import PostPreview from "./PostPreview";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
@@ -34,9 +34,9 @@ export default function Home() {
     return (
         <>
             {loggedIn ? (
-                <BlueButton path="newPost">Nouveau post</BlueButton>
+                <BlueLinkButton path="newPost">Nouveau post</BlueLinkButton>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center p-2 mb-3 rounded bg-white border border-indigo-900 px-6">
+                <p className="flex flex-col sm:flex-row items-center justify-center p-2 rounded bg-white border border-indigo-900 px-6">
                     <span>
                         <Link
                             to="/login"
