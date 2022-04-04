@@ -2,13 +2,13 @@ import PostComments from "../interfaces/PostComments";
 
 export const commentsData: PostComments[] = [
     {
-        postId: "0",
+        postId: "1646256698879",
         comments: [{
             id: "placeholderComment1",
-            content: "J'adore !!!",
+            content: "T'aurais pu enlever l'arrière-plan à carreaux.",
             author: "admin",
             authorId: "0",
-            timestamp: 1648975642144,
+            timestamp: 1649075642144,
         },
         {
             id: "placeholderComment2",
