@@ -20,26 +20,19 @@ export default function PostView() {
         editorContent: "",
         imageUrl: "",
     });
-    const [commentsData, setCommentsData] = useState([
-        {
-            content: "J'adore !!!",
-            author: "Author",
-            timestamp: 1648975642144,
-        },
-        {
-            content: "J'adore !!!",
-            author: "Author",
-            timestamp: 1648975642144,
-        },
-    ]);
 
-    const comments = commentsData.map((comment) => (
-        <Comment
-            content={comment.content}
-            author={comment.author}
-            timestamp={comment.timestamp}
-        />
-    ));
+    const [commentsData, setCommentsData] = useState([]);
+
+    const commentsElements = commentsData.map((comment) => {
+        return (
+            <Comment
+                key={comment.id}
+                content={comment.content}
+                author={comment.author}
+                timestamp={comment.timestamp}
+            />
+        );
+    });
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const { user } = useContext(SessionContext);
@@ -51,12 +44,8 @@ export default function PostView() {
                 const contentState = ContentState.createFromText(postData.body);
                 const editorState = EditorState.createWithContent(contentState);
                 setPost({
-                    id: postData.id,
-                    title: postData.title,
+                    ...postData,
                     body: editorState,
-                    imageUrl: postData.imageUrl,
-                    timestamp: postData.timestamp,
-                    author: postData.author,
                 });
             } else {
                 const contentState = convertFromRaw(postData.body);
@@ -68,6 +57,9 @@ export default function PostView() {
                 });
             }
             setIsLoading(false);
+        });
+        apiProvider.getCommentsByPostId(id).then((commentsData) => {
+            return setCommentsData(commentsData);
         });
         return;
     }, []);
@@ -124,7 +116,9 @@ export default function PostView() {
             {isLoading ? (
                 <CommentLoader />
             ) : (
-                <div className="flex flex-col mt-2 gap-1">{comments}</div>
+                <div className="flex flex-col mt-2 gap-1">
+                    {commentsElements}
+                </div>
             )}
         </section>
     );
