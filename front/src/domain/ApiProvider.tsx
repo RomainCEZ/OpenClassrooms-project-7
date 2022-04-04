@@ -33,6 +33,10 @@ class ApiProvider {
         await axios.delete(`/api/posts/${id}`);
     }
 
+    async createComment(postId: string, commentData: { content: string }) {
+        await axios.post(`/api/comments/${postId.toString()}`, commentData);
+    }
+
     async getCommentsByPostId(postId: string) {
         const comments = await axios.get(`/api/comments/${postId.toString()}`);
         return comments.data;
