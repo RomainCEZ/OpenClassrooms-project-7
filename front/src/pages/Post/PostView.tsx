@@ -25,6 +25,7 @@ export default function PostView() {
     const [commentsData, setCommentsData] = useState([]);
 
     const commentsElements = commentsData.map((comment) => {
+        console.log(comment.timestamp);
         return (
             <Comment
                 key={comment.id}
@@ -56,10 +57,12 @@ export default function PostView() {
             } else {
                 const contentState = convertFromRaw(postData.body);
                 const editorState = EditorState.createWithContent(contentState);
+                console.log(contentState);
                 setPost({
                     id: postData.id,
                     title: postData.title,
                     body: editorState,
+                    timestamp: postData.timestamp,
                 });
             }
             setIsLoading(false);
