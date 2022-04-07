@@ -18,14 +18,13 @@ export default function PostView() {
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
-        body: "",
+        content: "",
         editorContent: "",
         imageUrl: "",
     });
     const [commentsData, setCommentsData] = useState([]);
 
     const commentsElements = commentsData.map((comment) => {
-        console.log(comment.timestamp);
         return (
             <Comment
                 key={comment.id}
@@ -47,22 +46,21 @@ export default function PostView() {
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
-            if (typeof postData.body === "string") {
-                const contentState = ContentState.createFromText(postData.body);
+            if (typeof postData.content === "string") {
+                const contentState = ContentState.createFromText(
+                    postData.content
+                );
                 const editorState = EditorState.createWithContent(contentState);
                 setPost({
                     ...postData,
-                    body: editorState,
+                    content: editorState,
                 });
             } else {
-                const contentState = convertFromRaw(postData.body);
+                const contentState = convertFromRaw(postData.content);
                 const editorState = EditorState.createWithContent(contentState);
-                console.log(contentState);
                 setPost({
-                    id: postData.id,
-                    title: postData.title,
-                    body: editorState,
-                    timestamp: postData.timestamp,
+                    ...postData,
+                    content: editorState,
                 });
             }
             setIsLoading(false);
@@ -98,7 +96,7 @@ export default function PostView() {
                             readOnly
                             toolbarHidden
                             textAlignment="left"
-                            editorState={post.body}
+                            editorState={post.content}
                             wrapperClassName="flex flex-col h-full w-full wrapper-class bg-gray-200 border-b border-indigo-900 "
                             editorClassName="editor-class px-3 bg-white"
                         />

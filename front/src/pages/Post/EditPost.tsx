@@ -20,12 +20,12 @@ export default function EditPost() {
 
     const [post, setPost] = useState<PostProps>({
         title: "",
-        body: "",
+        content: "",
         imageUrl: "",
     });
     const [form, setForm] = useState<PostProps>({
         title: "",
-        body: "",
+        content: "",
         file: null,
         imageUrl: null,
     });
@@ -40,35 +40,37 @@ export default function EditPost() {
         apiProvider.getPostById(id).then((postData) => {
             setPost({
                 title: postData.title,
-                body: postData.body,
+                content: postData.content,
                 imageUrl: postData.imageUrl,
             });
             setForm({
                 title: postData.title,
-                body: postData.body,
+                content: postData.content,
                 imageUrl: postData.imageUrl,
             });
             setIsLoading(false);
         });
         apiProvider.getPostById(id).then((postData) => {
-            if (typeof postData.body === "string") {
-                const contentState = ContentState.createFromText(postData.body);
+            if (typeof postData.content === "string") {
+                const contentState = ContentState.createFromText(
+                    postData.content
+                );
                 const editorState = EditorState.createWithContent(contentState);
                 setEditorState(editorState);
                 setPost({
                     id: postData.id,
                     title: postData.title,
-                    body: "",
+                    content: "",
                     imageUrl: postData.imageUrl,
                 });
             } else {
-                const contentState = convertFromRaw(postData.body);
+                const contentState = convertFromRaw(postData.content);
                 const editorState = EditorState.createWithContent(contentState);
                 setEditorState(editorState);
                 setPost({
                     id: postData.id,
                     title: postData.title,
-                    body: "",
+                    content: "",
                     imageUrl: postData.imageUrl,
                 });
             }
@@ -84,7 +86,7 @@ export default function EditPost() {
 
     function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, body: value }));
+        setForm((form: PostProps) => ({ ...form, content: value }));
     }
 
     function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
@@ -96,13 +98,13 @@ export default function EditPost() {
 
     async function editPost(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (form.title && form.body) {
+        if (form.title && form.content) {
             let data = new FormData();
             data.append(
                 "data",
                 JSON.stringify({
                     title: form.title,
-                    body: rawEditorContent,
+                    content: rawEditorContent,
                 })
             );
             if (image) {

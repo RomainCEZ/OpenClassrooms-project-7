@@ -8,7 +8,7 @@ import DraftjsView from "../../components/Draftjs/DraftjsView";
 export default function PostPreview({
     id,
     title,
-    body,
+    content,
     src,
     author,
     timestamp,
@@ -18,11 +18,11 @@ export default function PostPreview({
     );
 
     useEffect(() => {
-        if (typeof body === "string") {
-            const contentState = ContentState.createFromText(body);
+        if (typeof content === "string") {
+            const contentState = ContentState.createFromText(content);
             setEditorState(EditorState.createWithContent(contentState));
         } else {
-            const contentState = convertFromRaw(body);
+            const contentState = convertFromRaw(content);
             setEditorState(EditorState.createWithContent(contentState));
         }
 

@@ -16,7 +16,7 @@ export default function NewPost() {
     const rawEditorContent = convertToRaw(editorState.getCurrentContent());
     const [form, setForm] = useState<PostProps>({
         title: "",
-        body: "",
+        content: "",
         file: null,
         imageUrl: null,
     });
@@ -31,7 +31,7 @@ export default function NewPost() {
         reValidateMode: "onBlur",
         defaultValues: {
             title: "",
-            body: "",
+            content: "",
             image: null,
         },
     });
@@ -45,7 +45,7 @@ export default function NewPost() {
 
     function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
         const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, body: editorState }));
+        setForm((form: PostProps) => ({ ...form, content: editorState }));
     }
 
     function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
@@ -62,7 +62,7 @@ export default function NewPost() {
                 "data",
                 JSON.stringify({
                     title: form.title,
-                    body: rawEditorContent,
+                    content: rawEditorContent,
                 })
             );
             formData.append("file", image);

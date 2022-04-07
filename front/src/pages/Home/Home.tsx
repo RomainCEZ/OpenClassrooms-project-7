@@ -18,7 +18,7 @@ export default function Home() {
             id={post.id}
             title={post.title}
             src={post.imageUrl}
-            body={post.body}
+            content={post.content}
             author={post.author}
             timestamp={post.timestamp}
         />
