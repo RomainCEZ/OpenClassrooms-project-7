@@ -15,6 +15,7 @@ export class InMemoryPostsRepository {
     }
 
     savePost(postData: Post) {
+        console.log(postData)
         this.data.unshift(postData)
     }
 
