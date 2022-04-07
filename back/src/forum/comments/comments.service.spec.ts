@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommentsService } from './comments.service';
+import CommentsRepository from './repositories/CommentsRepository';
 import InMemoryCommentsRepository from './repositories/InMemoryCommentsRepository';
 
 describe('CommentsService', () => {
@@ -7,7 +8,9 @@ describe('CommentsService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CommentsService, InMemoryCommentsRepository],
+      providers: [CommentsService,
+        { provide: CommentsRepository, useClass: InMemoryCommentsRepository }
+      ],
     }).compile();
 
     service = module.get<CommentsService>(CommentsService);

@@ -3,18 +3,18 @@ import * as fs from "fs"
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { Post } from './entities/post.entity';
-import { InMemoryPostsRepository } from './mock/InMemoryPostsRepository';
+import { PostsRepository } from './repositories/PostsRepository';
 
 @Injectable()
 export class PostsService {
-  constructor(private readonly postsRepository: InMemoryPostsRepository) {}
+  constructor(private readonly postsRepository: PostsRepository) { }
 
   create(createPostDto: CreatePostDto) {
     this.postsRepository.savePost(Post.create(createPostDto));
   }
 
-  findAll(): Post[] {
-    return this.postsRepository.getAllPosts();
+  async findAll(): Promise<Post[]> {
+    return await this.postsRepository.getAllPosts();
   }
 
   findOne(postId: string): Post {

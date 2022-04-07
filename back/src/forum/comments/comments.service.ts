@@ -3,11 +3,11 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
 import PostComments from './interfaces/PostComments';
-import InMemoryCommentsRepository from './repositories/InMemoryCommentsRepository';
+import CommentsRepository from './repositories/CommentsRepository';
 
 @Injectable()
 export class CommentsService {
-  constructor(private readonly commentsRepository: InMemoryCommentsRepository) { }
+  constructor(private readonly commentsRepository: CommentsRepository) { }
 
   async create(createCommentDto: CreateCommentDto) {
     const postId = createCommentDto.postId

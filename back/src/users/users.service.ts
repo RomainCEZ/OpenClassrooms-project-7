@@ -4,13 +4,13 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Email } from './entities/Email.entity';
 import { User } from './entities/User';
 import { UserPassword } from './entities/UserPassword.entity';
-import { UsersRepository } from './interfaces/UsersRepository.interface';
-import { InMemoryUsersRepository } from './mock/InMemoryUsersRepository';
+import { IUsersRepository } from './interfaces/UsersRepository.interface';
+import { UsersRepository } from './repositories/UsersRepository';
 
 @Injectable()
 export class UsersService {
     constructor(
-        @Inject(InMemoryUsersRepository) private usersRepository: UsersRepository,
+        @Inject(UsersRepository) private usersRepository: IUsersRepository,
     ) { }
 
     async createUser(createUserDto: CreateUserDto) {

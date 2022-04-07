@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommentsController } from './comments.controller';
 import { CommentsService } from './comments.service';
+import CommentsRepository from './repositories/CommentsRepository';
 import InMemoryCommentsRepository from './repositories/InMemoryCommentsRepository';
 
 describe('CommentsController', () => {
@@ -9,7 +10,9 @@ describe('CommentsController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CommentsController],
-      providers: [CommentsService, InMemoryCommentsRepository],
+      providers: [CommentsService,
+        { provide: CommentsRepository, useClass: InMemoryCommentsRepository }
+      ],
     }).compile();
 
     controller = module.get<CommentsController>(CommentsController);

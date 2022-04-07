@@ -29,9 +29,9 @@ export class PostsController {
     }
 
     @Get()
-    getAllPosts() {
-        const allPosts = this.postsService.findAll();
-        const allPostsDto = allPosts.map( post => {
+    async getAllPosts() {
+        const allPosts = await this.postsService.findAll();
+        const allPostsDto = allPosts.map(post => {
             if (post.imageName) {
                 const postResponseDto = {
                     ...post,

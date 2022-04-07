@@ -21,7 +21,7 @@ export class CommentsController {
   @Get(":postId")
   async findAll(@Param("postId") postId: string) {
     const postComments = await this.commentsService.findAll(postId);
-    return postComments.comments
+    return postComments
   }
 
   @Get(':id')
