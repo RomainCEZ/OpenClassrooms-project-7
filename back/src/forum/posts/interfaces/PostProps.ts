@@ -1,7 +1,7 @@
 export interface PostProps {
     id: string
     title: string
-    body: string
+    content: any
     imageName?: string
     author: string
     authorId: string
