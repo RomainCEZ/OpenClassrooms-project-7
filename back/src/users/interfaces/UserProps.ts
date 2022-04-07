@@ -4,4 +4,5 @@ export interface UserProps {
     username: string
     password: string
     role?: string
+    timestamp?: number
 }
