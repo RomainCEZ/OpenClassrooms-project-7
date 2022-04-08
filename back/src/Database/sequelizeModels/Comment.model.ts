@@ -1,4 +1,4 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class CommentModel extends Model {
@@ -17,6 +17,6 @@ export class CommentModel extends Model {
     @Column
     authorId: string;
 
-    @Column
+    @Column({ type: DataType.BIGINT })
     timestamp: number;
 }

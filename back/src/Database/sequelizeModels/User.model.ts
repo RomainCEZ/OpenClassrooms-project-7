@@ -1,5 +1,4 @@
-import { BIGINT } from 'sequelize';
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, Model, Table } from 'sequelize-typescript';
 
 @Table
 export class UserModel extends Model {
@@ -19,6 +18,6 @@ export class UserModel extends Model {
     @Column
     role: string
 
-    @Column({ type: BIGINT })
+    @Column({ type: DataType.BIGINT })
     timestamp: number;
 }

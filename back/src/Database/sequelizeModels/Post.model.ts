@@ -1,5 +1,4 @@
-import { JSON } from 'sequelize';
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Column, Model, Table, DataType } from 'sequelize-typescript';
 
 @Table
 export class PostModel extends Model {
@@ -9,7 +8,7 @@ export class PostModel extends Model {
     @Column
     title: string;
 
-    @Column({ type: JSON })
+    @Column({ type: DataType.JSON })
     content: string;
 
     @Column
@@ -21,6 +20,6 @@ export class PostModel extends Model {
     @Column
     authorId: string;
 
-    @Column
+    @Column({ type: DataType.BIGINT })
     timestamp: number;
 }
