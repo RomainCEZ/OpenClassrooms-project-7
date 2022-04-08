@@ -1,4 +1,3 @@
-import { UpdateUserDto } from "../dto/update-user.dto";
 import { User } from "../entities/User";
 
 export interface IUsersRepository {
@@ -10,7 +9,5 @@ export interface IUsersRepository {
     getByEmail(email: string)
 
     getById(id: string)
-
-    updateRole(id: string, updateUserDto: UpdateUserDto)
 
 }

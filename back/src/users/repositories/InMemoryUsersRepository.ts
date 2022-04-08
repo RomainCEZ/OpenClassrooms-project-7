@@ -1,6 +1,5 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersData } from '../data/Users';
-import { UpdateUserDto } from '../dto/update-user.dto';
 import { User } from '../entities/User';
 // import { UpdateUserDto } from '../dto/update-user.dto';
 import { IUsersRepository } from '../interfaces/UsersRepository.interface';
@@ -10,9 +9,6 @@ export class InMemoryUsersRepository implements IUsersRepository {
     data: User[]
     constructor() {
         this.data = UsersData
-    }
-    updateRole(id: string, updateUserDto: UpdateUserDto) {
-        throw new Error('Method not implemented.');
     }
 
     saveUser(user: User) {

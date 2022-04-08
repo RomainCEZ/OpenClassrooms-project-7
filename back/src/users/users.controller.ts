@@ -18,8 +18,7 @@ export class UsersController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    console.log('controller')
-    return this.usersService.update(id, { role: 'admin' });
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')
