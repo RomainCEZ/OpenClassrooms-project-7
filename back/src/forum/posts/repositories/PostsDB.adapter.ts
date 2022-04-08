@@ -10,15 +10,15 @@ export class PostsDBAdapter implements IPostsRepository {
     constructor(@InjectModel(PostModel) private readonly postModel: typeof PostModel) { }
 
     async getAllPosts(): Promise<Post[]> {
-        const postModels = await this.postModel.findAll<PostModel>()
-        return postModels.map(postModels => Post.create({
-            id: postModels.postId,
-            title: postModels.title,
-            content: postModels.content,
-            imageName: postModels.imageName,
-            author: postModels.author,
-            authorId: postModels.authorId,
-            timestamp: +postModels.timestamp
+        const postModels = await this.postModel.findAll<PostModel>({ order: [['timestamp', 'DESC']] })
+        return postModels.map(postModel => Post.create({
+            id: postModel.postId,
+            title: postModel.title,
+            content: postModel.content,
+            imageName: postModel.imageName,
+            author: postModel.author,
+            authorId: postModel.authorId,
+            timestamp: +postModel.timestamp
         }))
     }
     async savePost(postData: Post) {
