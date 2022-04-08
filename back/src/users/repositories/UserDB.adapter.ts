@@ -1,4 +1,4 @@
-import { Inject, Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { UserModel } from "../../Database/sequelizeModels/User.model";
 import { User } from "../entities/User";
@@ -6,10 +6,7 @@ import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 
 @Injectable()
 export class UserDBadapter implements IUsersRepository {
-    constructor(
-        // @Inject('USER_REPOSITORY') private userModel: typeof UserModel,
-        @InjectModel(UserModel) private readonly userModel: typeof UserModel,
-    ) { }
+    constructor(@InjectModel(UserModel) private readonly userModel: typeof UserModel) { }
 
     async saveUser(user: User): Promise<void> {
         await this.userModel.create<UserModel>({
