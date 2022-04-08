@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CommentModel } from "../../../Database/sequelizeModels/Comment.model";
 import { Comment } from "../entities/comment.entity";
@@ -6,10 +6,7 @@ import ICommentsRepository from "../interfaces/CommentsRepository";
 
 @Injectable()
 export default class CommentsDBAdapter implements ICommentsRepository {
-    constructor(
-        // @Inject('COMMENT_REPOSITORY') private readonly commentModel: typeof CommentModel,
-        @InjectModel(CommentModel) private readonly commentModel: typeof CommentModel,
-    ) { }
+    constructor(@InjectModel(CommentModel) private readonly commentModel: typeof CommentModel) { }
 
     async saveComment(postId: string, comment: Comment) {
         await this.commentModel.create<CommentModel>({
@@ -35,7 +32,8 @@ export default class CommentsDBAdapter implements ICommentsRepository {
         })
         )
     }
-    deletePostCommentsByPostId(postId: string) {
-        throw new Error("Method not implemented.");
+    async deletePostCommentsByPostId(commentId: string) {
+        const post = await this.commentModel.findOne({ where: { commentId } })
+        await post.destroy()
     }
 }

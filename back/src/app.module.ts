@@ -18,7 +18,7 @@ import sequelizeConfig from './Database/sequelize.config';
 
 @Module({
   imports: [
-    SequelizeModule.forRoot({ ...sequelizeConfig, models: ([UserModel, PostModel, CommentModel]), synchronize: true }),
+    SequelizeModule.forRoot({ ...sequelizeConfig, models: ([UserModel, PostModel, CommentModel]), sync: true }),
     ConfigModule.forRoot({ isGlobal: true }),
     ForumModule, ImagesModule, AuthModule,
     ServeStaticModule.forRoot({
@@ -29,7 +29,8 @@ import sequelizeConfig from './Database/sequelize.config';
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    const sequelizeStore = new (SequelizeStore(session.Store))({ db: new Sequelize(sequelizeConfig) })
+    const sequelize = new Sequelize(sequelizeConfig)
+    const sequelizeStore = new (SequelizeStore(session.Store))({ db: sequelize })
     consumer
       .apply(
         session({
