@@ -17,12 +17,12 @@ export class PostsService {
     return await this.postsRepository.getAllPosts();
   }
 
-  findOne(postId: string): Post {
-    return this.postsRepository.getById(postId);
+  async findOne(postId: string): Promise<Post> {
+    return await this.postsRepository.getById(postId);
   }
 
-  update(postId: string, updatePostDto: UpdatePostDto) {
-    const post = this.postsRepository.getById(postId)
+  async update(postId: string, updatePostDto: UpdatePostDto) {
+    const post = await this.postsRepository.getById(postId)
     if (updatePostDto.imageName) {
       fs.unlink(`./${process.env.IMAGE_FOLDER}/${post.imageName}`, error => {
         if (error) {
@@ -33,8 +33,8 @@ export class PostsService {
     this.postsRepository.update(postId, updatePostDto)
   }
 
-  delete(postId: string) {
-    const post = this.postsRepository.getById(postId)
+  async delete(postId: string) {
+    const post = await this.postsRepository.getById(postId)
     if (post.imageName) {
       fs.unlink(`./${process.env.IMAGE_FOLDER}/${post.imageName}`, error => {
         if (error) {

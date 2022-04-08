@@ -46,8 +46,8 @@ export class PostsController {
     }
 
     @Get(':postId')
-    getPostById(@Param('postId') postId: string) {
-        const post = this.postsService.findOne(postId);
+    async getPostById(@Param('postId') postId: string) {
+        const post = await this.postsService.findOne(postId);
         if (post.imageName) {
             const postResponseDto = {
                 ...post,
@@ -62,8 +62,8 @@ export class PostsController {
     @UseGuards(AuthenticationGuard)
     @Patch(':postId')
     @UseInterceptors(FileInterceptor('file'))
-    updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
-        const post = this.postsService.findOne(postId)
+    async updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
+        const post = await this.postsService.findOne(postId)
         if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             if (file) {
                 updatePostDto.imageName = `${file.filename}`
@@ -76,8 +76,8 @@ export class PostsController {
 
     @UseGuards(AuthenticationGuard)
     @Delete(':postId')
-    deletePostById(@Param('postId') postId: string, @Req() req) {
-        const post = this.postsService.findOne(postId)
+    async deletePostById(@Param('postId') postId: string, @Req() req) {
+        const post = await this.postsService.findOne(postId)
         if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             this.postsService.delete(postId);
         } else {
