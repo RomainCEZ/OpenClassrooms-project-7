@@ -39,7 +39,7 @@ export class UsersService {
     }
 
     update(id: string, updateUserDto: UpdateUserDto) {
-        return `This action updates a #${id} with ${updateUserDto}`;
+        return this.usersRepository.updateRole(id, updateUserDto)
     }
 
     remove(id: string) {

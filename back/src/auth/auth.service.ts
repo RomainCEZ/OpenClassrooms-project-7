@@ -10,21 +10,21 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
     constructor(
         private usersService: UsersService,
-    ) {}
+    ) { }
 
     async validateUser(email: string, password: string): Promise<any> {
         const user = await this.usersService.findByEmail(email.toLowerCase());
         const passwordIsValid = this.verifyPassword(UserPassword.createPlainText(password).password, user.password)
         if (user && passwordIsValid) {
-          const { password, email, ...userInfo } = user;
-          return userInfo;
+            const { password, email, ...userInfo } = user;
+            return userInfo;
         }
         return null;
     }
     createSession(loginUserDto: LoginUserDto) {
-    const user = this.usersService.findByEmail(loginUserDto.email.toLowerCase())
-    this.verifyPassword(UserPassword.createPlainText(loginUserDto.password).password, user.password)
-    return { userId: user.id, username: user.username }
+        const user = this.usersService.findByEmail(loginUserDto.email.toLowerCase())
+        this.verifyPassword(UserPassword.createPlainText(loginUserDto.password).password, user.password)
+        return { userId: user.id, username: user.username }
     }
 
     async createUser(createUserDto: CreateUserDto) {

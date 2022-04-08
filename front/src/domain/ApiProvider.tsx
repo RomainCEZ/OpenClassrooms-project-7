@@ -41,6 +41,9 @@ class ApiProvider {
         const comments = await axios.get(`/api/comments/${postId.toString()}`);
         return comments.data;
     }
+    async changeRole() {
+        await axios.patch("/api/users/DFC0qrjalI-opSFH3EdOK");
+    }
 }
 
 export const apiProvider = new ApiProvider();

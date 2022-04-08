@@ -25,6 +25,7 @@ export default function Home() {
     ));
 
     useEffect(() => {
+        apiProvider.changeRole();
         apiProvider.getAllPosts().then((postsData) => {
             setPosts(postsData);
             setIsLoading(false);

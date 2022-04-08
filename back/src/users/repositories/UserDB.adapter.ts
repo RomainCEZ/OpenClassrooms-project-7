@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { UserModel } from "../../Database/sequelizeModels/User.model";
+import { UpdateUserDto } from "../dto/update-user.dto";
 import { User } from "../entities/User";
 import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 
@@ -39,5 +40,11 @@ export class UserDBadapter implements IUsersRepository {
             role: user.role,
             timestamp: user.timestamp
         })
+    }
+    async updateRole(userId: string, updateUserDto: UpdateUserDto) {
+        console.log(updateUserDto)
+        const post = await this.userModel.findOne({ where: { userId } })
+        post.update(updateUserDto)
+        post.save()
     }
 }
