@@ -41,6 +41,18 @@ class ApiProvider {
         const comments = await axios.get(`/api/comments/${postId.toString()}`);
         return comments.data;
     }
+    async getCommentById(commentId: string) {
+        const comment = await axios.get(
+            `/api/comments/${commentId.toString()}`
+        );
+        return comment.data;
+    }
+    async updateComment(commentId: string, content: string) {
+        await axios.patch(`/api/comments/${commentId.toString()}`, content);
+    }
+    async deleteComment(commentId: string) {
+        await axios.delete(`/api/comments/${commentId.toString()}`);
+    }
 }
 
 export const apiProvider = new ApiProvider();

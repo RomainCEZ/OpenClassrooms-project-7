@@ -12,9 +12,10 @@ import Comment from "./Comment";
 import CommentLoader from "./CommentLoader";
 import ReactTimeAgo from "react-time-ago";
 import NewComment from "./NewComment";
+import DraftjsView from "../../components/Draftjs/DraftjsView";
 
 export default function PostView() {
-    const { user } = useContext(SessionContext);
+    const { user, navigate } = useContext(SessionContext);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
@@ -30,7 +31,9 @@ export default function PostView() {
                 key={comment.id}
                 content={comment.content}
                 author={comment.author}
+                authorId={comment.id}
                 timestamp={comment.timestamp}
+                deleteComment={() => deleteComment(comment.id)}
             />
         );
     });
@@ -42,6 +45,10 @@ export default function PostView() {
         apiProvider.getCommentsByPostId(id).then((commentsData) => {
             return setCommentsData(commentsData);
         });
+    };
+    const deleteComment = async (id) => {
+        await apiProvider.deleteComment(id);
+        getComments();
     };
 
     useEffect(() => {
@@ -88,31 +95,28 @@ export default function PostView() {
                             par <span className="font-bold">{post.author}</span>
                         </p>
                     </div>
-                    <div className="flex flex-col w-full p-2">
+                    <div className="flex flex-col w-full">
                         {post.imageUrl && (
                             <img src={post.imageUrl} className="py-3 w-full " />
                         )}
-                        <Editor
-                            readOnly
-                            toolbarHidden
-                            textAlignment="left"
-                            editorState={post.content}
-                            wrapperClassName="flex flex-col h-full w-full wrapper-class bg-gray-200 border-b border-indigo-900 "
-                            editorClassName="editor-class px-3 bg-white"
-                        />
+                        <div className=" border-b border-indigo-900">
+                            <DraftjsView editorState={post.content} />
+                        </div>
                     </div>
                     {(user.id === post.authorId || user.role === "admin") && (
-                        <div className="flex justify-end items-center m-1 mr-2 gap-2">
+                        <div className="flex justify-end items-center pt-2 m-1 mr-2 gap-2">
                             <BlueLinkButton path={`/post/${id}/edit`}>
                                 Éditer
                             </BlueLinkButton>
-                            <Link
-                                to="/"
+                            <button
                                 className="flex justify-center p-2 px-6 text-white font-bold rounded bg-red-800 hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow active:bg-red-500 transition-all"
-                                onClick={() => apiProvider.deletePost(id)}
+                                onClick={async () => {
+                                    await apiProvider.deletePost(id);
+                                    navigate("/");
+                                }}
                             >
                                 Supprimer
-                            </Link>
+                            </button>
                         </div>
                     )}
                 </div>
