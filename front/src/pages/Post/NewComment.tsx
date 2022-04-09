@@ -26,7 +26,9 @@ export default function NewComment({ postId, getComments }) {
                         }
                         value={newComment.content}
                     />
-                    <BlueFormButton>Envoyer</BlueFormButton>
+                    <div className="ml-auto">
+                        <BlueFormButton>Envoyer</BlueFormButton>
+                    </div>
                 </form>
             ) : (
                 <p className="flex flex-col sm:flex-row items-center justify-center my-4 p-2 rounded bg-white border border-indigo-900 px-6">

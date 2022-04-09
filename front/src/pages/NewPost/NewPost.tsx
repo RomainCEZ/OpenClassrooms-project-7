@@ -8,6 +8,7 @@ import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
+import BlueFormButton from "../../components/Buttons/BlueFormButton";
 
 export default function NewPost() {
     const [editorState, setEditorState] = useState(() =>
@@ -99,12 +100,10 @@ export default function NewPost() {
                     accept="image/png, image/jpeg"
                     onChange={(event) => changeImage(event)}
                 />
-                <div className="flex justify-between gap-2">
-                    <button className="text-white font-bold bg-blue-900 p-2 w-3/4 rounded">
-                        Publier
-                    </button>
+                <div className="flex w-full gap-4">
+                    <BlueFormButton>Publier</BlueFormButton>
                     <div
-                        className="text-center font-bold flex-grow p-2 border bg-white border-blue-900 rounded cursor-pointer"
+                        className="text-center font-bold p-2 px-10 border bg-white border-blue-900 rounded cursor-pointer"
                         onClick={() =>
                             setPreview((prevPreview) => !prevPreview)
                         }

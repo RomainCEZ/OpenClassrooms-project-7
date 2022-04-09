@@ -47,14 +47,14 @@ export default function PostPreview({
                         par <span className="font-bold">{author}</span>
                     </p>
                 </div>
-                <div className="pb-2 border-b border-indigo-900 group-hover:border-indigo-600 transition-all">
+                <div className="border-b border-indigo-900 group-hover:border-indigo-600 transition-all">
                     {src ? (
                         <img src={src} className="pt-3 w-full object-contain" />
                     ) : (
                         <DraftjsView editorState={editorState} />
                     )}
                 </div>
-                <p className="text-sm px-2 pt-4 group-hover:text-gray-600 transition-all">
+                <p className="text-sm px-2 pb-2 pt-4 group-hover:text-gray-600 transition-all">
                     x commentaires
                 </p>
             </article>
