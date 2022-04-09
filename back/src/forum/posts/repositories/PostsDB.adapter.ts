@@ -47,7 +47,6 @@ export class PostsDBAdapter implements IPostsRepository {
     async update(postId: string, updatePostDto: UpdatePostDto) {
         const post = await this.postModel.findOne({ where: { postId } })
         post.update({ ...updatePostDto })
-        post.save()
     }
     async delete(postId: string) {
         const post = await this.postModel.findOne({ where: { postId } })

@@ -19,15 +19,15 @@ export class CommentsService {
     return this.commentsRepository.getPostCommentsByPostId(postId)
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} comment`;
+  async getCommentById(commentId: string): Promise<Comment> {
+    return await this.commentsRepository.getCommentById(commentId)
   }
 
-  update(id: number, updateCommentDto: UpdateCommentDto) {
-    return `This action updates a #${id} comment`;
+  async updateCommentById(commentId: string, updatedContent: UpdateCommentDto) {
+    return await this.commentsRepository.updateCommentById(commentId, updatedContent)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} comment`;
+  async deleteCommentById(commentId: string) {
+    return await this.commentsRepository.deleteCommentById(commentId)
   }
 }

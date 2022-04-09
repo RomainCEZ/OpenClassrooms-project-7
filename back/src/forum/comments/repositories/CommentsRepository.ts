@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { UpdateCommentDto } from "../dto/update-comment.dto";
 import { Comment } from "../entities/comment.entity";
 import ICommentsRepository from "../interfaces/CommentsRepository";
 import CommentData from "../interfaces/PostComments";
@@ -12,7 +13,13 @@ export default class CommentsRepository implements ICommentsRepository {
     getPostCommentsByPostId(postId: string): CommentData {
         throw new Error("Method not implemented.");
     }
-    deletePostCommentsByPostId(postId: string) {
+    getCommentById(commentId: string): Comment | Promise<Comment> {
+        throw new Error("Method not implemented.");
+    }
+    updateCommentById(commentId: string, updateCommentDto: UpdateCommentDto) {
+        throw new Error("Method not implemented.");
+    }
+    deleteCommentById(commentId: string) {
         throw new Error("Method not implemented.");
     }
 }

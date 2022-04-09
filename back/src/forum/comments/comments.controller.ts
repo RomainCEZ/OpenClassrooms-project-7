@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } fro
 import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 
 @Controller('api/comments')
 export class CommentsController {
@@ -24,18 +23,26 @@ export class CommentsController {
     return postComments
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(+id);
+  @Get(':commentId')
+  async findOne(@Param('commentId') commentId: string) {
+    return await this.commentsService.getCommentById(commentId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentsService.update(+id, updateCommentDto);
+  @UseGuards(AuthenticationGuard)
+  @Patch(':commentId')
+  async update(@Param('commentId') commentId: string, @Req() req) {
+    const comment = await this.commentsService.getCommentById(commentId)
+    if (req.user.id === comment.authorId || req.user.role === 'admin') {
+      return this.commentsService.updateCommentById(commentId, { ...req.body });
+    }
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  @UseGuards(AuthenticationGuard)
+  @Delete(':commentId')
+  async remove(@Param('commentId') commentId: string, @Req() req) {
+    const comment = await this.commentsService.getCommentById(commentId)
+    if (req.user.id === comment.authorId || req.user.role === 'admin') {
+      return this.commentsService.deleteCommentById(commentId);
+    }
   }
 }
