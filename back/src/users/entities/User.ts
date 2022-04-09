@@ -7,13 +7,15 @@ export class User {
     readonly username: string
     readonly password: string
     readonly role: string
+    readonly timestamp: number
 
-    constructor({ id, email, username, password, role }: UserProps) {
+    constructor({ id, email, username, password, role, timestamp }: UserProps) {
         this.id = id
         this.email = email
         this.username = username
         this.password = password
         this.role = role
+        this.timestamp = timestamp
     }
 
     public static create({ id, email, username, password, role }: UserProps) {
@@ -22,7 +24,8 @@ export class User {
             email,
             username,
             password,
-            role: role || "user"
-          })
+            role: role || "user",
+            timestamp: Date.now()
+        })
     }
 }

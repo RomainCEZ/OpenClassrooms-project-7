@@ -2,10 +2,10 @@ import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersData } from '../data/Users';
 import { User } from '../entities/User';
 // import { UpdateUserDto } from '../dto/update-user.dto';
-import { UsersRepository } from '../interfaces/UsersRepository.interface';
+import { IUsersRepository } from '../interfaces/UsersRepository.interface';
 
 @Injectable()
-export class InMemoryUsersRepository implements UsersRepository {
+export class InMemoryUsersRepository implements IUsersRepository {
     data: User[]
     constructor() {
         this.data = UsersData
@@ -15,7 +15,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         this.isUnique(user)
         this.data.push(user)
     }
-    
+
     getByEmail(email: string): User {
         const user = this.data.find(user => user.email === email)
         if (!user) {
@@ -23,7 +23,7 @@ export class InMemoryUsersRepository implements UsersRepository {
         }
         return user
     }
-    
+
     getById(id: string): User {
         const user = this.data.find(user => user.id === id)
         if (!user) {

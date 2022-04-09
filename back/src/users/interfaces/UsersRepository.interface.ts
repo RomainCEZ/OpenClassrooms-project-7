@@ -1,13 +1,13 @@
 import { User } from "../entities/User";
 
-export interface UsersRepository {
-
+export interface IUsersRepository {
+    data?: User[]
     // getAllUsers(): UserData[]
 
-    saveUser(user: User): void
+    saveUser(user: User)
 
-    getByEmail(email: string): User 
+    getByEmail(email: string)
 
-    getById(id: string): User
+    getById(id: string)
 
 }

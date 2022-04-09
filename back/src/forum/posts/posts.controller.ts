@@ -23,14 +23,15 @@ export class PostsController {
         if (file) {
             createPostDto.imageName = `${file.filename}`
         }
-        createPostDto.userId = req.user.id
+        createPostDto.author = req.user.username
+        createPostDto.authorId = req.user.id
         this.postsService.create(createPostDto);
     }
 
     @Get()
-    getAllPosts() {
-        const allPosts = this.postsService.findAll();
-        const allPostsDto = allPosts.map( post => {
+    async getAllPosts() {
+        const allPosts = await this.postsService.findAll();
+        const allPostsDto = allPosts.map(post => {
             if (post.imageName) {
                 const postResponseDto = {
                     ...post,
@@ -45,8 +46,8 @@ export class PostsController {
     }
 
     @Get(':postId')
-    getPostById(@Param('postId') postId: string) {
-        const post = this.postsService.findOne(postId);
+    async getPostById(@Param('postId') postId: string) {
+        const post = await this.postsService.findOne(postId);
         if (post.imageName) {
             const postResponseDto = {
                 ...post,
@@ -61,9 +62,9 @@ export class PostsController {
     @UseGuards(AuthenticationGuard)
     @Patch(':postId')
     @UseInterceptors(FileInterceptor('file'))
-    updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
-        const post = this.postsService.findOne(postId)
-        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+    async updatePostById(@UploadedFile() file: Express.Multer.File, @Body("data", ParseJsonPipe) updatePostDto: UpdatePostDto, @Param('postId') postId: string, @Req() req) {
+        const post = await this.postsService.findOne(postId)
+        if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             if (file) {
                 updatePostDto.imageName = `${file.filename}`
             }
@@ -75,9 +76,9 @@ export class PostsController {
 
     @UseGuards(AuthenticationGuard)
     @Delete(':postId')
-    deletePostById(@Param('postId') postId: string, @Req() req) {
-        const post = this.postsService.findOne(postId)
-        if ((req.user.id && req.user.id === post.userId) || (req.user.role && req.user.role === "admin")) {
+    async deletePostById(@Param('postId') postId: string, @Req() req) {
+        const post = await this.postsService.findOne(postId)
+        if ((req.user.id && req.user.id === post.authorId) || (req.user.role && req.user.role === "admin")) {
             this.postsService.delete(postId);
         } else {
             return "Requête non autorisée !"

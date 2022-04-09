@@ -1,34 +1,48 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
-import { UpdateCommentDto } from './dto/update-comment.dto';
 
-@Controller('comments')
+@Controller('api/comments')
 export class CommentsController {
-  constructor(private readonly commentsService: CommentsService) {}
+  constructor(private readonly commentsService: CommentsService) { }
 
-  @Post()
-  create(@Body() createCommentDto: CreateCommentDto) {
-    return this.commentsService.create(createCommentDto);
+  @UseGuards(AuthenticationGuard)
+  @Post(":postId")
+  async create(@Body() createCommentDto: CreateCommentDto, @Req() req, @Param("postId") postId: string) {
+    createCommentDto.content = req.body.content
+    createCommentDto.postId = postId
+    createCommentDto.author = req.user.username
+    createCommentDto.authorId = req.user.id
+    await this.commentsService.create(createCommentDto);
   }
 
-  @Get()
-  findAll() {
-    return this.commentsService.findAll();
+  @Get(":postId")
+  async findAll(@Param("postId") postId: string) {
+    const postComments = await this.commentsService.findAll(postId);
+    return postComments
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(+id);
+  @Get(':commentId')
+  async findOne(@Param('commentId') commentId: string) {
+    return await this.commentsService.getCommentById(commentId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommentDto: UpdateCommentDto) {
-    return this.commentsService.update(+id, updateCommentDto);
+  @UseGuards(AuthenticationGuard)
+  @Patch(':commentId')
+  async update(@Param('commentId') commentId: string, @Req() req) {
+    const comment = await this.commentsService.getCommentById(commentId)
+    if (req.user.id === comment.authorId || req.user.role === 'admin') {
+      return this.commentsService.updateCommentById(commentId, { ...req.body });
+    }
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.commentsService.remove(+id);
+  @UseGuards(AuthenticationGuard)
+  @Delete(':commentId')
+  async remove(@Param('commentId') commentId: string, @Req() req) {
+    const comment = await this.commentsService.getCommentById(commentId)
+    if (req.user.id === comment.authorId || req.user.role === 'admin') {
+      return this.commentsService.deleteCommentById(commentId);
+    }
   }
 }

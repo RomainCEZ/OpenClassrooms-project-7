@@ -14,35 +14,19 @@ export const SessionContext = createContext({
 export const SessionProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState({ id: null, username: null, role: null });
-    const navigate = useNavigate()
-    
+    const navigate = useNavigate();
     function createSession(sessionInfo) {
         setUser(sessionInfo);
     }
     useEffect(() => {
         const relog = async () => {
-            const userInfo = await authProvider.relog()
-            // switch (userInfo) {
-            //     case 401:
-            //     case 403:
-            //         navigate("/login")
-            //         break;
-            //     default:
-                    if ((userInfo !== 401) && (userInfo !== 403) ) {
-                        setUser(userInfo)
-                        setLoggedIn(true)
-                        navigate("/")
-                    // }
-                    // break;
+            const userInfo = await authProvider.relog();
+            if (userInfo !== 401 && userInfo !== 403) {
+                setUser(userInfo);
+                setLoggedIn(true);
             }
-        }
-            relog().catch(
-                error => {
-                    if ((location.pathname !== '/login' && location.pathname !== '/signup')) {
-                        navigate('/login')
-                }
-            })
-        // }
+        };
+        relog().catch((error) => {});
     }, []);
 
     function logout() {
@@ -52,7 +36,14 @@ export const SessionProvider = ({ children }) => {
 
     return (
         <SessionContext.Provider
-            value={{ loggedIn, setLoggedIn, user, createSession, logout, navigate }}
+            value={{
+                loggedIn,
+                setLoggedIn,
+                user,
+                createSession,
+                logout,
+                navigate,
+            }}
         >
             {children}
         </SessionContext.Provider>
