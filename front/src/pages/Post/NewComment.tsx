@@ -26,7 +26,7 @@ export default function NewComment({ postId, getComments }) {
                         }
                         value={newComment.content}
                     />
-                    <div className="ml-auto">
+                    <div className="ml-auto m-2">
                         <BlueFormButton>Envoyer</BlueFormButton>
                     </div>
                 </form>
