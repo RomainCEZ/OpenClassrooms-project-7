@@ -34,7 +34,6 @@ export default class CommentsDBAdapter implements ICommentsRepository {
         )
     }
     async getCommentById(commentId: string): Promise<Comment> {
-        console.log(commentId + 'adapter')
         const comment = await this.commentModel.findOne({ where: { commentId } })
         return Comment.create({
             id: comment.commentId,
