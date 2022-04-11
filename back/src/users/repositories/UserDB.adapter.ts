@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { UserModel } from "../../Database/sequelizeModels/User.model";
 import { User } from "../entities/User";
@@ -20,6 +20,9 @@ export class UserDBadapter implements IUsersRepository {
     }
     async getByEmail(email: string): Promise<User> {
         const user = await this.userModel.findOne<UserModel>({ where: { email } });
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
         return User.create({
             id: user.userId,
             email: user.email,
@@ -28,9 +31,13 @@ export class UserDBadapter implements IUsersRepository {
             role: user.role,
             timestamp: user.timestamp
         })
+
     }
     async getById(id: string): Promise<User> {
         const user = await this.userModel.findOne<UserModel>({ where: { id } });
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
         return User.create({
             id: user.userId,
             email: user.email,
@@ -39,5 +46,6 @@ export class UserDBadapter implements IUsersRepository {
             role: user.role,
             timestamp: user.timestamp
         })
+
     }
 }

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { Email } from '../users/entities/Email.entity';
@@ -14,8 +14,12 @@ export class AuthService {
 
     async validateUser(email: string, password: string): Promise<any> {
         const user = await this.usersService.findByEmail(email.toLowerCase());
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
         const passwordIsValid = this.verifyPassword(UserPassword.createPlainText(password).password, user.password)
-        if (user && passwordIsValid) {
+        if (passwordIsValid) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { password, email, ...userInfo } = user;
             return userInfo;
         }
