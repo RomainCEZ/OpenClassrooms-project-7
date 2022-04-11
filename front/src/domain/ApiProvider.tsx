@@ -47,7 +47,7 @@ class ApiProvider {
         );
         return comment.data;
     }
-    async updateComment(commentId: string, content: string) {
+    async updateComment(commentId: string, content: { content: string }) {
         await axios.patch(`/api/comments/${commentId.toString()}`, content);
     }
     async deleteComment(commentId: string) {
