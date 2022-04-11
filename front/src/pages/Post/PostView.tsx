@@ -25,19 +25,6 @@ export default function PostView() {
     });
     const [commentsData, setCommentsData] = useState([]);
 
-    const commentsElements = commentsData.map((comment) => {
-        return (
-            <Comment
-                key={comment.id}
-                content={comment.content}
-                author={comment.author}
-                authorId={comment.id}
-                timestamp={comment.timestamp}
-                deleteComment={() => deleteComment(comment.id)}
-            />
-        );
-    });
-
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const id = document.location.pathname.split("/post/")[1];
 
@@ -46,10 +33,19 @@ export default function PostView() {
             return setCommentsData(commentsData);
         });
     };
-    const deleteComment = async (id) => {
-        await apiProvider.deleteComment(id);
-        getComments();
-    };
+    const commentsElements = commentsData.map((comment) => {
+        return (
+            <Comment
+                key={comment.id}
+                commentId={comment.id}
+                content={comment.content}
+                author={comment.author}
+                authorId={comment.id}
+                timestamp={comment.timestamp}
+                getComments={getComments}
+            />
+        );
+    });
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
