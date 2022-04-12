@@ -1,38 +1,35 @@
 import { useContext, useState } from "react";
 import { SessionContext } from "./context/SessionContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { authProvider } from "../../domain/AuthProvider";
 
 export default function Login() {
-    const [form, setForm] = useState({ email: "", password: "" });
-    const { loggedIn, setLoggedIn, createSession } = useContext(SessionContext);
-    const {
-        register,
-        watch,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        reValidateMode: "onBlur",
-        defaultValues: {
-            email: "",
-            password: "",
-        },
-    });
-
-    const navigate = useNavigate();
+    const loginForm = { email: "", password: "" };
+    const [form, setForm] = useState(loginForm);
+    const { loggedIn, setLoggedIn, createSession, navigate } =
+        useContext(SessionContext);
+    const [formErrors, setFormErrors] = useState(loginForm);
+    const resetFormErrors = () => {
+        if (formErrors !== loginForm) {
+            setFormErrors(loginForm);
+        }
+    };
 
     function changeEmail(event: React.ChangeEvent<HTMLInputElement>) {
+        resetFormErrors();
         const value = event.target.value;
         setForm((form) => ({ ...form, email: value }));
     }
     function changePassword(event: React.ChangeEvent<HTMLInputElement>) {
+        resetFormErrors();
         const value = event.target.value;
         setForm((form) => ({ ...form, password: value }));
     }
     async function login(e: React.FormEvent<HTMLFormElement>) {
+        resetFormErrors();
         e.preventDefault();
-        if (form.email && form.password) {
+        try {
             const loginInfo = {
                 email: form.email,
                 password: form.password,
@@ -41,36 +38,52 @@ export default function Login() {
             await setLoggedIn(true);
             await createSession(loginResponse.data);
             navigate("/");
-        } else {
-            console.log("erreur");
+        } catch (error) {
+            if (error.statusCode === 401) {
+                setFormErrors({
+                    ...formErrors,
+                    password: `*${error.message}*`,
+                });
+            }
+            if (error.statusCode === 404) {
+                setFormErrors({ ...formErrors, email: `*${error.message}*` });
+            }
         }
     }
 
     return (
-        <section className="flex flex-col content-center justify-center rounded">
-            <form
-                onSubmit={login}
-                className="flex flex-col p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
-            >
+        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded">
+            <form onSubmit={login} className="flex flex-col p-5 gap-2">
+                <label htmlFor="email" className="flex flex-col font-bold mt-1">
+                    Email :
+                </label>
                 <input
-                    {...register("email")}
                     type="email"
-                    placeholder="Email"
-                    className="p-2 border border-blue-900 rounded"
+                    name="email"
+                    className="mx-2 p-2 border border-blue-900 rounded"
                     onChange={(event) => changeEmail(event)}
                     value={form.email}
                     required
                 />
+                <p className="mx-4 h-6 font-bold text-red-700">
+                    {formErrors.email}
+                </p>
+
+                <label htmlFor="password" className="flex flex-col font-bold">
+                    Mot de passe :
+                </label>
                 <input
-                    {...register("password")}
                     type="password"
-                    placeholder="Mot de passe"
-                    className="p-2 border border-blue-900 rounded"
+                    name="password"
+                    className="mx-2 p-2 border border-blue-900 rounded"
                     onChange={(event) => changePassword(event)}
                     value={form.password}
                     required
                 />
-                <button className="text-white bg-blue-900 p-2 rounded hover:bg-blue-700 hover:shadow-sm hover:shadow-blue-800">
+                <p className="mx-4 h-6 font-bold text-red-700">
+                    {formErrors.password}
+                </p>
+                <button className="text-white bg-blue-900 mx-2 mt-2 p-2 rounded hover:bg-blue-700 hover:shadow-sm hover:shadow-blue-800">
                     Se connecter
                 </button>
                 <Link
