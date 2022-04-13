@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import BlueFormButton from "../../components/Buttons/BlueFormButton";
-import { apiProvider } from "../../domain/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
+import BlueFormButton from "../../../components/Buttons/BlueFormButton";
+import { apiProvider } from "../../../domain/ApiProvider";
+import { SessionContext } from "../../Auth/context/SessionContext";
 
 export default function NewComment({ postId, getComments }) {
     const { loggedIn } = useContext(SessionContext);

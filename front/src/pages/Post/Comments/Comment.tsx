@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import ReactTimeAgo from "react-time-ago";
-import { apiProvider } from "../../domain/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { apiProvider } from "../../../domain/ApiProvider";
+import { SessionContext } from "../../Auth/context/SessionContext";
 
 export default function Comment({
     commentId,
