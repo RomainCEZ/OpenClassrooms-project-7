@@ -3,7 +3,6 @@ import { apiProvider } from "../../domain/ApiProvider";
 import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";
-import { useForm } from "react-hook-form";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
@@ -23,19 +22,6 @@ export default function NewPost() {
     });
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(false);
-    const {
-        register,
-        watch,
-        handleSubmit,
-        formState: { errors },
-    } = useForm({
-        reValidateMode: "onBlur",
-        defaultValues: {
-            title: "",
-            content: "",
-            image: null,
-        },
-    });
 
     const navigate = useNavigate();
 
@@ -82,7 +68,6 @@ export default function NewPost() {
                 className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
             >
                 <input
-                    {...register("title")}
                     placeholder="Titre"
                     className="p-2 border border-gray-500 rounded"
                     onChange={(event) => changeTitle(event)}
@@ -94,7 +79,6 @@ export default function NewPost() {
                     setEditorState={setEditorState}
                 />{" "}
                 <input
-                    {...register("image")}
                     type="file"
                     className=""
                     accept="image/png, image/jpeg"
