@@ -1,6 +1,5 @@
-import PostComments from "../interfaces/PostComments";
 
-export const commentsData: PostComments[] = [
+export const commentsData = [
     {
         postId: "1646256698879",
         comments: [{
