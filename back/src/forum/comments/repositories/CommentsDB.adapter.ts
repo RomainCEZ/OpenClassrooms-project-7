@@ -19,7 +19,7 @@ export default class CommentsDBAdapter implements ICommentsRepository {
             postId
         })
     }
-    async getPostCommentsByPostId(postId: string): Promise<Comment[]> {
+    async getCommentsByPostId(postId: string): Promise<Comment[]> {
         const postComments = await this.commentModel.findAll({ where: { postId }, order: ['timestamp'] })
         if (postComments.length === 0) {
             throw new NotFoundException()

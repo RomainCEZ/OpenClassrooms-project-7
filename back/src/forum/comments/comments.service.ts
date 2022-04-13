@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { Comment } from './entities/comment.entity';
-import PostComments from './interfaces/PostComments';
 import CommentsRepository from './repositories/CommentsRepository';
 
 @Injectable()
@@ -15,8 +14,8 @@ export class CommentsService {
     this.commentsRepository.saveComment(postId, comment)
   }
 
-  async findAll(postId: string): Promise<PostComments> {
-    return this.commentsRepository.getPostCommentsByPostId(postId)
+  async findAll(postId: string): Promise<Comment[]> {
+    return this.commentsRepository.getCommentsByPostId(postId)
   }
 
   async getCommentById(commentId: string): Promise<Comment> {

@@ -1,19 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from "@nestjs/common";
 import { UpdateCommentDto } from "../dto/update-comment.dto";
 import { Comment } from "../entities/comment.entity";
 import ICommentsRepository from "../interfaces/CommentsRepository";
-import CommentData from "../interfaces/PostComments";
 
 @Injectable()
 export default class CommentsRepository implements ICommentsRepository {
-
     saveComment(postId: string, comment: Comment) {
         throw new Error("Method not implemented.");
     }
-    getPostCommentsByPostId(postId: string): CommentData {
+    getCommentsByPostId(postId: string): Promise<Comment[]> {
         throw new Error("Method not implemented.");
     }
-    getCommentById(commentId: string): Comment | Promise<Comment> {
+    getCommentById(commentId: string): Promise<Comment> {
         throw new Error("Method not implemented.");
     }
     updateCommentById(commentId: string, updateCommentDto: UpdateCommentDto) {
@@ -22,4 +21,7 @@ export default class CommentsRepository implements ICommentsRepository {
     deleteCommentById(commentId: string) {
         throw new Error("Method not implemented.");
     }
+
+
+
 }
