@@ -35,7 +35,7 @@ export default function PostPreview({
         >
             <article>
                 <div className="mb-3 pb-2 border-b-2 border-indigo-900 group-hover:border-indigo-600 transition-all">
-                    <h2 className="mb-2 text-xl font-semibold decoration-2 underline underline-offset-2  text-blue-800 group-hover:text-blue-500 transition-all">
+                    <h2 className="flex mb-2 text-xl font-semibold decoration-2 underline underline-offset-2 overflow-hidden text-blue-800 group-hover:text-blue-500 transition-all">
                         {title}
                     </h2>
                     <p className="text-sm ml-2 group-hover:text-gray-600 transition-all first-letter:capitalize">
@@ -54,7 +54,7 @@ export default function PostPreview({
                         <DraftjsView editorState={editorState} />
                     )}
                 </div>
-                <p className="text-sm px-2 pb-2 pt-4 group-hover:text-gray-600 transition-all">
+                <p className="text-sm px-2 pt-4 group-hover:text-gray-600 transition-all">
                     x commentaires
                 </p>
             </article>
