@@ -1,21 +1,20 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, Fragment } from "react";
 import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
-import { Link } from "react-router-dom";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";
 import { EditorState, convertFromRaw, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import Comment from "./Comment";
-import CommentLoader from "./CommentLoader";
+import Comment from "./Comments/Comment";
+import CommentLoader from "./Comments/CommentLoader";
 import ReactTimeAgo from "react-time-ago";
-import NewComment from "./NewComment";
+import NewComment from "./Comments/NewComment";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
+import PostButtons from "./PostButtons";
 
 export default function PostView() {
-    const { user, navigate } = useContext(SessionContext);
+    const { user } = useContext(SessionContext);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
@@ -77,9 +76,9 @@ export default function PostView() {
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <div className="flex flex-col mt-2 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900">
+                <div className="flex flex-col mt-2 p-2 sm:px-5 rounded h-fit bg-white border border-indigo-900">
                     <div className="mb-3 pb-2 border-b-2 border-indigo-900">
-                        <h2 className="text-xl font-semibold p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
+                        <h2 className="text-xl font-semibold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
                             {post.title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">
@@ -93,28 +92,16 @@ export default function PostView() {
                     </div>
                     <div className="flex flex-col w-full">
                         {post.imageUrl && (
-                            <img src={post.imageUrl} className="py-3 w-full " />
+                            <img src={post.imageUrl} className="py-3 w-full" />
                         )}
-                        <div className=" border-b border-indigo-900">
+                        <div className="border-b border-indigo-900">
                             <DraftjsView editorState={post.content} />
                         </div>
                     </div>
-                    {(user.id === post.authorId || user.role === "admin") && (
-                        <div className="flex justify-end items-center pt-2 m-1 mr-2 gap-2">
-                            <BlueLinkButton path={`/post/${id}/edit`}>
-                                Éditer
-                            </BlueLinkButton>
-                            <button
-                                className="flex justify-center p-2 px-6 text-white font-bold rounded bg-red-800 hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow active:bg-red-500 transition-all"
-                                onClick={async () => {
-                                    await apiProvider.deletePost(id);
-                                    navigate("/");
-                                }}
-                            >
-                                Supprimer
-                            </button>
-                        </div>
-                    )}
+                    <div className="h-14 py-3 px-2">
+                        {(user.id === post.authorId ||
+                            user.role === "admin") && <PostButtons />}
+                    </div>
                 </div>
             )}
             <NewComment postId={id} getComments={getComments} />
