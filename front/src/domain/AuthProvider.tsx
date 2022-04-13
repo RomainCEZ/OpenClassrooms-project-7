@@ -18,8 +18,12 @@ class AuthProvider {
         }
     }
 
-    async signup(userInfo) {
-        await axios.post("/auth/signup", userInfo);
+    async signup(userInfo): Promise<void> {
+        try {
+            await axios.post("/auth/signup", userInfo);
+        } catch (error) {
+            throw error.response.data;
+        }
     }
 
     async relog() {
