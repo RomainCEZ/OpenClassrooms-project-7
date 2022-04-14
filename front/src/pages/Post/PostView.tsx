@@ -76,9 +76,9 @@ export default function PostView() {
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <div className="flex flex-col mt-2 p-2 sm:px-5 rounded h-fit bg-white border border-indigo-900">
+                <div className="flex flex-col mt-3 p-2 sm:px-5 rounded h-fit bg-white border border-indigo-900 shadow-md">
                     <div className="mb-3 pb-2 border-b-2 border-indigo-900">
-                        <h2 className="text-xl font-semibold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
+                        <h2 className="text-xl font-bold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
                             {post.title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">

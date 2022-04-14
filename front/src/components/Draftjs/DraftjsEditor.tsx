@@ -7,7 +7,7 @@ export default function DraftjsEditor({ editorState, setEditorState }) {
             editorState={editorState}
             onEditorStateChange={setEditorState}
             wrapperClassName="flex flex-col bg-gray-200 min-h-[400px] rounded gap-2"
-            editorClassName="editor-class px-4 bg-white border border-gray-500 rounded leading-3 flex-grow"
+            editorClassName="editor-class px-4 bg-white border border-gray-500 rounded leading-3 flex-grow shadow-inner"
             toolbarClassName="toolbar-class bg-white border border-gray-500 rounded"
             localization={{
                 locale: "fr",

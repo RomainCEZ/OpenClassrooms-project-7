@@ -34,7 +34,7 @@ export default function Comment({
     };
 
     return (
-        <div className="flex divide-x bg-white divide-indigo-800 border border-indigo-800 rounded-sm">
+        <div className="flex divide-x bg-white divide-indigo-800 border border-indigo-800 rounded-sm shadow-md">
             <div className="flex flex-col items-center gap-1 p-2">
                 <div
                     className="border-[16px] border-transparent border-b-blue-700
@@ -49,7 +49,7 @@ export default function Comment({
             <div className="w-full flex flex-col items-around p-4 pb-0">
                 {editing ? (
                     <textarea
-                        className="flex mb-2 p-2 w-full rounded-sm border border-indigo-900"
+                        className="flex mb-2 p-2 w-full rounded-sm border border-indigo-900 shadow-inner"
                         placeholder="Laissez un commentaire !"
                         onChange={(e) =>
                             setEditedComment({ content: e.target.value })

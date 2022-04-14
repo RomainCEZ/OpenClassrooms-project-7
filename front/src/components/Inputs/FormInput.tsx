@@ -17,13 +17,13 @@ export default function FormInput({
             <input
                 type={type}
                 name={name}
-                className="mx-2 p-2 border border-blue-900 rounded"
+                className="mx-2 p-2 border border-blue-900 rounded focus:bg-blue-100/80 outline-none shadow-inner"
                 onChange={handleChange(event)}
                 value={inputValue}
                 required
             />
             {errorMessage && (
-                <p className="mx-4 h-4 font-bold text-red-800">
+                <p className="mx-4 h-4 font-bold text-red-700">
                     {errorMessage}
                 </p>
             )}

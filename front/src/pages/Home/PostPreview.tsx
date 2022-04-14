@@ -31,7 +31,7 @@ export default function PostPreview({
     return (
         <Link
             to={`/post/${id}`}
-            className="group flex flex-col px-5 py-4 bg-white w-full border border-indigo-900 rounded hover:border-indigo-700 hover:shadow hover:shadow-indigo-500 transition-all"
+            className="group flex flex-col px-5 py-4 bg-white w-full border border-indigo-900 rounded shadow-md hover:border-blue-600 hover:shadow-blue-300/70 transition-all"
         >
             <article>
                 <div className="mb-3 pb-2 border-b-2 border-indigo-900 group-hover:border-indigo-600 transition-all">

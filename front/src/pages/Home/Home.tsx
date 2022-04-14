@@ -36,7 +36,7 @@ export default function Home() {
             {loggedIn ? (
                 <BlueLinkButton path="newPost">Nouveau post</BlueLinkButton>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center p-2 rounded bg-white border border-indigo-900 px-6">
+                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded bg-white border border-indigo-900 shadow-md">
                     <span>
                         <Link
                             to="/login"
@@ -55,7 +55,7 @@ export default function Home() {
                     &nbsp;pour publier votre contenu !
                 </p>
             )}
-            <section className="flex flex-col mt-2 gap-1 w-full">
+            <section className="flex flex-col mt-3 gap-1 w-full">
                 {isLoading ? (
                     <>
                         <PostPreviewLoader />
