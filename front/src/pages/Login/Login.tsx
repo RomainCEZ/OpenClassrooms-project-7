@@ -57,7 +57,7 @@ export default function Login() {
     }
 
     return (
-        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded">
+        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
             <form
                 id="login"
                 onSubmit={login}
