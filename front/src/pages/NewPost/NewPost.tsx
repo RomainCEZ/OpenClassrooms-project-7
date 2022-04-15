@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { apiProvider } from "../../domain/ApiProvider";
-import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
+import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
-import BlueFormButton from "../../components/Buttons/BlueFormButton";
+import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
+import { SessionContext } from "../Auth/context/SessionContext";
+import ReactTimeAgo from "react-time-ago";
+import WhiteOnClickButton from "../../components/Buttons/OnClick/WhiteOnClickButton";
 
 export default function NewPost() {
+    const { user } = useContext(SessionContext);
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
@@ -63,51 +67,58 @@ export default function NewPost() {
     return (
         <section className="flex flex-col content-center justify-center rounded">
             <BlueLinkButton path="/">Retour</BlueLinkButton>
-            <form
-                onSubmit={postContent}
-                className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
-            >
-                <input
-                    placeholder="Titre"
-                    className="p-2 border border-gray-500 rounded"
-                    onChange={(event) => changeTitle(event)}
-                    value={form.title}
-                    required
-                />
-                <DraftjsEditor
-                    editorState={editorState}
-                    setEditorState={setEditorState}
-                />{" "}
-                <input
-                    type="file"
-                    className=""
-                    accept="image/png, image/jpeg"
-                    onChange={(event) => changeImage(event)}
-                />
-                <div className="flex w-full gap-4">
-                    <BlueFormButton>Publier</BlueFormButton>
-                    <div
-                        className="text-center font-bold p-2 px-10 border bg-white border-blue-900 rounded cursor-pointer"
-                        onClick={() =>
-                            setPreview((prevPreview) => !prevPreview)
-                        }
-                    >
-                        Aperçu
+            {preview ? (
+                <div className="mt-3 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900 shadow-md">
+                    <div className="mb-3 pb-2 border-b-2 border-indigo-900">
+                        <h2 className="text-xl font-bold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
+                            {form.title}
+                        </h2>
+                        <p className="text-sm ml-2 first-letter:capitalize">
+                            <ReactTimeAgo
+                                date={Date.now()}
+                                locale="fr-FR"
+                                className="font-bold"
+                            />{" "}
+                            par{" "}
+                            <span className="font-bold">{user.username}</span>
+                        </p>
                     </div>
-                </div>
-            </form>
-
-            {preview && (
-                <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-indigo-900 divide-blue-900 divide-y-2">
-                    <h2 className="text-xl font-bold p-2 border-blue-900">
-                        {form.title}
-                    </h2>
                     {image && (
                         <img src={form.imageUrl} className="pt-3 w-full" />
                     )}
                     <DraftjsView editorState={editorState} />
                 </div>
+            ) : (
+                <form
+                    id="newpost"
+                    onSubmit={postContent}
+                    className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded shadow-md"
+                >
+                    <input
+                        placeholder="Titre"
+                        className="p-2 border border-gray-500 rounded shadow-inner"
+                        onChange={(event) => changeTitle(event)}
+                        value={form.title}
+                        required
+                    />
+                    <DraftjsEditor
+                        editorState={editorState}
+                        setEditorState={setEditorState}
+                    />{" "}
+                    {/* <input
+                        type="file"
+                        className=""
+                        accept="image/png, image/jpeg"
+                        onChange={(event) => changeImage(event)}
+                    /> */}
+                </form>
             )}
+            <div className="flex w-full gap-4 mt-3">
+                <BlueFormButton target="newpost">Publier</BlueFormButton>
+                <WhiteOnClickButton onClick={() => setPreview(!preview)}>
+                    {preview ? "Éditer" : "Aperçu"}
+                </WhiteOnClickButton>
+            </div>
         </section>
     );
 }
