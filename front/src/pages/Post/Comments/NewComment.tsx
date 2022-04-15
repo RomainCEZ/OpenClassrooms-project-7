@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import BlueFormButton from "../../../components/Buttons/BlueFormButton";
+import BlueFormButton from "../../../components/Buttons/FormSubmit/BlueFormButton";
 import { apiProvider } from "../../../domain/ApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
 
@@ -18,15 +18,17 @@ export default function NewComment({ postId, getComments }) {
         <>
             {loggedIn ? (
                 <form onSubmit={postComment} className="flex flex-col">
-                    <textarea
-                        id="newcomment"
-                        className="flex mt-4 p-3 h-20 w-full rounded-sm border border-indigo-900 shadow-inner"
-                        placeholder="Laissez un commentaire !"
-                        onChange={(e) =>
-                            setNewComment({ content: e.target.value })
-                        }
-                        value={newComment.content}
-                    />
+                    <div className="mt-10 shadow-md">
+                        <textarea
+                            id="newcomment"
+                            className="flex p-3 h-20 w-full rounded-sm border border-indigo-900 shadow-inner"
+                            placeholder="Laissez un commentaire !"
+                            onChange={(e) =>
+                                setNewComment({ content: e.target.value })
+                            }
+                            value={newComment.content}
+                        />
+                    </div>
                     <div className="ml-auto m-2">
                         <BlueFormButton target="newcomment">
                             Envoyer
