@@ -58,7 +58,11 @@ export default function Login() {
 
     return (
         <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded">
-            <form onSubmit={login} className="flex flex-col p-5 gap-2">
+            <form
+                id="login"
+                onSubmit={login}
+                className="flex flex-col p-5 gap-2"
+            >
                 <FormInput
                     type="email"
                     name="email"
@@ -76,11 +80,11 @@ export default function Login() {
                     errorMessage={formErrors.password}
                 />
                 <div className="flex mx-2 mt-4">
-                    <BlueFormButton>Se connecter</BlueFormButton>
+                    <BlueFormButton target="login">Se connecter</BlueFormButton>
                 </div>
                 <Link
                     to="/signup"
-                    className="m-3 text-blue-700 hover:text-blue-500 font-bold"
+                    className="m-3 text-blue-700 hover:text-blue-400 font-bold"
                 >
                     Pas encore enregistré ? Cliquez ici pour créer un compte.
                 </Link>

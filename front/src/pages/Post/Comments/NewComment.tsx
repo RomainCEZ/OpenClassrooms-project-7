@@ -19,7 +19,8 @@ export default function NewComment({ postId, getComments }) {
             {loggedIn ? (
                 <form onSubmit={postComment} className="flex flex-col">
                     <textarea
-                        className="flex mt-4 p-3 h-20 w-full rounded-sm border border-indigo-900"
+                        id="newcomment"
+                        className="flex mt-4 p-3 h-20 w-full rounded-sm border border-indigo-900 shadow-inner"
                         placeholder="Laissez un commentaire !"
                         onChange={(e) =>
                             setNewComment({ content: e.target.value })
@@ -27,11 +28,13 @@ export default function NewComment({ postId, getComments }) {
                         value={newComment.content}
                     />
                     <div className="ml-auto m-2">
-                        <BlueFormButton>Envoyer</BlueFormButton>
+                        <BlueFormButton target="newcomment">
+                            Envoyer
+                        </BlueFormButton>
                     </div>
                 </form>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center my-4 p-2 rounded bg-white border border-indigo-900 px-6">
+                <p className="flex flex-col sm:flex-row items-center justify-center my-4 p-2 rounded bg-white border border-indigo-900 px-6 shadow-md">
                     <span>
                         <Link
                             to="/login"

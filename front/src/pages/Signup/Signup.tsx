@@ -91,8 +91,12 @@ export default function Signup() {
     }
 
     return (
-        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded">
-            <form onSubmit={postContent} className="flex flex-col p-5 gap-2">
+        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+            <form
+                id="signup"
+                onSubmit={postContent}
+                className="flex flex-col p-5 gap-2"
+            >
                 <FormInput
                     type="email"
                     name="email"
@@ -126,11 +130,13 @@ export default function Signup() {
                     errorMessage={formErrors.confirmPassword}
                 />
                 <div className="flex mx-2 mt-4">
-                    <BlueFormButton>Créer un compte</BlueFormButton>
+                    <BlueFormButton target="signup">
+                        Créer un compte
+                    </BlueFormButton>
                 </div>
                 <Link
                     to="/login"
-                    className="m-3 text-blue-700 hover:text-blue-500 font-bold"
+                    className="m-3 text-blue-700 hover:text-blue-400 font-bold"
                 >
                     Vous avez déjà un compte ? Cliquez ici pour vous connecter.
                 </Link>
