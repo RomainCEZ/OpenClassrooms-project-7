@@ -1,5 +1,6 @@
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "./DraftjsEditor.css";
 
 export default function DraftjsView({ editorState }) {
     return (
