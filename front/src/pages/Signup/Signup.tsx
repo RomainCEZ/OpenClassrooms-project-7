@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import BlueFormButton from "../../components/Buttons/BlueFormButton";
+import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../domain/AuthProvider";
 import { SessionContext } from "../Auth/context/SessionContext";

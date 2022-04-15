@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { Link } from "react-router-dom";
 import { authProvider } from "../../domain/AuthProvider";
-import BlueFormButton from "../../components/Buttons/BlueFormButton";
+import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 
 export default function Login() {

@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
+import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import PostPreview from "./PostPreview";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../domain/ApiProvider";
@@ -55,7 +55,7 @@ export default function Home() {
                     &nbsp;pour publier votre contenu !
                 </p>
             )}
-            <section className="flex flex-col mt-3 gap-1 w-full">
+            <section className="flex flex-col mt-3 gap-2 w-full">
                 {isLoading ? (
                     <>
                         <PostPreviewLoader />
