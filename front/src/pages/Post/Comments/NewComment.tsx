@@ -17,7 +17,11 @@ export default function NewComment({ postId, getComments }) {
     return (
         <>
             {loggedIn ? (
-                <form onSubmit={postComment} className="flex flex-col">
+                <form
+                    id="newcomment"
+                    onSubmit={postComment}
+                    className="flex flex-col"
+                >
                     <div className="mt-10 shadow-md">
                         <textarea
                             id="newcomment"
