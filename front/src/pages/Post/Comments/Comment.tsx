@@ -34,8 +34,8 @@ export default function Comment({
     };
 
     return (
-        <div className="flex divide-x bg-white divide-indigo-800 border border-indigo-800 rounded-sm shadow-md">
-            <div className="flex flex-col items-center gap-1 p-2">
+        <div className="flex divide-x w-full bg-white divide-indigo-800 border border-indigo-800 rounded-sm shadow-md overflow-hidden">
+            <div className="flex flex-col w-[8.5%] md:w-1/12 xl:w-[7.2%] justify-center items-center gap-1 p-2">
                 <div
                     className="border-[16px] border-transparent border-b-blue-700
                     hover:border-b-blue-500 focus:border-b-blue-500 active:border-b-blue-400 cursor-pointer transition-all"
@@ -46,18 +46,26 @@ export default function Comment({
                     hover:border-t-blue-500 focus:border-t-blue-500 active:border-t-blue-400 cursor-pointer transition-all"
                 ></div>
             </div>
-            <div className="w-full flex flex-col items-around p-4 pb-0">
+            <div className="flex flex-col w-[91.5%] md:w-11/12 xl:w-[92.8%] p-4 pb-0 break-words">
                 {editing ? (
-                    <textarea
-                        className="flex mb-2 p-2 w-full rounded-sm border border-indigo-900 shadow-inner"
-                        placeholder="Laissez un commentaire !"
-                        onChange={(e) =>
-                            setEditedComment({ content: e.target.value })
-                        }
-                        value={editedComment.content}
-                    />
+                    <div className="flex relative">
+                        <textarea
+                            maxLength={255}
+                            className="flex-grow mb-2 p-2 rounded-sm border border-indigo-900 shadow-inner"
+                            placeholder="Laissez un commentaire !"
+                            onChange={(e) =>
+                                setEditedComment({
+                                    content: e.target.value,
+                                })
+                            }
+                            value={editedComment.content}
+                        />{" "}
+                        <p className="absolute right-4 bottom-2 select-none text-gray-600">
+                            {editedComment.content.length}/255
+                        </p>
+                    </div>
                 ) : (
-                    <p>{content}</p>
+                    <p className="mb-2">{content}</p>
                 )}
                 <div className="flex text-sm mt-auto border-t border-gray-400 pl-2 py-2 divide-x divide-gray-400">
                     <p className="first-letter:capitalize">
