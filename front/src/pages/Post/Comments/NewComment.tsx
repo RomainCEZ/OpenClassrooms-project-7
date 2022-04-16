@@ -22,9 +22,13 @@ export default function NewComment({ postId, getComments }) {
                     onSubmit={postComment}
                     className="flex flex-col"
                 >
-                    <div className="mt-10 shadow-md">
+                    <div className="relative mt-10 shadow-md">
+                        <p className="absolute right-4 bottom-1 select-none text-gray-600">
+                            {newComment.content.length}/255
+                        </p>
                         <textarea
                             id="newcomment"
+                            maxLength={255}
                             className="flex p-3 h-20 w-full rounded-sm border border-indigo-900 shadow-inner"
                             placeholder="Laissez un commentaire !"
                             onChange={(e) =>
