@@ -7,6 +7,7 @@ import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 @Injectable()
 export class UserDBadapter implements IUsersRepository {
     constructor(@InjectModel(UserModel) private readonly userModel: typeof UserModel) { }
+    data?: User[];
 
     async saveUser(user: User): Promise<void> {
         await this.userModel.create<UserModel>({
@@ -34,7 +35,7 @@ export class UserDBadapter implements IUsersRepository {
 
     }
     async getById(id: string): Promise<User> {
-        const user = await this.userModel.findOne<UserModel>({ where: { id } });
+        const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
         if (!user) {
             throw new NotFoundException("Utilisateur introuvable !")
         }
@@ -47,5 +48,12 @@ export class UserDBadapter implements IUsersRepository {
             timestamp: user.timestamp
         })
 
+    }
+    async changePassword(id: string, password: string) {
+        const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        await user.update({ password })
     }
 }

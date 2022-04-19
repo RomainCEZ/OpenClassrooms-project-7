@@ -5,11 +5,16 @@ import { Email } from '../users/entities/Email.entity';
 import { User } from '../users/entities/User';
 import { UserPassword } from '../users/entities/UserPassword.entity';
 import { UsersService } from '../users/users.service';
+import { MailerService } from '../common/MailerService/MailerService';
+import { ResetPasswordDto } from './dto/RestPasswordDto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
     constructor(
-        private usersService: UsersService,
+        private readonly usersService: UsersService,
+        private readonly mailerService: MailerService,
+        private readonly jwtService: JwtService
     ) { }
 
     async validateUser(email: string, password: string): Promise<any> {
@@ -46,5 +51,34 @@ export class AuthService {
             throw new UnauthorizedException('Mot de passe invalide !')
         }
         return true
+    }
+
+    async sendPasswordRestEmail(email: string) {
+        const user = await this.usersService.findByEmail(email)
+        if (!user) {
+            console.log("User not found")
+        }
+        const resetToken = await this.createResetToken(user.id)
+        await this.mailerService.sendPasswordRestEmail(user, resetToken)
+    }
+    async createResetToken(userId: string): Promise<string> {
+        const token = this.jwtService.sign({ userId }, { secret: process.env.TOKEN_SECRET })
+        await this.jwtService.verify(token, { secret: process.env.TOKEN_SECRET })
+        return token
+    }
+    async resetPassword(resetPasswordDto: ResetPasswordDto) {
+        await this.verifyToken(resetPasswordDto.resetToken, resetPasswordDto.userId)
+        const newPassword = UserPassword.createHash(resetPasswordDto.password)
+        await this.usersService.changePassword(resetPasswordDto.userId, newPassword)
+    }
+    async verifyToken(token: string, userId: string): Promise<void> {
+        try {
+            const decodedUserId = this.jwtService.verify(token, { secret: process.env.TOKEN_SECRET })
+            if (decodedUserId.userId !== userId) {
+                throw ""
+            }
+        } catch (error) {
+            throw new UnauthorizedException("Le lien a expiré ou est invalide !")
+        }
     }
 }

@@ -15,16 +15,15 @@ export class InMemoryPostsRepository {
     }
 
     savePost(postData: Post) {
-        console.log(postData)
         this.data.unshift(postData)
     }
 
     getById(postId: string): Post {
-        const post = this.data.find( post => post.id === postId)
+        const post = this.data.find(post => post.id === postId)
         if (!post) {
             throw new NotFoundException("Ce post n'existe pas !")
         }
-        return this.data.find( post => post.id === postId)
+        return this.data.find(post => post.id === postId)
     }
 
     update(postId: string, updatePostDto: UpdatePostDto) {
@@ -38,6 +37,6 @@ export class InMemoryPostsRepository {
     }
 
     delete(postId: string) {
-        this.data = this.data.filter( post => post.id !== postId )
+        this.data = this.data.filter(post => post.id !== postId)
     }
 }

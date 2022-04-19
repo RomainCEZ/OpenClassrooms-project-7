@@ -10,4 +10,6 @@ export interface IUsersRepository {
 
     getById(id: string)
 
+    changePassword(id: string, password: string)
+
 }

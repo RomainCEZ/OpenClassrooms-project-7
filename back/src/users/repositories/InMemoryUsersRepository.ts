@@ -1,7 +1,6 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersData } from '../data/Users';
 import { User } from '../entities/User';
-// import { UpdateUserDto } from '../dto/update-user.dto';
 import { IUsersRepository } from '../interfaces/UsersRepository.interface';
 
 @Injectable()
@@ -30,6 +29,14 @@ export class InMemoryUsersRepository implements IUsersRepository {
             throw new NotFoundException("Utilisateur introuvable !")
         }
         return user
+    }
+
+    changePassword(id: string, password: string) {
+        const user = this.getById(id)
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        this.data = [...this.data.filter(user => user.id !== id), { ...user, password }]
     }
 
     private isUnique(newUser: User) {

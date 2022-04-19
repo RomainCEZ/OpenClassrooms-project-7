@@ -3,6 +3,7 @@ import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
+import { ResetPasswordDto } from './dto/RestPasswordDto';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +33,16 @@ export class AuthController {
   @Post('logout')
   async logout(@Request() req: any) {
     req.logout()
+  }
+
+  @Post('requestpasswordreset')
+  async requestpasswordreset(@Body("email") email: string) {
+    await this.authService.sendPasswordRestEmail(email)
+    return "Un email re réinitialisation a été envoyé à cette adresse."
+  }
+
+  @Post('resetpassword')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    await this.authService.resetPassword(resetPasswordDto)
   }
 }
