@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
-import { apiProvider } from "../../domain/ApiProvider";
+import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import ConfirmDeletePost from "./ConfirmDeletePost";
 

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authProvider } from "../../../domain/AuthProvider";
+import { authProvider } from "../../../providers/AuthProvider";
 
 export const SessionContext = createContext({
     loggedIn: false,

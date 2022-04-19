@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { apiProvider } from "../../domain/ApiProvider";
+import { apiProvider } from "../../providers/ApiProvider";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";

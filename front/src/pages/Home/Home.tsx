@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import PostPreview from "./PostPreview";
 import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
+import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostPreviewLoader from "./PostPreviewLoader";
 import { Link } from "react-router-dom";

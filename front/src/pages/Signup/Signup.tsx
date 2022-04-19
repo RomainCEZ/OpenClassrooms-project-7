@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
-import { authProvider } from "../../domain/AuthProvider";
+import { authProvider } from "../../providers/AuthProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 
 export default function Signup() {
@@ -81,7 +81,10 @@ export default function Signup() {
                         setFormErrors({ ...formErrors, username: message });
                         break;
                     case message.includes("mot de passe"):
-                        setFormErrors({ ...formErrors, password: message });
+                        setFormErrors({
+                            ...formErrors,
+                            confirmPassword: message,
+                        });
                         break;
                     default:
                         return;
@@ -91,7 +94,7 @@ export default function Signup() {
     }
 
     return (
-        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
             <form
                 id="signup"
                 onSubmit={postContent}
@@ -119,7 +122,7 @@ export default function Signup() {
                     label="Mot de passe"
                     inputValue={form.password}
                     handleChange={() => changePassword}
-                    errorMessage={formErrors.password}
+                    errorMessage=""
                 />
                 <FormInput
                     type="password"
@@ -129,7 +132,7 @@ export default function Signup() {
                     handleChange={() => changeConfirmPassword}
                     errorMessage={formErrors.confirmPassword}
                 />
-                <div className="flex mx-2 mt-4">
+                <div className="flex mx-2 mt-8">
                     <BlueFormButton target="signup">
                         Créer un compte
                     </BlueFormButton>

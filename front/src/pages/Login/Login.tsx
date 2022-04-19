@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { Link } from "react-router-dom";
-import { authProvider } from "../../domain/AuthProvider";
+import { authProvider } from "../../providers/AuthProvider";
 import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 
@@ -57,7 +57,7 @@ export default function Login() {
     }
 
     return (
-        <section className="flex flex-col sm:w-xl sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
             <form
                 id="login"
                 onSubmit={login}
@@ -79,7 +79,13 @@ export default function Login() {
                     handleChange={() => changePassword}
                     errorMessage={formErrors.password}
                 />
-                <div className="flex mx-2 mt-4">
+                <Link
+                    to="/login/requestpasswordreset"
+                    className="mx-3 mt-4 mb-1 text-blue-700 hover:text-blue-400 font-bold"
+                >
+                    Mot de passe oublié ?
+                </Link>
+                <div className="flex mx-2">
                     <BlueFormButton target="login">Se connecter</BlueFormButton>
                 </div>
                 <Link

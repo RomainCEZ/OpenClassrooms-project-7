@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, Fragment } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
+import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";
 import { EditorState, convertFromRaw, ContentState } from "draft-js";

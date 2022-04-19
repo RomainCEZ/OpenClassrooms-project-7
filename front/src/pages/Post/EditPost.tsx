@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
+import { apiProvider } from "../../providers/ApiProvider";
 import { useNavigate } from "react-router-dom";
 import {
     EditorState,
