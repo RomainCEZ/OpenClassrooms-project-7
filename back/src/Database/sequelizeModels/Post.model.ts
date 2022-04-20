@@ -27,7 +27,10 @@ export class PostModel extends Model {
     @Column({ type: DataType.BIGINT })
     timestamp: number;
 
-    @HasMany(() => CommentModel, { sourceKey: 'postId' })
+    @Column({ type: DataType.BOOLEAN })
+    isPublished: boolean
+
+    @HasMany(() => CommentModel, { foreignKey: 'postId', sourceKey: 'postId', as: 'comments' })
     comments: CommentModel[]
 
     @BelongsTo(() => UserModel, 'authorId')

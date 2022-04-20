@@ -25,6 +25,9 @@ export class CommentModel extends Model {
     @Column({ type: DataType.BIGINT })
     timestamp: number;
 
+    @Column({ type: DataType.BOOLEAN })
+    isPublished: boolean
+
     @BelongsTo(() => PostModel, 'postId')
     post: PostModel
 

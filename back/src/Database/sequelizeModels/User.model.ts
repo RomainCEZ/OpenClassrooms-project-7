@@ -23,6 +23,9 @@ export class UserModel extends Model {
     @Column({ type: DataType.BIGINT })
     timestamp: number;
 
+    @Column({ type: DataType.BOOLEAN })
+    isActive: boolean
+
     @HasMany(() => CommentModel, { sourceKey: 'userId' })
     comments: CommentModel[]
 
