@@ -26,7 +26,6 @@ export default class CommentsDBAdapter implements ICommentsRepository {
             where: { postId, isPublished: true },
             order: ['timestamp']
         })
-        console.log(postComments)
         if (postComments.length === 0) {
             console.log("no comments")
         }
