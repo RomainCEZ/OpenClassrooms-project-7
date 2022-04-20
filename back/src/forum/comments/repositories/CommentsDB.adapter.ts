@@ -1,13 +1,15 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 import { CommentModel } from "../../../Database/sequelizeModels/Comment.model";
+import { PostModel } from "../../../Database/sequelizeModels/Post.model";
 import { UpdateCommentDto } from "../dto/update-comment.dto";
 import { Comment } from "../entities/comment.entity";
 import ICommentsRepository from "../interfaces/CommentsRepository";
 
 @Injectable()
 export default class CommentsDBAdapter implements ICommentsRepository {
-    constructor(@InjectModel(CommentModel) private readonly commentModel: typeof CommentModel) { }
+    constructor(@InjectModel(CommentModel) private readonly commentModel: typeof CommentModel,
+        @InjectModel(PostModel) private readonly postModel: typeof PostModel) { }
 
     async saveComment(postId: string, comment: Comment) {
         await this.commentModel.create<CommentModel>({
@@ -20,9 +22,13 @@ export default class CommentsDBAdapter implements ICommentsRepository {
         })
     }
     async getCommentsByPostId(postId: string): Promise<Comment[]> {
-        const postComments = await this.commentModel.findAll({ where: { postId }, order: ['timestamp'] })
+        const postComments = await this.commentModel.findAll({
+            where: { postId, isPublished: true },
+            order: ['timestamp']
+        })
+        console.log(postComments)
         if (postComments.length === 0) {
-            throw new NotFoundException()
+            console.log("no comments")
         }
         return postComments.map(comment => Comment.create({
             id: comment.commentId,
@@ -49,6 +55,6 @@ export default class CommentsDBAdapter implements ICommentsRepository {
     }
     async deleteCommentById(commentId: string) {
         const comment = await this.commentModel.findOne({ where: { commentId } })
-        await comment.destroy()
+        await comment.update({ isPublished: false })
     }
 }

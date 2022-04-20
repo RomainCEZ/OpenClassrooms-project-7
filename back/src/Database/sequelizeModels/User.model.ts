@@ -1,15 +1,17 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
+import { CommentModel } from './Comment.model';
+import { PostModel } from './Post.model';
 
 @Table
 export class UserModel extends Model {
 
-    @Column
+    @Column({ unique: true })
     userId: string;
 
-    @Column
+    @Column({ unique: true })
     email: string;
 
-    @Column
+    @Column({ unique: true })
     username: string;
 
     @Column
@@ -20,4 +22,10 @@ export class UserModel extends Model {
 
     @Column({ type: DataType.BIGINT })
     timestamp: number;
+
+    @HasMany(() => CommentModel, { sourceKey: 'userId' })
+    comments: CommentModel[]
+
+    @HasMany(() => PostModel, { sourceKey: 'userId' })
+    posts: PostModel[]
 }
