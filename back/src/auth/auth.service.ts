@@ -54,12 +54,13 @@ export class AuthService {
     }
 
     async sendPasswordRestEmail(email: string) {
-        const user = await this.usersService.findByEmail(email)
-        if (!user) {
-            console.log("User not found")
+        try {
+            const user = await this.usersService.findByEmail(email)
+            const resetToken = await this.createResetToken(user.id)
+            await this.mailerService.sendPasswordRestEmail(user, resetToken)
+        } catch (error) {
+            console.log(error)
         }
-        const resetToken = await this.createResetToken(user.id)
-        await this.mailerService.sendPasswordRestEmail(user, resetToken)
     }
     async createResetToken(userId: string): Promise<string> {
         const token = this.jwtService.sign({ userId }, { secret: process.env.TOKEN_SECRET })
