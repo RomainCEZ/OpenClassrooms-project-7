@@ -15,14 +15,14 @@ export class PostsDBAdapter implements IPostsRepository {
     async getAllPosts(): Promise<Post[]> {
         const postModels = await this.postModel.findAll<PostModel>({
             where: { isPublished: true },
-            include: { attributes: ['commentId'], model: CommentModel },
+            order: [['timestamp', 'DESC']],
+            include: [{ model: CommentModel, attributes: [], where: { isPublished: true }, required: false }],
             attributes: {
                 include: [
-                    [sequelize.fn('COUNT', sequelize.col('commentId')), 'commentsCount']
+                    [sequelize.fn('COUNT', sequelize.col('comments')), 'commentsCount'],
                 ],
             },
-            group: [sequelize.col('PostModel.id'), sequelize.col('comments.id')],
-            order: [['timestamp', 'DESC']]
+            group: ['PostModel.id']
         })
         return postModels.map(postModel => {
             return Post.create({
@@ -33,7 +33,7 @@ export class PostsDBAdapter implements IPostsRepository {
                 author: postModel.author,
                 authorId: postModel.authorId,
                 timestamp: +postModel.timestamp,
-                commentsNumber: +postModel.getDataValue('commentsCount')
+                commentsNumber: +postModel.getDataValue("commentsCount")
             })
         })
     }
