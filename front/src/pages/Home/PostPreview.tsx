@@ -12,6 +12,7 @@ export default function PostPreview({
     src,
     author,
     timestamp,
+    commentsNumber,
 }) {
     const [editorState, setEditorState] = useState<EditorState>(() =>
         EditorState.createEmpty()
@@ -62,7 +63,9 @@ export default function PostPreview({
                     )}
                 </div>
                 <p className="text-sm px-2 pt-4 group-hover:text-gray-600 transition-all">
-                    x commentaires
+                    {commentsNumber > 1
+                        ? `${commentsNumber} commentaires`
+                        : `${commentsNumber} commentaire`}
                 </p>
             </article>
         </Link>

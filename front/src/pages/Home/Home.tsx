@@ -21,6 +21,7 @@ export default function Home() {
             content={post.content}
             author={post.author}
             timestamp={post.timestamp}
+            commentsNumber={post.commentsNumber}
         />
     ));
 
