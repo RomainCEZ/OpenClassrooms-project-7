@@ -6,4 +6,5 @@ export interface PostProps {
     author: string
     authorId: string
     timestamp?: number
+    commentsNumber?: number | null
 }

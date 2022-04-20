@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
+import sequelize from "sequelize";
+import { CommentModel } from "../../../Database/sequelizeModels/Comment.model";
 import { PostModel } from "../../../Database/sequelizeModels/Post.model";
 import { UpdatePostDto } from "../dto/update-post.dto";
 import { Post } from "../entities/post.entity";
@@ -7,19 +9,33 @@ import { IPostsRepository } from "../interfaces/PostsRepository";
 
 @Injectable()
 export class PostsDBAdapter implements IPostsRepository {
-    constructor(@InjectModel(PostModel) private readonly postModel: typeof PostModel) { }
+    constructor(@InjectModel(PostModel) private readonly postModel: typeof PostModel,
+        @InjectModel(CommentModel) private readonly commentModel: typeof CommentModel) { }
 
     async getAllPosts(): Promise<Post[]> {
-        const postModels = await this.postModel.findAll<PostModel>({ order: [['timestamp', 'DESC']] })
-        return postModels.map(postModel => Post.create({
-            id: postModel.postId,
-            title: postModel.title,
-            content: postModel.content,
-            imageName: postModel.imageName,
-            author: postModel.author,
-            authorId: postModel.authorId,
-            timestamp: +postModel.timestamp
-        }))
+        const postModels = await this.postModel.findAll<PostModel>({
+            where: { isPublished: true },
+            include: { attributes: ['commentId'], model: CommentModel },
+            attributes: {
+                include: [
+                    [sequelize.fn('COUNT', sequelize.col('commentId')), 'commentsCount']
+                ],
+            },
+            group: [sequelize.col('PostModel.id'), sequelize.col('comments.id')],
+            order: [['timestamp', 'DESC']]
+        })
+        return postModels.map(postModel => {
+            return Post.create({
+                id: postModel.postId,
+                title: postModel.title,
+                content: postModel.content,
+                imageName: postModel.imageName,
+                author: postModel.author,
+                authorId: postModel.authorId,
+                timestamp: +postModel.timestamp,
+                commentsNumber: +postModel.getDataValue('commentsCount')
+            })
+        })
     }
     async savePost(postData: Post) {
         await this.postModel.create<PostModel>({
@@ -33,7 +49,9 @@ export class PostsDBAdapter implements IPostsRepository {
         })
     }
     async getById(postId: string): Promise<Post> {
-        const post = await this.postModel.findOne<PostModel>({ where: { postId } })
+        const post = await this.postModel.findOne<PostModel>({
+            where: { postId, isPublished: true },
+        })
         return Post.create({
             id: post.postId,
             title: post.title,
@@ -41,7 +59,8 @@ export class PostsDBAdapter implements IPostsRepository {
             imageName: post.imageName,
             author: post.author,
             authorId: post.authorId,
-            timestamp: +post.timestamp
+            timestamp: +post.timestamp,
+            commentsNumber: +post.getDataValue('commentsCount')
         })
     }
     async update(postId: string, updatePostDto: UpdatePostDto) {
@@ -50,6 +69,6 @@ export class PostsDBAdapter implements IPostsRepository {
     }
     async delete(postId: string) {
         const post = await this.postModel.findOne({ where: { postId } })
-        await post.destroy()
+        await post.update({ isPublished: false })
     }
 }

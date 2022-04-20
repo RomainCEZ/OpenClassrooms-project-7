@@ -9,8 +9,9 @@ export class Post {
     author: string;
     authorId: string;
     timestamp: number
+    commentsNumber?: number
 
-    constructor({ id, title, content, imageName, author, authorId, timestamp }: PostProps) {
+    constructor({ id, title, content, imageName, author, authorId, timestamp, commentsNumber }: PostProps) {
         this.id = id
         this.title = title
         this.content = content
@@ -18,9 +19,10 @@ export class Post {
         this.author = author
         this.authorId = authorId
         this.timestamp = timestamp
+        this.commentsNumber = commentsNumber
     }
 
-    public static create({ id, title, content, imageName, author, authorId, timestamp }: PostProps) {
+    public static create({ id, title, content, imageName, author, authorId, timestamp, commentsNumber }: PostProps) {
         return new Post({
             id: id || nanoid(),
             title,
@@ -28,7 +30,8 @@ export class Post {
             imageName: imageName || null,
             author,
             authorId,
-            timestamp: timestamp || Date.now()
+            timestamp: timestamp || Date.now(),
+            commentsNumber: commentsNumber || null
         })
     }
 }
