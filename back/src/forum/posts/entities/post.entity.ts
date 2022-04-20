@@ -31,7 +31,7 @@ export class Post {
             author,
             authorId,
             timestamp: timestamp || Date.now(),
-            commentsNumber: commentsNumber || null
+            commentsNumber: commentsNumber || 0
         })
     }
 }
