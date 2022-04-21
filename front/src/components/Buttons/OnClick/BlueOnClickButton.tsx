@@ -1,9 +1,16 @@
-function BlueOnClickButton({ onClick, children }) {
+import { ReactChild } from "react";
+
+interface ButtonProps {
+    onClick?: React.MouseEventHandler<HTMLButtonElement>;
+    children: ReactChild;
+    className?: string;
+}
+
+function BlueOnClickButton({ onClick, children, className }: ButtonProps) {
     return (
         <button
-            className="flex justify-center p-2 px-8 text-white font-bold rounded bg-blue-700
-                            hover:bg-blue-600 focus:bg-blue-600 focus:shadow active:bg-blue-500 active:shadow
-                            transition-all"
+            className={`p-2.5 px-8 text-white font-bold rounded-md bg-blue-700 shadow-md
+            hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-500 transition-all ${className}`}
             onClick={onClick}
         >
             {children}
