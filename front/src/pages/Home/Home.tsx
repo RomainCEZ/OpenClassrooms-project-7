@@ -35,7 +35,7 @@ export default function Home() {
     return (
         <>
             {loggedIn ? (
-                <BlueLinkButton path="newPost">Nouveau post</BlueLinkButton>
+                <BlueLinkButton path="newpost">Nouveau post</BlueLinkButton>
             ) : (
                 <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded bg-white border border-indigo-900 shadow-md">
                     <span>
