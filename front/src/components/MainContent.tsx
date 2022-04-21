@@ -8,6 +8,7 @@ import EditPost from "../pages/Post/EditPost";
 import PostView from "../pages/Post/PostView";
 import RequestPasswordReset from "../pages/Auth/RequestPasswordReset";
 import ResetPassword from "../pages/Auth/ResetPassword";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 export default function MainContent() {
     return (
@@ -23,6 +24,7 @@ export default function MainContent() {
                     path="/login/resetpassword"
                     element={<ResetPassword />}
                 />
+                <Route path="/profile/:id" element={<UserProfile />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/post/:id" element={<PostView />} />
                 <Route path="newpost" element={<NewPost />} />
