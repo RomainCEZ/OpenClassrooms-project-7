@@ -22,7 +22,7 @@ import sequelizeConfig from './Database/sequelize.config';
     ConfigModule.forRoot({ isGlobal: true }),
     ForumModule, ImagesModule, AuthModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'client/dist'),
+      rootPath: join(__dirname, '..', process.env.CLIENT_SERVE_FOLDER),
       exclude: ['/api*', '/auth*', '/images*'],
     })
   ]
