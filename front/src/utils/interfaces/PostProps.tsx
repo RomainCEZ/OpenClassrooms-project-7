@@ -8,5 +8,5 @@ export interface PostProps {
     timestamp?: Date;
     file?: File;
     editorContent?: Object;
-    commentsNumber: number;
+    commentsNumber?: number;
 }
