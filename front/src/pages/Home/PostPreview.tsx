@@ -36,6 +36,7 @@ export default function PostPreview({
     return (
         <Link
             to={`/post/${id}`}
+            aria-label={title}
             className="group flex flex-col px-5 py-4 bg-white w-full border border-indigo-900 rounded shadow-md hover:border-blue-600 hover:shadow-blue-300/70 transition-all"
         >
             <article>
