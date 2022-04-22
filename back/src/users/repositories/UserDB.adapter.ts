@@ -59,9 +59,9 @@ export class UserDBadapter implements IUsersRepository {
     }
     async changePassword(id: string, password: string) {
         const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
-        if (user) {
-            await user.update({ password })
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
         }
-        throw new NotFoundException("Utilisateur introuvable !")
+        await user.update({ password })
     }
 }
