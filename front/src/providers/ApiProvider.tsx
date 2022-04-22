@@ -2,12 +2,17 @@ import axios from "axios";
 import { PostProps } from "../utils/interfaces/PostProps";
 
 class ApiProvider {
+    private readonly protocol: string;
+    private readonly apiHostname: string;
+    private readonly apiPort: string;
+    private readonly apiUrl: string;
     constructor() {
-        const localhost = "http://localhost:8000";
-        const localIp = "http://192.168.0.10:8000";
-        const heroku = "https://groupomania-socials.herokuapp.com";
+        this.protocol = location.protocol;
+        this.apiHostname = location.hostname;
+        this.apiPort = location.port ? ":8000" : "";
+        this.apiUrl = this.protocol + "//" + this.apiHostname + this.apiPort;
 
-        axios.defaults.baseURL = `${localIp}`;
+        axios.defaults.baseURL = this.apiUrl;
         axios.defaults.withCredentials = true;
     }
 
