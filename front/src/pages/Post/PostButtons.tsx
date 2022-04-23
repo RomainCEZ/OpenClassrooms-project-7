@@ -28,7 +28,7 @@ export default function PostButtons() {
             >
                 Éditer
             </BlueLinkButton>
-            <RedOnClickButton onClick={openModal} className="sm:w-1/4">
+            <RedOnClickButton onClick={openModal} className="px-5 sm:w-1/4">
                 Supprimer
             </RedOnClickButton>
             <ConfirmDeletePost
