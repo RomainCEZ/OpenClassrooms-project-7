@@ -26,9 +26,9 @@ export class UserModel extends Model {
     @Column({ type: DataType.BOOLEAN })
     isActive: boolean
 
-    @HasMany(() => CommentModel, { sourceKey: 'userId' })
+    @HasMany(() => CommentModel, { foreignKey: 'authorId', sourceKey: 'userId', as: 'comments' })
     comments: CommentModel[]
 
-    @HasMany(() => PostModel, { sourceKey: 'userId' })
+    @HasMany(() => PostModel, { foreignKey: 'authorId', sourceKey: 'userId', as: 'posts' })
     posts: PostModel[]
 }

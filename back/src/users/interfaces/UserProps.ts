@@ -5,4 +5,6 @@ export interface UserProps {
     password: string
     role?: string
     timestamp?: number
+    postsCount?: number
+    commentsCount?: number
 }

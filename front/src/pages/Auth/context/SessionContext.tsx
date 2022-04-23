@@ -2,10 +2,28 @@ import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authProvider } from "../../../providers/AuthProvider";
 
+interface IUserSession {
+    id: string;
+    username: string;
+    role: string;
+    timestamp: number;
+    postsCount: number;
+    commentsCount: number;
+}
+
+const UserInitValues: IUserSession = {
+    id: null,
+    username: null,
+    role: null,
+    timestamp: null,
+    postsCount: null,
+    commentsCount: null,
+};
+
 export const SessionContext = createContext({
     loggedIn: false,
     setLoggedIn: null,
-    user: { id: null, username: null, role: null },
+    user: UserInitValues,
     createSession: null,
     logout: null,
     navigate: null,
@@ -13,7 +31,7 @@ export const SessionContext = createContext({
 
 export const SessionProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState({ id: null, username: null, role: null });
+    const [user, setUser] = useState(UserInitValues);
     const navigate = useNavigate();
     function createSession(sessionInfo) {
         setUser(sessionInfo);
