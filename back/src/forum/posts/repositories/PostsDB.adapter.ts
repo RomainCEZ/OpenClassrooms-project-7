@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import sequelize from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 import { CommentModel } from "../../../Database/sequelizeModels/Comment.model";
 import { PostModel } from "../../../Database/sequelizeModels/Post.model";
 import { UpdatePostDto } from "../dto/update-post.dto";
@@ -19,7 +19,7 @@ export class PostsDBAdapter implements IPostsRepository {
             include: [{ model: CommentModel, attributes: [], where: { isPublished: true }, required: false }],
             attributes: {
                 include: [
-                    [sequelize.fn('COUNT', sequelize.col('comments')), 'commentsCount'],
+                    [Sequelize.fn('COUNT', Sequelize.col('comments')), 'commentsCount'],
                 ],
             },
             group: ['PostModel.id']
