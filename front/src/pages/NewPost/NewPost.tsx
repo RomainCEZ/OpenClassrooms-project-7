@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { apiProvider } from "../../providers/ApiProvider";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
-import { PostProps } from "../../utils/interfaces/PostProps";
 import { useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -18,46 +17,23 @@ export default function NewPost() {
         EditorState.createEmpty()
     );
     const rawEditorContent = convertToRaw(editorState.getCurrentContent());
-    const [form, setForm] = useState<PostProps>({
-        title: "",
-        content: "",
-        file: null,
-        imageUrl: null,
-    });
-    const [image, setImage] = useState(null);
+    const [title, setTitle] = useState<string>("");
     const [preview, setPreview] = useState(false);
 
     const navigate = useNavigate();
 
     function changeTitle(event: React.ChangeEvent<HTMLInputElement>) {
-        const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, title: value }));
+        setTitle(event.target.value);
     }
 
-    function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, content: editorState }));
-    }
-
-    function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
-        const file = event.target.files[0];
-        const src = URL.createObjectURL(event.target.files[0]);
-        setImage(file);
-        setForm((form: PostProps) => ({ ...form, src }));
-    }
     async function postContent(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        if (form.title && editorState) {
-            let formData = new FormData();
-            formData.append(
-                "data",
-                JSON.stringify({
-                    title: form.title,
-                    content: rawEditorContent,
-                })
-            );
-            formData.append("file", image);
-            await apiProvider.createPost(formData);
+        if (title && editorState) {
+            const post = {
+                title,
+                content: rawEditorContent,
+            };
+            await apiProvider.createPost(post);
             navigate("/");
         } else {
             console.log("erreur");
@@ -71,7 +47,7 @@ export default function NewPost() {
                 <div className="mt-3 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900 shadow-md">
                     <div className="mb-3 pb-2 border-b-2 border-indigo-900">
                         <h2 className="text-xl font-bold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
-                            {form.title}
+                            {title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">
                             <ReactTimeAgo
@@ -83,9 +59,6 @@ export default function NewPost() {
                             <span className="font-bold">{user.username}</span>
                         </p>
                     </div>
-                    {image && (
-                        <img src={form.imageUrl} className="pt-3 w-full" />
-                    )}
                     <DraftjsView editorState={editorState} />
                 </div>
             ) : (
@@ -98,19 +71,13 @@ export default function NewPost() {
                         placeholder="Titre"
                         className="p-2 border border-gray-500 rounded shadow-inner"
                         onChange={(event) => changeTitle(event)}
-                        value={form.title}
+                        value={title}
                         required
                     />
                     <DraftjsEditor
                         editorState={editorState}
                         setEditorState={setEditorState}
-                    />{" "}
-                    {/* <input
-                        type="file"
-                        className=""
-                        accept="image/png, image/jpeg"
-                        onChange={(event) => changeImage(event)}
-                    /> */}
+                    />
                 </form>
             )}
             <div className="flex w-full gap-4 mt-3">

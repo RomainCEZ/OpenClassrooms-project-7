@@ -21,8 +21,8 @@ class ApiProvider {
         return response.data;
     }
 
-    async createPost(postData: FormData) {
-        await axios.post("/api/posts", postData);
+    async createPost(post: PostProps) {
+        await axios.post("/api/posts", post);
     }
 
     async getPostById(id: string): Promise<PostProps> {
@@ -30,8 +30,8 @@ class ApiProvider {
         return post.data;
     }
 
-    async editPost(id: string, data: FormData) {
-        await axios.patch(`/api/posts/${id}`, data);
+    async editPost(id: string, post: PostProps) {
+        await axios.patch(`/api/posts/${id}`, post);
     }
 
     async deletePost(id: string) {

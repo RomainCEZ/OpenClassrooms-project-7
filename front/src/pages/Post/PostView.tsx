@@ -4,7 +4,7 @@ import { PostProps } from "../../utils/interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";
-import { EditorState, convertFromRaw, ContentState } from "draft-js";
+import { EditorState, convertFromRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Comment from "./Comments/Comment";
 import CommentLoader from "./Comments/CommentLoader";
@@ -20,7 +20,6 @@ export default function PostView() {
         title: "",
         content: "",
         editorContent: "",
-        imageUrl: "",
     });
     const [commentsData, setCommentsData] = useState([]);
 
@@ -48,23 +47,12 @@ export default function PostView() {
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
-            if (typeof postData.content === "string") {
-                const contentState = ContentState.createFromText(
-                    postData.content
-                );
-                const editorState = EditorState.createWithContent(contentState);
-                setPost({
-                    ...postData,
-                    content: editorState,
-                });
-            } else {
-                const contentState = convertFromRaw(postData.content);
-                const editorState = EditorState.createWithContent(contentState);
-                setPost({
-                    ...postData,
-                    content: editorState,
-                });
-            }
+            const contentState = convertFromRaw(postData.content);
+            const editorState = EditorState.createWithContent(contentState);
+            setPost({
+                ...postData,
+                content: editorState,
+            });
             setIsLoading(false);
         });
         getComments();
@@ -91,14 +79,11 @@ export default function PostView() {
                         </p>
                     </div>
                     <div className="flex flex-col w-full">
-                        {post.imageUrl && (
-                            <img src={post.imageUrl} className="py-3 w-full" />
-                        )}
                         <div className="border-b border-indigo-900">
                             <DraftjsView editorState={post.content} />
                         </div>
                     </div>
-                    <div className="h-14 py-3 px-2">
+                    <div className="h-16 py-3 px-2">
                         {(user.id === post.authorId ||
                             user.role === "admin") && <PostButtons />}
                     </div>
