@@ -40,8 +40,8 @@ export class AppModule {
           resave: false,
           cookie: {
             sameSite: true,
-            httpOnly: false,
-            maxAge: 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            maxAge: 24 * 60 * 60 * 1000, // 24h
           },
         }),
         passport.initialize(),
