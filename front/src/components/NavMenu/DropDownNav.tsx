@@ -22,7 +22,7 @@ export function DropDownNav({ username }) {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
             >
-                <Menu.Items className="absolute w-full bg-blue-700 py-2 rounded-lg shadow-lg mt-1">
+                <Menu.Items className="absolute w-full z-20 bg-blue-700 py-2 rounded-lg shadow-lg mt-1">
                     <NavOption path={`./`}>Accueil</NavOption>
                     <NavOption path={`./profile/${user.id}`}>
                         Mon profil

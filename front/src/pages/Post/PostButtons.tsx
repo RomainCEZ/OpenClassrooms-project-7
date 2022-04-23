@@ -22,8 +22,15 @@ export default function PostButtons() {
 
     return (
         <div className="flex justify-end items-center gap-3">
-            <BlueLinkButton path={`/post/${id}/edit`}>Éditer</BlueLinkButton>
-            <RedOnClickButton onClick={openModal}>Supprimer</RedOnClickButton>
+            <BlueLinkButton
+                path={`/post/${id}/edit`}
+                className="px-10 sm:w-1/4"
+            >
+                Éditer
+            </BlueLinkButton>
+            <RedOnClickButton onClick={openModal} className="sm:w-1/4">
+                Supprimer
+            </RedOnClickButton>
             <ConfirmDeletePost
                 isOpen={isOpen}
                 closeModal={closeModal}

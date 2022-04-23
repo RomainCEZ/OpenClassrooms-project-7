@@ -38,7 +38,7 @@ export default function NewComment({ postId, getComments }) {
                         />
                     </div>
                     <div className="ml-auto m-2">
-                        <BlueFormButton target="newcomment">
+                        <BlueFormButton target="newcomment" className="px-7">
                             Envoyer
                         </BlueFormButton>
                     </div>

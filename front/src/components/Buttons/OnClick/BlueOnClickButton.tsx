@@ -9,8 +9,8 @@ interface ButtonProps {
 function BlueOnClickButton({ onClick, children, className }: ButtonProps) {
     return (
         <button
-            className={`p-2.5 px-8 text-white font-bold rounded-md bg-blue-700 shadow-md
-            hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-500 transition-all ${className}`}
+            className={`p-2.5 text-white font-bold rounded-md bg-blue-700 shadow-md
+            hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-500 transition ${className}`}
             onClick={onClick}
         >
             {children}
