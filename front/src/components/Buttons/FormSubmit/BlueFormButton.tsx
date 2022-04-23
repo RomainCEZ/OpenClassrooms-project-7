@@ -1,4 +1,14 @@
-export default function BlueFormButton({ children, target, className }) {
+import { ReactChild } from "react";
+
+export default function BlueFormButton({
+    children,
+    target,
+    className,
+}: {
+    children: ReactChild;
+    target: string;
+    className?: string;
+}) {
     return (
         <button
             type="submit"
