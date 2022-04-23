@@ -1,13 +1,11 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import BlueOnClickButton from "../../components/Buttons/OnClick/BlueOnClickButton";
 import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
 
-export default function ConfirmDisableAccount({
-    isOpen,
-    closeModal,
-    disableAccount,
-}) {
+export default function ConfirmDisableAccount({ isOpen, closeModal }) {
+    function disableAccount() {}
+
     return (
         <Transition
             appear
@@ -31,11 +29,14 @@ export default function ConfirmDisableAccount({
                 <Dialog.Description className="mb-6 font-bold text-xl text-red-800">
                     Attention, cette action est définitive !
                 </Dialog.Description>
-                <div className="flex justify-center items-center gap-8">
-                    <RedOnClickButton onClick={disableAccount}>
+                <div className="flex justify-center items-center w-11/12 gap-8">
+                    <RedOnClickButton
+                        onClick={disableAccount}
+                        className="w-1/2"
+                    >
                         Confirmer
                     </RedOnClickButton>
-                    <BlueOnClickButton onClick={closeModal}>
+                    <BlueOnClickButton onClick={closeModal} className="w-1/2">
                         Annuler
                     </BlueOnClickButton>
                 </div>

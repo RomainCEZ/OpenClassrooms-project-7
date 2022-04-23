@@ -1,12 +1,11 @@
-import { use } from "passport";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
-import { SessionContext } from "./context/SessionContext";
 
 export default function ResetPassword() {
-    const { navigate } = useContext(SessionContext);
+    const navigate = useNavigate();
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [formErrors, setFormErrors] = useState("");
