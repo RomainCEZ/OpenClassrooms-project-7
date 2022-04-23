@@ -47,6 +47,9 @@ class AuthProvider {
     async logout() {
         await axios.post("auth/logout");
     }
+    async changePassword(payload) {
+        await axios.post("auth/changepassword", payload);
+    }
 
     async requestpasswordreset(email: { email: string }) {
         await axios.post("auth/requestpasswordreset", email);
@@ -61,6 +64,9 @@ class AuthProvider {
         } catch (error) {
             throw error.response.data;
         }
+    }
+    async disableAccount() {
+        await axios.post("auth/disableaccount");
     }
 }
 
