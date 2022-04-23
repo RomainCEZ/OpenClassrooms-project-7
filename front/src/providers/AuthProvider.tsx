@@ -66,7 +66,7 @@ class AuthProvider {
         }
     }
     async disableAccount() {
-        await axios.post("auth/disableaccount");
+        await axios.delete("auth/disableaccount");
     }
 }
 

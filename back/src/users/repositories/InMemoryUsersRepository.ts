@@ -9,6 +9,9 @@ export class InMemoryUsersRepository implements IUsersRepository {
     constructor() {
         this.data = UsersData
     }
+    disableAccount(id: string) {
+        throw new Error('Method not implemented.');
+    }
 
     saveUser(user: User) {
         this.isUnique(user)

@@ -18,26 +18,26 @@ export class UsersService {
             username: createUserDto.username,
             password: UserPassword.createHash(createUserDto.password)
         })
-        return this.usersRepository.saveUser(user)
+        return await this.usersRepository.saveUser(user)
     }
 
-    saveUser(user) {
-        return this.usersRepository.saveUser(user)
+    async saveUser(user: User) {
+        return await this.usersRepository.saveUser(user)
     }
 
-    findByEmail(email: string) {
-        return this.usersRepository.getByEmail(email.toLowerCase())
+    async findByEmail(email: string) {
+        return await this.usersRepository.getByEmail(email.toLowerCase())
     }
 
-    findById(id: string) {
-        return this.usersRepository.getById(id)
+    async findById(id: string) {
+        return await this.usersRepository.getById(id)
     }
 
-    changePassword(userId: string, password: string) {
-        return this.usersRepository.changePassword(userId, password)
+    async changePassword(userId: string, password: string) {
+        await this.usersRepository.changePassword(userId, password)
     }
 
-    remove(id: string) {
-        return `This action removes a #${id} user`;
+    async disableAccount(id: string) {
+        await this.usersRepository.disableAccount(id)
     }
 }

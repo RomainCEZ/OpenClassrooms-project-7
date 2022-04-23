@@ -3,7 +3,9 @@ import { User } from "../entities/User";
 import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 
 export class UsersRepository implements IUsersRepository {
-    data?: User[];
+    disableAccount(id: string) {
+        throw new Error("Method not implemented.");
+    }
     changePassword(id: string, password: string) {
         throw new Error("Method not implemented.");
     }

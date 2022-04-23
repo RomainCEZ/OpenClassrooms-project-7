@@ -27,6 +27,7 @@ export const SessionContext = createContext({
     createSession: null,
     logout: null,
     navigate: null,
+    disableAccount: null,
 });
 
 export const SessionProvider = ({ children }) => {
@@ -47,9 +48,15 @@ export const SessionProvider = ({ children }) => {
         relog().catch((error) => {});
     }, []);
 
-    function logout() {
-        authProvider.logout();
+    async function logout() {
+        await authProvider.logout();
         setLoggedIn(false);
+        setUser(UserInitValues);
+        navigate("/");
+    }
+    async function disableAccount() {
+        await authProvider.disableAccount();
+        await logout();
     }
 
     return (
@@ -61,6 +68,7 @@ export const SessionProvider = ({ children }) => {
                 createSession,
                 logout,
                 navigate,
+                disableAccount,
             }}
         >
             {children}

@@ -1,8 +1,6 @@
 import { User } from "../entities/User";
 
 export interface IUsersRepository {
-    data?: User[]
-    // getAllUsers(): UserData[]
 
     saveUser(user: User)
 
@@ -12,4 +10,5 @@ export interface IUsersRepository {
 
     changePassword(id: string, password: string)
 
+    disableAccount(id: string)
 }

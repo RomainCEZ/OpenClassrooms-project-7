@@ -35,7 +35,7 @@ export class UserDBadapter implements IUsersRepository {
     }
     async getByEmail(email: string): Promise<User> {
         const user = await this.userModel.findOne<UserModel>({
-            where: { email },
+            where: { email, isActive: true },
             include: [
                 { model: PostModel, attributes: [], where: { isPublished: true }, required: false },
                 { model: CommentModel, attributes: [], where: { isPublished: true }, required: false }
@@ -67,7 +67,7 @@ export class UserDBadapter implements IUsersRepository {
     }
     async getById(id: string): Promise<User> {
         const user = await this.userModel.findOne<UserModel>({
-            where: { userId: id }
+            where: { userId: id, isActive: true }
         });
         if (!user) {
             throw new NotFoundException("Utilisateur introuvable !")
@@ -80,7 +80,6 @@ export class UserDBadapter implements IUsersRepository {
             role: user.role,
             timestamp: user.timestamp
         })
-
     }
     async changePassword(id: string, password: string) {
         const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
@@ -88,5 +87,12 @@ export class UserDBadapter implements IUsersRepository {
             throw new NotFoundException("Utilisateur introuvable !")
         }
         await user.update({ password })
+    }
+    async disableAccount(id: string) {
+        const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        await user.update({ isActive: false })
     }
 }

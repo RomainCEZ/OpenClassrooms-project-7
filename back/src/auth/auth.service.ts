@@ -30,8 +30,8 @@ export class AuthService {
         }
         return null;
     }
-    createSession(loginUserDto: LoginUserDto) {
-        const user = this.usersService.findByEmail(loginUserDto.email.toLowerCase())
+    async createSession(loginUserDto: LoginUserDto) {
+        const user = await this.usersService.findByEmail(loginUserDto.email.toLowerCase())
         this.verifyPassword(UserPassword.createPlainText(loginUserDto.password).password, user.password)
         return { userId: user.id, username: user.username }
     }
@@ -81,5 +81,8 @@ export class AuthService {
         } catch (error) {
             throw new UnauthorizedException("Le lien a expiré ou est invalide !")
         }
+    }
+    async disableAccount(id: string) {
+        await this.usersService.disableAccount(id)
     }
 }

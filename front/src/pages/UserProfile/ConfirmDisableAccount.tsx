@@ -1,10 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import BlueOnClickButton from "../../components/Buttons/OnClick/BlueOnClickButton";
 import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
+import { SessionContext } from "../Auth/context/SessionContext";
 
 export default function ConfirmDisableAccount({ isOpen, closeModal }) {
-    function disableAccount() {}
+    const { disableAccount } = useContext(SessionContext);
 
     return (
         <Transition
