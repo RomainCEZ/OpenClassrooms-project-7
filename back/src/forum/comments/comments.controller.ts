@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException } from '@nestjs/common';
 import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -33,8 +33,9 @@ export class CommentsController {
   async update(@Param('commentId') commentId: string, @Req() req) {
     const comment = await this.commentsService.getCommentById(commentId)
     if (req.user.id === comment.authorId || req.user.role === 'admin') {
-      return this.commentsService.updateCommentById(commentId, { ...req.body });
+      return await this.commentsService.updateCommentById(commentId, { ...req.body });
     }
+    throw new ForbiddenException("Requête non autorisée !")
   }
 
   @UseGuards(AuthenticationGuard)
@@ -42,7 +43,8 @@ export class CommentsController {
   async remove(@Param('commentId') commentId: string, @Req() req) {
     const comment = await this.commentsService.getCommentById(commentId)
     if (req.user.id === comment.authorId || req.user.role === 'admin') {
-      return this.commentsService.deleteCommentById(commentId);
+      return await this.commentsService.deleteCommentById(commentId);
     }
+    throw new ForbiddenException("Requête non autorisée !")
   }
 }
