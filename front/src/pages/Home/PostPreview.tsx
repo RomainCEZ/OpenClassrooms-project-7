@@ -9,7 +9,6 @@ export default function PostPreview({
     id,
     title,
     content,
-    src,
     author,
     timestamp,
     commentsNumber,
@@ -57,11 +56,7 @@ export default function PostPreview({
                     ref={contentRef}
                     className={`relative max-h-[30rem] border-b border-indigo-900 group-hover:border-indigo-600 transition-all overflow-clip ${contentOverlay}`}
                 >
-                    {src ? (
-                        <img src={src} className="pt-3 w-full object-contain" />
-                    ) : (
-                        <DraftjsView editorState={editorState} />
-                    )}
+                    <DraftjsView editorState={editorState} />
                 </div>
                 <p className="text-sm px-2 pt-4 group-hover:text-gray-600 transition-all">
                     {commentsNumber > 1
