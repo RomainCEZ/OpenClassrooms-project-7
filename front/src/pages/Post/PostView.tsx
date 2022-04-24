@@ -1,14 +1,14 @@
 import { useState, useEffect, useContext } from "react";
-import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
+import { Link } from "react-router-dom";
+import { EditorState, convertFromRaw } from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import ReactTimeAgo from "react-time-ago";
 import { PostProps } from "./interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";
-import { EditorState, convertFromRaw } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import Comment from "./Comments/Comment";
 import CommentLoader from "./Comments/CommentLoader";
-import ReactTimeAgo from "react-time-ago";
 import NewComment from "./Comments/NewComment";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import PostButtons from "./PostButtons";
@@ -60,7 +60,9 @@ export default function PostView() {
 
     return (
         <section>
-            <BlueLinkButton path="/">Retour</BlueLinkButton>
+            <Link to="/" className="btn-blue">
+                Retour
+            </Link>
             {isLoading ? (
                 <PostLoader />
             ) : (

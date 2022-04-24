@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
-import { authProvider } from "../../providers/AuthProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 
 export default function Signup() {
@@ -18,7 +16,7 @@ export default function Signup() {
         password: "",
         confirmPassword: "",
     };
-    const { setLoggedIn, createSession, navigate } = useContext(SessionContext);
+    const { signup } = useContext(SessionContext);
 
     const [form, setForm] = useState(signupForm);
     const [formErrors, setFormErrors] = useState(signupForm);
@@ -49,7 +47,7 @@ export default function Signup() {
         const value = event.target.value;
         setForm((form) => ({ ...form, confirmPassword: value }));
     }
-    async function postContent(e: React.FormEvent<HTMLFormElement>) {
+    async function submitSignup(e: React.FormEvent<HTMLFormElement>) {
         resetFormErrors();
         e.preventDefault();
         if (form.password !== form.confirmPassword) {
@@ -61,16 +59,12 @@ export default function Signup() {
             return;
         }
         try {
-            const loginInfo = {
+            const signupInfo = {
                 email: form.email,
                 username: form.username,
                 password: form.password,
             };
-            await authProvider.signup(loginInfo);
-            const loginResponse = await authProvider.login(loginInfo);
-            await setLoggedIn(true);
-            await createSession(loginResponse.data);
-            navigate("/");
+            await signup(signupInfo);
         } catch (error) {
             error.message.forEach((message) => {
                 switch (true) {
@@ -97,7 +91,7 @@ export default function Signup() {
         <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
             <form
                 id="signup"
-                onSubmit={postContent}
+                onSubmit={submitSignup}
                 className="flex flex-col p-5 gap-2"
             >
                 <FormInput
@@ -133,14 +127,15 @@ export default function Signup() {
                     errorMessage={formErrors.confirmPassword}
                 />
                 <div className="flex mx-2 mt-8">
-                    <BlueFormButton target="signup">
+                    <button
+                        type="submit"
+                        formTarget="signup"
+                        className="btn-blue flex-grow"
+                    >
                         Créer un compte
-                    </BlueFormButton>
+                    </button>
                 </div>
-                <Link
-                    to="/login"
-                    className="m-3 text-blue-700 hover:text-blue-400 font-bold"
-                >
+                <Link to="/login" className="btn-text-blue m-3">
                     Vous avez déjà un compte ? Cliquez ici pour vous connecter.
                 </Link>
             </form>

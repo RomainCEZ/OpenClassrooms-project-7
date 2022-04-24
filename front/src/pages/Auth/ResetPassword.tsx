@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
 
@@ -75,9 +74,13 @@ export default function ResetPassword() {
                     errorMessage={formErrors}
                 />
                 <div className="flex mx-2 my-4">
-                    <BlueFormButton target="resetpassword">
+                    <button
+                        type="submit"
+                        formTarget="resetpassword"
+                        className="btn-blue"
+                    >
                         Réinitialiser mon mot de passe
-                    </BlueFormButton>
+                    </button>
                 </div>
             </form>
         </section>

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import BlueFormButton from "../../../components/Buttons/FormSubmit/BlueFormButton";
 import { apiProvider } from "../../../providers/ApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
 
@@ -38,9 +37,13 @@ export default function NewComment({ postId, getComments }) {
                         />
                     </div>
                     <div className="ml-auto m-2">
-                        <BlueFormButton target="newcomment" className="px-7">
+                        <button
+                            type="submit"
+                            formTarget="newcomment"
+                            className="btn-blue px-7"
+                        >
                             Envoyer
-                        </BlueFormButton>
+                        </button>
                     </div>
                 </form>
             ) : (

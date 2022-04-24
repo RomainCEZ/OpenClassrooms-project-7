@@ -1,7 +1,5 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import BlueOnClickButton from "../../components/Buttons/OnClick/BlueOnClickButton";
-import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
 
 export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
     return (
@@ -25,12 +23,12 @@ export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
                     Voulez-vous vraiment supprimer ce post ?
                 </Dialog.Title>
                 <div className="flex justify-center items-center w-11/12 gap-8">
-                    <RedOnClickButton onClick={deletePost} className="w-1/2">
+                    <button onClick={deletePost} className="btn-red w-1/2">
                         Confirmer
-                    </RedOnClickButton>
-                    <BlueOnClickButton onClick={closeModal} className="w-1/2">
+                    </button>
+                    <button onClick={closeModal} className="btn-blue w-1/2">
                         Annuler
-                    </BlueOnClickButton>
+                    </button>
                 </div>
             </Dialog>
         </Transition>

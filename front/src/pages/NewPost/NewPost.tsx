@@ -1,15 +1,12 @@
 import { useContext, useState } from "react";
 import { apiProvider } from "../../providers/ApiProvider";
-import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
-import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import { SessionContext } from "../Auth/context/SessionContext";
 import ReactTimeAgo from "react-time-ago";
-import WhiteOnClickButton from "../../components/Buttons/OnClick/WhiteOnClickButton";
 
 export default function NewPost() {
     const { user } = useContext(SessionContext);
@@ -42,7 +39,9 @@ export default function NewPost() {
 
     return (
         <section className="flex flex-col content-center justify-center rounded">
-            <BlueLinkButton path="/">Retour</BlueLinkButton>
+            <Link to="/" className="btn-blue">
+                Retour
+            </Link>
             {preview ? (
                 <div className="mt-3 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900 shadow-md">
                     <div className="mb-3 pb-2 border-b-2 border-indigo-900">
@@ -81,10 +80,19 @@ export default function NewPost() {
                 </form>
             )}
             <div className="flex w-full gap-4 mt-3">
-                <BlueFormButton target="newpost">Publier</BlueFormButton>
-                <WhiteOnClickButton onClick={() => setPreview(!preview)}>
+                <button
+                    type="submit"
+                    formTarget="newpost"
+                    className="btn-blue flex-grow"
+                >
+                    Publier
+                </button>
+                <button
+                    onClick={() => setPreview(!preview)}
+                    className="btn-white w-2/5 sm:w-1/4"
+                >
                     {preview ? "Éditer" : "Aperçu"}
-                </WhiteOnClickButton>
+                </button>
             </div>
         </section>
     );

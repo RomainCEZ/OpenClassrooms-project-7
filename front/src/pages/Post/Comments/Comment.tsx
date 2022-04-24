@@ -81,12 +81,12 @@ export default function Comment({
                             <>
                                 <button
                                     onClick={editComment}
-                                    className="ml-auto px-3 font-bold text-blue-800 hover:text-blue-400 focus:text-blue-400 active:text-blue-300 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue ml-auto px-4 underline underline-offset-2 decoration-2"
                                 >
                                     Valider
                                 </button>
                                 <button
-                                    className="px-3 font-bold text-blue-800 hover:text-red-700 focus:text-red-700 active:text-red-500 underline underline-offset-2 decoration-2 border-r border-gray-500"
+                                    className="btn-text-blue px-4 underline underline-offset-2 decoration-2"
                                     onClick={cancelUpdateComment}
                                 >
                                     Annuler
@@ -96,12 +96,12 @@ export default function Comment({
                             <>
                                 <button
                                     onClick={() => setEditing(true)}
-                                    className="ml-auto px-3 font-bold text-blue-800 hover:text-blue-400 focus:text-blue-400 active:text-blue-300 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue ml-auto px-5 underline underline-offset-2 decoration-2"
                                 >
                                     Éditer
                                 </button>
                                 <button
-                                    className="px-3 font-bold text-blue-800 hover:text-red-700 focus:text-red-700 active:text-red-500 underline underline-offset-2 decoration-2 border-r border-gray-500"
+                                    className="btn-text-blue px-3 underline underline-offset-2 decoration-2"
                                     onClick={deleteComment}
                                 >
                                     Supprimer

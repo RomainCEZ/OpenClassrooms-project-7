@@ -1,7 +1,5 @@
 import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import BlueOnClickButton from "../../components/Buttons/OnClick/BlueOnClickButton";
-import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
 import { SessionContext } from "../Auth/context/SessionContext";
 
 export default function ConfirmDisableAccount({ isOpen, closeModal }) {
@@ -31,15 +29,12 @@ export default function ConfirmDisableAccount({ isOpen, closeModal }) {
                     Attention, cette action est définitive !
                 </Dialog.Description>
                 <div className="flex justify-center items-center w-11/12 gap-8">
-                    <RedOnClickButton
-                        onClick={disableAccount}
-                        className="w-1/2"
-                    >
+                    <button onClick={disableAccount} className="btn-red w-1/2">
                         Confirmer
-                    </RedOnClickButton>
-                    <BlueOnClickButton onClick={closeModal} className="w-1/2">
+                    </button>
+                    <button onClick={closeModal} className="btn-blue w-1/2">
                         Annuler
-                    </BlueOnClickButton>
+                    </button>
                 </div>
             </Dialog>
         </Transition>

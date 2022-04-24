@@ -1,7 +1,6 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
-import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import { authProvider } from "../../providers/AuthProvider";
 
 export default function ChangePassword({ isOpen, closeModal }) {
@@ -120,12 +119,13 @@ export default function ChangePassword({ isOpen, closeModal }) {
                         handleChange={() => changeNewConfirmPassword}
                         errorMessage={formErrors.newPassword}
                     />
-                    <BlueFormButton
-                        target="resetpassword"
-                        className="mx-2 my-10"
+                    <button
+                        type="submit"
+                        formTarget="resetpassword"
+                        className="btn-blue mx-2 my-10"
                     >
                         Changer le mot de passe
-                    </BlueFormButton>
+                    </button>
                 </form>
             </Dialog>
         </Transition>

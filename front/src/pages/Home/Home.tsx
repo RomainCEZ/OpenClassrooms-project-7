@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext } from "react";
-import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import PostPreview from "./PostPreview";
 import { PostProps } from "../Post/interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
@@ -34,7 +33,9 @@ export default function Home() {
     return (
         <>
             {loggedIn ? (
-                <BlueLinkButton path="newpost">Nouveau post</BlueLinkButton>
+                <Link to="newpost" className="btn-blue">
+                    Nouveau post
+                </Link>
             ) : (
                 <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded bg-white border border-indigo-900 shadow-md">
                     <span>

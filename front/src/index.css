@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn-blue {
+      @apply flex justify-center p-2.5 rounded-md text-white shadow-md font-bold bg-blue-700 hover:bg-blue-600 focus:bg-blue-600 active:bg-blue-500 transition;
+    }
+
+    .btn-red {
+        @apply flex justify-center p-2.5 rounded-md text-white shadow-md font-bold bg-red-800 hover:bg-red-600 focus:bg-red-600 active:bg-red-500 transition;
+      }
+
+    .btn-white {
+        @apply flex justify-center font-bold p-2 border bg-white shadow-md border-blue-800 rounded-md cursor-pointer hover:bg-sky-100 hover:shadow-sky-200 focus:bg-sky-100 focus:shadow-sky-200 active:bg-sky-100/20 active:text-sky-500 transition;
+    }
+
+    .btn-text-blue {
+        @apply text-blue-700 hover:text-blue-500 focus:text-blue-500 active:text-blue-400 font-bold transition
+    }
+}

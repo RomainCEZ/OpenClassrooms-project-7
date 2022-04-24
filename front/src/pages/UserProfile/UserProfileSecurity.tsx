@@ -1,6 +1,4 @@
 import { useState } from "react";
-import BlueOnClickButton from "../../components/Buttons/OnClick/BlueOnClickButton";
-import RedOnClickButton from "../../components/Buttons/OnClick/RedOnClickButton";
 import ChangePassword from "./ChangePassword";
 import ConfirmDisableAccount from "./ConfirmDisableAccount";
 
@@ -11,22 +9,22 @@ export default function UserProfileSecurity() {
     return (
         <div className="flex flex-col py-8 px-2 sm:px-4 gap-3">
             <h2 className="mb-4 text-2xl text-blue-800">Sécurité</h2>
-            <BlueOnClickButton
+            <button
                 onClick={() => setChangePasswordModal(true)}
-                className="w-11/12 sm:w-3/5 xl:w-1/2 self-center"
+                className="btn-blue w-11/12 sm:w-3/5 xl:w-1/2 self-center"
             >
                 Changer mon mot de passe
-            </BlueOnClickButton>
+            </button>
             <ChangePassword
                 isOpen={changePasswordModal}
                 closeModal={() => setChangePasswordModal(false)}
             />
-            <RedOnClickButton
+            <button
                 onClick={() => setDisableAccountModal(true)}
-                className="mt-4 w-11/12 sm:w-3/5 xl:w-1/2 self-center"
+                className="btn-red mt-4 w-11/12 sm:w-3/5 xl:w-1/2 self-center"
             >
                 Désactiver mon compte
-            </RedOnClickButton>
+            </button>
             <ConfirmDisableAccount
                 isOpen={disableAccountModal}
                 closeModal={() => setDisableAccountModal(false)}

@@ -1,8 +1,6 @@
 import { useContext, useState } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { Link } from "react-router-dom";
-import { authProvider } from "../../providers/AuthProvider";
-import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
 import FormInput from "../../components/Inputs/FormInput";
 
 export default function Login() {
@@ -13,7 +11,7 @@ export default function Login() {
     const loginForm: ILoginForm = { email: "", password: "" };
     const [form, setForm] = useState(loginForm);
     const [formErrors, setFormErrors] = useState(loginForm);
-    const { setLoggedIn, createSession, navigate } = useContext(SessionContext);
+    const { login } = useContext(SessionContext);
 
     const resetFormErrors = () => {
         if (formErrors !== loginForm) {
@@ -31,7 +29,7 @@ export default function Login() {
         const value = event.target.value;
         setForm((form) => ({ ...form, password: value }));
     }
-    async function login(e: React.FormEvent<HTMLFormElement>) {
+    async function submitLogin(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         resetFormErrors();
         try {
@@ -39,10 +37,7 @@ export default function Login() {
                 email: form.email,
                 password: form.password,
             };
-            const loginResponse = await authProvider.login(loginInfo);
-            await setLoggedIn(true);
-            await createSession(loginResponse.data);
-            navigate("/");
+            await login(loginInfo);
         } catch (error) {
             if (error.statusCode === 401) {
                 setFormErrors({
@@ -60,7 +55,7 @@ export default function Login() {
         <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
             <form
                 id="login"
-                onSubmit={login}
+                onSubmit={submitLogin}
                 className="flex flex-col p-5 gap-2"
             >
                 <FormInput
@@ -81,17 +76,20 @@ export default function Login() {
                 />
                 <Link
                     to="/login/requestpasswordreset"
-                    className="mx-3 mt-4 mb-1 text-blue-700 hover:text-blue-400 font-bold"
+                    className="btn-text-blue mx-3 mt-4 mb-1"
                 >
                     Mot de passe oublié ?
                 </Link>
                 <div className="flex mx-2">
-                    <BlueFormButton target="login">Se connecter</BlueFormButton>
+                    <button
+                        type="submit"
+                        formTarget="login"
+                        className="btn-blue flex-grow"
+                    >
+                        Se connecter
+                    </button>
                 </div>
-                <Link
-                    to="/signup"
-                    className="m-3 text-blue-700 hover:text-blue-400 font-bold"
-                >
+                <Link to="/signup" className="btn-text-blue m-3">
                     Pas encore enregistré ? Cliquez ici pour créer un compte.
                 </Link>
             </form>
