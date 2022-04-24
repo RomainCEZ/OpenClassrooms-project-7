@@ -54,7 +54,9 @@ export default function UserProfile() {
     return (
         <section className="relative flex flex-col items-center bg-white w-full border border-blue-800 sm:rounded-xl overflow-clip shadow-lg">
             <div className="absolute w-full h-36 bg-blue-800 shadow-md"></div>
-            <ProfilePictureBox picture={profile.profilePicture} />
+            <button className="mt-16 w-36 h-36">
+                <ProfilePictureBox picture={profile.profilePicture} />
+            </button>
             <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full bg-white divide-blue-800 divide-y">
                 <div className="p-4 mb-2">
                     <p className="mb-2 text-center text-4xl text-blue-800">
