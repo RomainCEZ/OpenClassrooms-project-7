@@ -1,17 +1,35 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import ProfilePictureBox from "./ProfilePictureBox";
 import UserContent from "./UserContent";
 import UserInfos from "./UserInfos";
 import UserProfileSecurity from "./UserProfileSecurity";
 
+interface IProfile {
+    username: string;
+    timestamp: number;
+    postsCount: number;
+    commentsCount: number;
+    profilePicture: string;
+}
+
 export default function UserProfile() {
-    const { user, checkLogin } = useContext(SessionContext);
-    const date = new Date(user.timestamp);
-    const avatar = "";
+    const { checkLogin } = useContext(SessionContext);
+    const [profile, setProfile] = useState<IProfile>({
+        username: "",
+        timestamp: 0,
+        postsCount: 0,
+        commentsCount: 0,
+        profilePicture: "",
+    });
+    const date = new Date(profile.timestamp);
 
     useEffect(() => {
         checkLogin();
+        apiProvider
+            .getProfile()
+            .then((profileInfos) => setProfile({ ...profileInfos }));
     }, []);
 
     const months = {
@@ -36,18 +54,18 @@ export default function UserProfile() {
     return (
         <section className="relative flex flex-col items-center bg-white w-full border border-blue-800 sm:rounded-xl overflow-clip shadow-lg">
             <div className="absolute w-full h-36 bg-blue-800 shadow-md"></div>
-            <ProfilePictureBox avatar={avatar} />
+            <ProfilePictureBox picture={profile.profilePicture} />
             <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full bg-white divide-blue-800 divide-y">
                 <div className="p-4 mb-2">
                     <p className="mb-2 text-center text-4xl text-blue-800">
-                        {user.username}
+                        {profile.username}
                     </p>
                     <p className="text-center">
                         Depuis le {accountCreationDate}
                     </p>
                 </div>
-                <UserContent />
-                <UserInfos />
+                <UserContent profile={profile} />
+                <UserInfos profile={profile} />
                 <UserProfileSecurity />
             </div>
         </section>

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SessionContext } from "../Auth/context/SessionContext";
 
-export default function UserInfos() {
+export default function UserInfos({ profile }) {
     const { user } = useContext(SessionContext);
 
     return (
@@ -15,7 +15,7 @@ export default function UserInfos() {
                     <p className="flex flex-col sm:flex-row gap-2">
                         <span>Adresse email :</span>
                         <span className="ml-4 text-blue-800">
-                            email@address.com
+                            {profile.email}
                         </span>
                     </p>
                     <Link
@@ -29,7 +29,7 @@ export default function UserInfos() {
                     <p className="flex flex-col sm:flex-row gap-2">
                         <span>Nom d'utilisateur :</span>
                         <span className="ml-4 text-blue-800">
-                            {user.username}
+                            {profile.username}
                         </span>
                     </p>
                     <Link
