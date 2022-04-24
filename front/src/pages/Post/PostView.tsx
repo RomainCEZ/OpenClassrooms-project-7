@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
-import { PostProps } from "../../utils/interfaces/PostProps";
+import { PostProps } from "./interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";

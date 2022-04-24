@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import BlueLinkButton from "../../components/Buttons/Link/BlueLinkButton";
 import PostPreview from "./PostPreview";
-import { PostProps } from "../../utils/interfaces/PostProps";
+import { PostProps } from "../Post/interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostPreviewLoader from "./PostPreviewLoader";
@@ -17,7 +17,6 @@ export default function Home() {
             key={post.id}
             id={post.id}
             title={post.title}
-            src={post.imageUrl}
             content={post.content}
             author={post.author}
             timestamp={post.timestamp}
