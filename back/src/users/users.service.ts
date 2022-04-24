@@ -32,6 +32,20 @@ export class UsersService {
     async findById(id: string) {
         return await this.usersRepository.getById(id)
     }
+
+    async getProfile(id: string) {
+        const user = await this.usersRepository.getById(id)
+        const profilePicture = user.profilePicture ? `${process.env.DOMAIN_ADDRESS}/${process.env.IMAGE_FOLDER}/${user.profilePicture}` : ""
+        const profile = {
+            email: user.email,
+            username: user.username,
+            timestamp: user.timestamp,
+            profilePicture,
+            postsCount: user.postsCount,
+            commentsCount: user.commentsCount
+        }
+        return profile
+    }
     async changeProfilePicture(userId: string, imageName: string) {
         // if (imageName) {
         //     fs.unlink(`./${process.env.IMAGE_FOLDER}/${imageName}`, error => {

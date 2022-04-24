@@ -10,7 +10,7 @@ export class UsersController {
 
   @Get('profile')
   async getUserProfile(@Request() req) {
-    return await this.usersService.findById(req.user.id);
+    return await this.usersService.getProfile(req.user.id);
   }
 
   @Post('profilepicture')
