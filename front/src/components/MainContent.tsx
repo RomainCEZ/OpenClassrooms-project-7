@@ -24,7 +24,7 @@ export default function MainContent() {
                     path="/login/resetpassword"
                     element={<ResetPassword />}
                 />
-                <Route path="/profile/:id" element={<UserProfile />} />
+                <Route path="/profile/" element={<UserProfile />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/post/:id" element={<PostView />} />
                 <Route path="newpost" element={<NewPost />} />
