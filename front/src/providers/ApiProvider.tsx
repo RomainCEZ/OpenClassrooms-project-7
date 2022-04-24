@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PostProps } from "../utils/interfaces/PostProps";
+import { PostProps } from "../pages/Post/interfaces/PostProps";
 
 class ApiProvider {
     private readonly protocol: string;
@@ -57,6 +57,10 @@ class ApiProvider {
     }
     async deleteComment(commentId: string) {
         await axios.delete(`/api/comments/${commentId.toString()}`);
+    }
+    async getProfile() {
+        const profileInfos = await axios.get("api/users/profile");
+        return profileInfos.data;
     }
 }
 
