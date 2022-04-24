@@ -34,11 +34,7 @@ class AuthProvider {
 
     async relog() {
         try {
-            const relogResponse = await axios.post("auth");
-            if (relogResponse.data) {
-                return relogResponse.data;
-            }
-            return relogResponse;
+            await axios.post("auth");
         } catch (error) {
             return error.response.status;
         }
