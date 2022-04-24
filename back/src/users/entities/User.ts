@@ -10,8 +10,9 @@ export class User {
     readonly timestamp: number
     readonly postsCount?: number
     readonly commentsCount?: number
+    readonly profilePicture?: string
 
-    constructor({ id, email, username, password, role, timestamp, postsCount, commentsCount }: UserProps) {
+    constructor({ id, email, username, password, role, timestamp, postsCount, commentsCount, profilePicture }: UserProps) {
         this.id = id
         this.email = email
         this.username = username
@@ -20,9 +21,10 @@ export class User {
         this.timestamp = timestamp
         this.postsCount = postsCount
         this.commentsCount = commentsCount
+        this.profilePicture = profilePicture
     }
 
-    public static create({ id, email, username, password, role, postsCount, commentsCount }: UserProps) {
+    public static create({ id, email, username, password, role, postsCount, commentsCount, profilePicture }: UserProps) {
         return new User({
             id: id || nanoid(),
             email,
@@ -30,6 +32,7 @@ export class User {
             password,
             role: role || "user",
             timestamp: Date.now(),
+            profilePicture: profilePicture || null,
             postsCount: postsCount | 0,
             commentsCount: commentsCount | 0
         })

@@ -32,7 +32,7 @@ export class UsersService {
     async findById(id: string) {
         return await this.usersRepository.getById(id)
     }
-    async changeAvatar(userId: string, imageUrl: string) {
+    async changeProfilePicture(userId: string, imageName: string) {
         // if (imageName) {
         //     fs.unlink(`./${process.env.IMAGE_FOLDER}/${imageName}`, error => {
         //         if (error) {

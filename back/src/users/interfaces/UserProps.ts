@@ -7,4 +7,5 @@ export interface UserProps {
     timestamp?: number
     postsCount?: number
     commentsCount?: number
+    profilePicture?: string
 }

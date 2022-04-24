@@ -20,6 +20,9 @@ export class UserModel extends Model {
     @Column
     role: string
 
+    @Column({ type: DataType.STRING })
+    profilePicture: string
+
     @Column({ type: DataType.BIGINT })
     timestamp: number;
 

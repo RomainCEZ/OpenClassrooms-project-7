@@ -43,8 +43,6 @@ export class UserDBadapter implements IUsersRepository {
             attributes: {
                 include: [
                     [Sequelize.fn('COUNT', Sequelize.col('posts')), 'postsCount'],
-                    // [Sequelize.fn('COUNT', Sequelize.col('comments')), 'commentsCount'],
-                    // [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('posts'))), 'postsCount'],
                     [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('comments'))), 'commentsCount'],
                 ],
             },
@@ -60,14 +58,26 @@ export class UserDBadapter implements IUsersRepository {
             password: user.password,
             role: user.role,
             timestamp: user.timestamp,
+            profilePicture: user.profilePicture,
             postsCount: user.getDataValue('postsCount') / user.getDataValue('commentsCount'),
-            commentsCount: user.getDataValue('commentsCount')
+            commentsCount: user.getDataValue('commentsCount'),
         })
 
     }
     async getById(id: string): Promise<User> {
         const user = await this.userModel.findOne<UserModel>({
-            where: { userId: id, isActive: true }
+            where: { userId: id, isActive: true },
+            include: [
+                { model: PostModel, attributes: [], where: { isPublished: true }, required: false },
+                { model: CommentModel, attributes: [], where: { isPublished: true }, required: false }
+            ],
+            attributes: {
+                include: [
+                    [Sequelize.fn('COUNT', Sequelize.col('posts')), 'postsCount'],
+                    [Sequelize.fn('COUNT', Sequelize.fn('DISTINCT', Sequelize.col('comments'))), 'commentsCount'],
+                ],
+            },
+            group: ['UserModel.id']
         });
         if (!user) {
             throw new NotFoundException("Utilisateur introuvable !")
@@ -78,7 +88,10 @@ export class UserDBadapter implements IUsersRepository {
             username: user.username,
             password: user.password,
             role: user.role,
-            timestamp: user.timestamp
+            timestamp: user.timestamp,
+            profilePicture: user.profilePicture,
+            postsCount: user.getDataValue('postsCount') / user.getDataValue('commentsCount'),
+            commentsCount: user.getDataValue('commentsCount'),
         })
     }
     async changePassword(id: string, password: string) {
