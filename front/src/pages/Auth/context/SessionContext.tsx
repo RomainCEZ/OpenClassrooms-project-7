@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiProvider } from "../../../providers/ApiProvider";
 import { authProvider } from "../../../providers/AuthProvider";
 
 interface IUserSession {
@@ -9,6 +10,7 @@ interface IUserSession {
     timestamp: number;
     postsCount: number;
     commentsCount: number;
+    profilePicture: string;
 }
 
 const UserInitValues: IUserSession = {
@@ -18,17 +20,17 @@ const UserInitValues: IUserSession = {
     timestamp: null,
     postsCount: null,
     commentsCount: null,
+    profilePicture: "",
 };
 
 export const SessionContext = createContext({
     loggedIn: false,
-    setLoggedIn: null,
     user: UserInitValues,
-    createSession: null,
     logout: null,
-    navigate: null,
     disableAccount: null,
     checkLogin: null,
+    signup: null,
+    login: null,
 });
 
 export const SessionProvider = ({ children }) => {
@@ -36,20 +38,36 @@ export const SessionProvider = ({ children }) => {
     const [user, setUser] = useState(UserInitValues);
     const navigate = useNavigate();
 
-    function createSession(sessionInfo) {
+    function createSession(sessionInfo: IUserSession) {
         setUser(sessionInfo);
     }
 
     useEffect(() => {
-        const relog = async () => {
-            const userInfo = await authProvider.relog();
-            if (userInfo !== 401 && userInfo !== 403) {
-                setUser(userInfo);
-                setLoggedIn(true);
-            }
-        };
-        relog().catch((error) => {});
+        if (!loggedIn) {
+            const relog = async () => {
+                const relog = await authProvider.relog();
+                if (relog !== 401 && relog !== 403) {
+                    const sessionInfos = await apiProvider.getProfile();
+                    setUser(sessionInfos);
+                    setLoggedIn(true);
+                }
+            };
+            relog().catch((error) => {});
+        }
     }, []);
+
+    async function signup(loginInfo) {
+        await authProvider.signup(loginInfo);
+        await login(loginInfo);
+    }
+
+    async function login(loginInfo) {
+        await authProvider.login(loginInfo);
+        const sessionInfos = await apiProvider.getProfile();
+        setLoggedIn(true);
+        createSession(sessionInfos);
+        navigate("/");
+    }
 
     async function logout() {
         await authProvider.logout();
@@ -72,13 +90,12 @@ export const SessionProvider = ({ children }) => {
         <SessionContext.Provider
             value={{
                 loggedIn,
-                setLoggedIn,
                 user,
-                createSession,
                 logout,
-                navigate,
                 disableAccount,
                 checkLogin,
+                signup,
+                login,
             }}
         >
             {children}
