@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import ProfilePictureBox from "./ProfilePictureBox";
 import UserContent from "./UserContent";
@@ -6,9 +6,13 @@ import UserInfos from "./UserInfos";
 import UserProfileSecurity from "./UserProfileSecurity";
 
 export default function UserProfile() {
-    const { user } = useContext(SessionContext);
+    const { user, checkLogin } = useContext(SessionContext);
     const date = new Date(user.timestamp);
     const avatar = "";
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
 
     const months = {
         1: "Janvier",

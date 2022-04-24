@@ -28,15 +28,18 @@ export const SessionContext = createContext({
     logout: null,
     navigate: null,
     disableAccount: null,
+    checkLogin: null,
 });
 
 export const SessionProvider = ({ children }) => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [user, setUser] = useState(UserInitValues);
     const navigate = useNavigate();
+
     function createSession(sessionInfo) {
         setUser(sessionInfo);
     }
+
     useEffect(() => {
         const relog = async () => {
             const userInfo = await authProvider.relog();
@@ -54,11 +57,17 @@ export const SessionProvider = ({ children }) => {
         setUser(UserInitValues);
         navigate("/");
     }
+
     async function disableAccount() {
         await authProvider.disableAccount();
         await logout();
     }
 
+    function checkLogin() {
+        if (!loggedIn) {
+            navigate("/");
+        }
+    }
     return (
         <SessionContext.Provider
             value={{
@@ -69,6 +78,7 @@ export const SessionProvider = ({ children }) => {
                 logout,
                 navigate,
                 disableAccount,
+                checkLogin,
             }}
         >
             {children}
