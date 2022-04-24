@@ -15,8 +15,8 @@ export function NavOption({ handleClick, path, children }: NavOptionProps) {
                 <Link
                     to={path}
                     className={`
-                        flex justify-center items-center p-4 font-bold
-                        ${active ? "bg-blue-600" : ""}
+                        flex justify-center items-center p-4 font-bold hover:text-white active:bg-blue-500
+                        ${active ? "bg-blue-600 text-white" : "text-blue-800"}
                     `}
                     onClick={() => handleClick()}
                 >
