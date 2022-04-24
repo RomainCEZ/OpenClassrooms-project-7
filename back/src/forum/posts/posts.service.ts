@@ -9,7 +9,7 @@ export class PostsService {
   constructor(private readonly postsRepository: PostsRepository) { }
 
   async create(createPostDto: CreatePostDto) {
-    return await this.postsRepository.savePost(Post.create(createPostDto));
+    return this.postsRepository.savePost(Post.create(createPostDto));
   }
 
   async findAll(): Promise<Post[]> {
@@ -21,10 +21,10 @@ export class PostsService {
   }
 
   async update(postId: string, updatePostDto: UpdatePostDto) {
-    return await this.postsRepository.update(postId, updatePostDto)
+    return this.postsRepository.update(postId, updatePostDto)
   }
 
   async delete(postId: string) {
-    await this.postsRepository.delete(postId)
+    this.postsRepository.delete(postId)
   }
 }
