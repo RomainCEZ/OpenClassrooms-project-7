@@ -32,9 +32,18 @@ export class UsersService {
     async findById(id: string) {
         return await this.usersRepository.getById(id)
     }
-
-    async changePassword(userId: string, password: string) {
-        await this.usersRepository.changePassword(userId, password)
+    async changeAvatar(userId: string, imageUrl: string) {
+        // if (imageName) {
+        //     fs.unlink(`./${process.env.IMAGE_FOLDER}/${imageName}`, error => {
+        //         if (error) {
+        //             throw new Error(`${error}`)
+        //         }
+        //     })
+        // }
+        return "Not implemented"
+    }
+    async changePassword(userId: string, newPassword: string) {
+        await this.usersRepository.changePassword(userId, newPassword)
     }
 
     async disableAccount(id: string) {

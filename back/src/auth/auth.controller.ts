@@ -1,9 +1,10 @@
-import { Controller, Post, Body, UseGuards, Request, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Request, Delete, Patch } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { ResetPasswordDto } from './dto/RestPasswordDto';
+import { ChangePasswordDto } from './dto/ChangePasswordDto';
 
 @Controller('auth')
 export class AuthController {
@@ -33,6 +34,12 @@ export class AuthController {
   @Post('logout')
   async logout(@Request() req: any) {
     req.logout()
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Patch('changepassword')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Request() req) {
+    await this.authService.changePassword(req.user.id, changePasswordDto)
   }
 
   @Post('requestpasswordreset')

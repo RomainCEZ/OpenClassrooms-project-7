@@ -47,8 +47,15 @@ class AuthProvider {
     async logout() {
         await axios.post("auth/logout");
     }
-    async changePassword(payload) {
-        await axios.post("auth/changepassword", payload);
+    async changePassword(payload: {
+        currentPassword: string;
+        newPassword: string;
+    }) {
+        try {
+            await axios.patch("auth/changepassword", payload);
+        } catch (error) {
+            throw error.response.data;
+        }
     }
 
     async requestpasswordreset(email: { email: string }) {

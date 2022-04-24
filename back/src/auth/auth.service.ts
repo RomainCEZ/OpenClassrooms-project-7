@@ -8,6 +8,7 @@ import { UsersService } from '../users/users.service';
 import { MailerService } from '../common/MailerService/MailerService';
 import { ResetPasswordDto } from './dto/RestPasswordDto';
 import { JwtService } from '@nestjs/jwt';
+import { ChangePasswordDto } from './dto/ChangePasswordDto';
 
 @Injectable()
 export class AuthService {
@@ -51,6 +52,12 @@ export class AuthService {
             throw new UnauthorizedException('Mot de passe invalide !')
         }
         return true
+    }
+
+    async changePassword(userId: string, changePasswordDto: ChangePasswordDto) {
+        const user = await this.usersService.findById(userId)
+        this.verifyPassword(UserPassword.createPlainText(changePasswordDto.currentPassword).password, user.password)
+        await this.usersService.changePassword(userId, UserPassword.createHash(changePasswordDto.newPassword))
     }
 
     async sendPasswordRestEmail(email: string) {

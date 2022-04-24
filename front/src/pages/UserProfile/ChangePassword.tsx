@@ -2,69 +2,71 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
 import BlueFormButton from "../../components/Buttons/FormSubmit/BlueFormButton";
-import { useNavigate } from "react-router-dom";
 import { authProvider } from "../../providers/AuthProvider";
 
 export default function ChangePassword({ isOpen, closeModal }) {
-    const navigate = useNavigate();
-
-    const [previousPassword, setPreviousPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
-    const [confirmNewPassword, setNewConfirmPassword] = useState("");
-    const [formErrors, setFormErrors] = useState("");
+    const [currentPassword, setCurrentPassword] = useState<string>("");
+    const [newPassword, setNewPassword] = useState<string>("");
+    const [confirmNewPassword, setNewConfirmPassword] = useState<string>("");
+    const [formErrors, setFormErrors] = useState({
+        currentPassword: "",
+        newPassword: "",
+    });
 
     const resetFormErrors = () => {
-        if (formErrors !== "") {
-            setFormErrors("");
+        if (formErrors !== { currentPassword: "", newPassword: "" }) {
+            setFormErrors({ currentPassword: "", newPassword: "" });
         }
     };
 
-    function changePreviousPassword(
-        event: React.ChangeEvent<HTMLInputElement>
-    ) {
+    function changeCurrentPassword(event: React.ChangeEvent<HTMLInputElement>) {
         resetFormErrors();
-        const value = event.target.value;
-        setPreviousPassword(value);
+        setCurrentPassword(event.target.value);
     }
     function changeNewPassword(event: React.ChangeEvent<HTMLInputElement>) {
         resetFormErrors();
-        const value = event.target.value;
-        setNewPassword(value);
+        setNewPassword(event.target.value);
     }
     function changeNewConfirmPassword(
         event: React.ChangeEvent<HTMLInputElement>
     ) {
         resetFormErrors();
-        const value = event.target.value;
-        setNewConfirmPassword(value);
+        setNewConfirmPassword(event.target.value);
     }
 
     async function changePassword(e: React.FormEvent<HTMLFormElement>) {
         resetFormErrors();
         e.preventDefault();
         if (newPassword !== confirmNewPassword) {
-            setFormErrors("Veuillez saisir 2 mots de passe identiques !");
+            setFormErrors({
+                ...formErrors,
+                newPassword: "Veuillez saisir 2 mots de passe identiques !",
+            });
             return;
         }
-        const resetToken = new URLSearchParams(location.search).get("token");
-        const userId = new URLSearchParams(location.search).get("id");
         if (
-            resetToken &&
-            userId &&
+            currentPassword &&
             newPassword &&
             newPassword === confirmNewPassword
         ) {
             try {
                 await authProvider.changePassword({
-                    previousPassword,
+                    currentPassword,
                     newPassword,
-                    userId,
                 });
+                closeModal();
             } catch (error) {
-                const messages = [error.message];
-                messages.forEach((message: string) => {
-                    setFormErrors(message);
-                });
+                if (error.statusCode === 401) {
+                    setFormErrors({
+                        ...formErrors,
+                        currentPassword: error.message,
+                    });
+                } else {
+                    const messages = [error.message];
+                    messages.forEach((message: string) => {
+                        setFormErrors({ ...formErrors, newPassword: message });
+                    });
+                }
             }
         }
     }
@@ -97,10 +99,10 @@ export default function ChangePassword({ isOpen, closeModal }) {
                     <FormInput
                         type="password"
                         name="password"
-                        label="Ancien mot de passe"
-                        inputValue={previousPassword}
-                        handleChange={() => changePreviousPassword}
-                        errorMessage=""
+                        label="Mot de passe actuel"
+                        inputValue={currentPassword}
+                        handleChange={() => changeCurrentPassword}
+                        errorMessage={formErrors.currentPassword}
                     />
                     <FormInput
                         type="password"
@@ -116,7 +118,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                         label="Confirmez le nouveau mot de passe"
                         inputValue={confirmNewPassword}
                         handleChange={() => changeNewConfirmPassword}
-                        errorMessage={formErrors}
+                        errorMessage={formErrors.newPassword}
                     />
                     <BlueFormButton
                         target="resetpassword"
