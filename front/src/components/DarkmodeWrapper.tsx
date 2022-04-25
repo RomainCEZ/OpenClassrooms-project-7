@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { DarkmodeContext } from "./DarkMode";
+import { DarkmodeContext } from "./DarkModeContext";
 
 export default function DarkmodeWrapper({ children }) {
     const { darkmode } = useContext(DarkmodeContext);

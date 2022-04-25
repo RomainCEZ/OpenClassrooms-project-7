@@ -2,7 +2,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
 import Header from "./components/Header";
 import { SessionProvider } from "./pages/Auth/context/SessionContext";
-import { DarkMode } from "./components/DarkMode";
+import { DarkModeContext } from "./components/DarkModeContext";
 import MainContainer from "./components/MainContainer";
 import MainContent from "./components/MainContent";
 
@@ -12,12 +12,12 @@ function App() {
             <Router>
                 <ScrollToTop>
                     <SessionProvider>
-                        <DarkMode>
+                        <DarkModeContext>
                             <Header />
                             <MainContainer>
                                 <MainContent />
                             </MainContainer>
-                        </DarkMode>
+                        </DarkModeContext>
                     </SessionProvider>
                 </ScrollToTop>
             </Router>
