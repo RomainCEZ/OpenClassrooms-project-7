@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
-import DarkmodeWrapper from "../../components/DarkmodeWrapper";
+import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 
 export default function ChangePassword({ isOpen, closeModal }) {
     const [currentPassword, setCurrentPassword] = useState<string>("");

@@ -1,7 +1,7 @@
 import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { SessionContext } from "../Auth/context/SessionContext";
-import DarkmodeWrapper from "../../components/DarkmodeWrapper";
+import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 
 export default function ConfirmDisableAccount({ isOpen, closeModal }) {
     const { disableAccount } = useContext(SessionContext);

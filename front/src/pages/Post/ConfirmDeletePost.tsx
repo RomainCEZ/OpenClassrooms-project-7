@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import DarkmodeWrapper from "../../components/DarkmodeWrapper";
+import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 
 export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
     return (
