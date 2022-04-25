@@ -35,11 +35,7 @@ export default function RequestPasswordReset() {
                     errorMessage=""
                 />
                 <div className="flex mx-2 mt-4">
-                    <button
-                        type="submit"
-                        formTarget="requestpasswordreset"
-                        className="btn-blue flex-grow"
-                    >
+                    <button type="submit" className="btn-blue flex-grow">
                         Réinitialiser mon mot de passe
                     </button>
                 </div>

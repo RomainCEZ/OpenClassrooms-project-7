@@ -37,11 +37,7 @@ export default function NewComment({ postId, getComments }) {
                         />
                     </div>
                     <div className="ml-auto m-2">
-                        <button
-                            type="submit"
-                            formTarget="newcomment"
-                            className="btn-blue px-7"
-                        >
+                        <button type="submit" className="btn-blue px-7">
                             Envoyer
                         </button>
                     </div>
