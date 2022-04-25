@@ -1,6 +1,6 @@
 export default function ProfilePictureBox({ picture }) {
     return (
-        <div className="group relative flex flex-col justify-center items-center w-full h-full z-10 bg-gray-100 rounded-full border-4 border-blue-800 hover:border-blue-500 focus:border-blue-500 active:border-blue-400 dark:border-gray-900 dark:hover:border-gray-600 dark:active:border-gray-500 overflow-hidden shadow-lg cursor-pointer transition">
+        <div className="group relative flex flex-col justify-center items-center w-full h-full z-10 rounded-full border-4 bg-gray-100 dark:bg-gray-200 border-blue-800 hover:border-blue-500 focus:border-blue-500 active:border-blue-400 dark:border-gray-800 dark:hover:border-gray-300 dark:active:border-gray-400 overflow-hidden shadow-lg cursor-pointer transition">
             {picture && (
                 <img
                     src={picture}
@@ -8,8 +8,8 @@ export default function ProfilePictureBox({ picture }) {
                 />
             )}
             <div className="absolute flex flex-col items-center top-0 w-full h-[180%]">
-                <div className="mt-[20%] h-[48%] w-[45%] bg-blue-700 rounded-full shadow-lg group-hover:bg-blue-500 group-focus:bg-blue-500 group-active:bg-blue-400 transition"></div>
-                <div className="mt-[3%] h-[120%] w-[95%] bg-blue-700 rounded-full shadow-lg group-hover:bg-blue-500 group-focus:bg-blue-500 group-active:bg-blue-400 transition"></div>
+                <div className="mt-[20%] h-[48%] w-[45%] rounded-full shadow-lg bg-blue-700 dark:bg-gray-700 group-hover:bg-blue-500 dark:group-hover:bg-gray-500 group-active:bg-blue-400 dark:group-active:bg-gray-400 transition"></div>
+                <div className="mt-[3%] h-[120%] w-[95%] rounded-full shadow-lg bg-blue-700 dark:bg-gray-700 group-hover:bg-blue-500 dark:group-hover:bg-gray-500 group-active:bg-blue-400 dark:group-active:bg-gray-400 transition"></div>
             </div>
         </div>
     );

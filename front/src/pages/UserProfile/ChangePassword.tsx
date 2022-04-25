@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
+import DarkmodeWrapper from "../../components/DarkmodeWrapper";
 
 export default function ChangePassword({ isOpen, closeModal }) {
     const [currentPassword, setCurrentPassword] = useState<string>("");
@@ -83,50 +84,48 @@ export default function ChangePassword({ isOpen, closeModal }) {
             leaveTo="opacity-0 scale-95"
         >
             <Dialog
-                className="flex flex-col justify-center items-center h-fit w-full px-6 sm:w-fit sm:px-20 m-auto pt-14 fixed inset-0 z-10 bg-white/90 rounded border border-indigo-900 shadow-xl"
+                className="flex flex-col justify-center items-center h-fit w-full sm:w-fit m-auto fixed inset-0 z-10"
                 onClose={closeModal}
             >
-                <Dialog.Overlay />
-                <Dialog.Title className="mb-4 font-bold text-xl">
-                    Changement de mot de passe
-                </Dialog.Title>
-                <form
-                    id="resetpassword"
-                    onSubmit={changePassword}
-                    className="flex flex-col p-2 gap-2"
-                >
-                    <FormInput
-                        type="password"
-                        name="password"
-                        label="Mot de passe actuel"
-                        inputValue={currentPassword}
-                        handleChange={() => changeCurrentPassword}
-                        errorMessage={formErrors.currentPassword}
-                    />
-                    <FormInput
-                        type="password"
-                        name="password"
-                        label="Nouveau mot de passe"
-                        inputValue={newPassword}
-                        handleChange={() => changeNewPassword}
-                        errorMessage=""
-                    />
-                    <FormInput
-                        type="password"
-                        name="password"
-                        label="Confirmez le nouveau mot de passe"
-                        inputValue={confirmNewPassword}
-                        handleChange={() => changeNewConfirmPassword}
-                        errorMessage={formErrors.newPassword}
-                    />
-                    <button
-                        type="submit"
-                        formTarget="resetpassword"
-                        className="btn-blue mx-2 my-10"
+                <DarkmodeWrapper>
+                    <Dialog.Overlay />
+                    <Dialog.Title className="mt-14 mb-4 font-bold text-xl">
+                        Changement de mot de passe
+                    </Dialog.Title>
+                    <form
+                        id="resetpassword"
+                        onSubmit={changePassword}
+                        className="flex flex-col p-2 gap-2"
                     >
-                        Changer le mot de passe
-                    </button>
-                </form>
+                        <FormInput
+                            type="password"
+                            name="password"
+                            label="Mot de passe actuel"
+                            inputValue={currentPassword}
+                            handleChange={() => changeCurrentPassword}
+                            errorMessage={formErrors.currentPassword}
+                        />
+                        <FormInput
+                            type="password"
+                            name="password"
+                            label="Nouveau mot de passe"
+                            inputValue={newPassword}
+                            handleChange={() => changeNewPassword}
+                            errorMessage=""
+                        />
+                        <FormInput
+                            type="password"
+                            name="password"
+                            label="Confirmez le nouveau mot de passe"
+                            inputValue={confirmNewPassword}
+                            handleChange={() => changeNewConfirmPassword}
+                            errorMessage={formErrors.newPassword}
+                        />
+                        <button type="submit" className="btn-blue mx-2 my-10">
+                            Changer le mot de passe
+                        </button>
+                    </form>
+                </DarkmodeWrapper>
             </Dialog>
         </Transition>
     );

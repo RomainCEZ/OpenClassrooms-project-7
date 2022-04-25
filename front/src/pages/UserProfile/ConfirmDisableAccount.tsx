@@ -1,6 +1,7 @@
 import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { SessionContext } from "../Auth/context/SessionContext";
+import DarkmodeWrapper from "../../components/DarkmodeWrapper";
 
 export default function ConfirmDisableAccount({ isOpen, closeModal }) {
     const { disableAccount } = useContext(SessionContext);
@@ -18,24 +19,29 @@ export default function ConfirmDisableAccount({ isOpen, closeModal }) {
             leaveTo="opacity-0 scale-95"
         >
             <Dialog
-                className="flex flex-col justify-center items-center h-fit w-full px-6 sm:w-fit sm:px-20 m-auto py-14 fixed inset-0 z-10 bg-white/90 rounded border border-indigo-900 shadow-xl"
+                className="flex flex-col justify-center items-center h-fit w-full sm:w-fit m-auto fixed inset-0 z-10"
                 onClose={closeModal}
             >
-                <Dialog.Overlay />
-                <Dialog.Title className="mb-4 font-bold text-xl">
-                    Voulez-vous vraiment désactiver votre compte ?
-                </Dialog.Title>
-                <Dialog.Description className="mb-6 font-bold text-xl text-red-800">
-                    Attention, cette action est définitive !
-                </Dialog.Description>
-                <div className="flex justify-center items-center w-11/12 gap-8">
-                    <button onClick={disableAccount} className="btn-red w-1/2">
-                        Confirmer
-                    </button>
-                    <button onClick={closeModal} className="btn-blue w-1/2">
-                        Annuler
-                    </button>
-                </div>
+                <DarkmodeWrapper>
+                    <Dialog.Overlay />
+                    <Dialog.Title className="mt-14 mb-4 font-bold text-xl">
+                        Voulez-vous vraiment désactiver votre compte ?
+                    </Dialog.Title>
+                    <Dialog.Description className="mb-6 font-bold text-center text-xl text-red-800 dark:text-red-900">
+                        Attention, cette action est définitive !
+                    </Dialog.Description>
+                    <div className="flex justify-center items-center w-11/12 mb-14 gap-8">
+                        <button
+                            onClick={disableAccount}
+                            className="btn-red w-1/2"
+                        >
+                            Confirmer
+                        </button>
+                        <button onClick={closeModal} className="btn-blue w-1/2">
+                            Annuler
+                        </button>
+                    </div>
+                </DarkmodeWrapper>
             </Dialog>
         </Transition>
     );
