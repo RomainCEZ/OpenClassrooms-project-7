@@ -39,6 +39,7 @@ export class UsersService {
         const profile = {
             email: user.email,
             username: user.username,
+            role: user.role,
             timestamp: user.timestamp,
             profilePicture,
             postsCount: user.postsCount,
