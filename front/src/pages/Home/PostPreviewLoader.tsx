@@ -1,6 +1,6 @@
 export default function PostPreviewLoader() {
     return (
-        <article className="flex flex-col p-5 bg-white dark:bg-gray-500 w-full border border-indigo-900 dark:border-gray-300 rounded shadow-md">
+        <article className="flex flex-col p-5 bg-white dark:bg-gray-400 w-full border border-indigo-900 dark:border-gray-300 rounded shadow-md">
             <div className="w-3/5 text-lg font-semibold bg-gray-200 dark:bg-gray-700 h-6 rounded-sm animate-pulse"></div>
             <div className="mx-3 my-4 bg-gray-200 dark:bg-gray-700 w-1/3 h-3 rounded-sm animate-pulse"></div>
             <div className="p-3 w-full border-t-2 border-indigo-900 dark:border-gray-300 border-b-[1px]">
