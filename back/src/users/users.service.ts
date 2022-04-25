@@ -37,6 +37,7 @@ export class UsersService {
         const user = await this.usersRepository.getById(id)
         const profilePicture = user.profilePicture ? `${process.env.DOMAIN_ADDRESS}/${process.env.IMAGE_FOLDER}/${user.profilePicture}` : ""
         const profile = {
+            id: user.id,
             email: user.email,
             username: user.username,
             role: user.role,
