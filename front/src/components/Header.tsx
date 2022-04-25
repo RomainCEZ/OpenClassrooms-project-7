@@ -8,13 +8,13 @@ export default function Header() {
     const { loggedIn } = useContext(SessionContext);
 
     return (
-        <header className="flex items-center justify-between bg-blue-800 dark:bg-gray-800 px-6">
+        <header className="flex items-center justify-between h-32 bg-blue-800 dark:bg-gray-800 px-8">
             <Logo />
             <nav className="relative">
                 {loggedIn ? (
                     <DropDownNav />
                 ) : (
-                    <ul className="flex font-bold divide-x-2 dark:divide-gray-600 py-8">
+                    <ul className="flex font-bold divide-x-2 divide-gray-100 dark:divide-gray-600">
                         <li>
                             <Link to="/" className="mr-4 px-8 btn-blue">
                                 Accueil
