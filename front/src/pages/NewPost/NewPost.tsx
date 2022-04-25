@@ -44,7 +44,7 @@ export default function NewPost() {
             </Link>
             {preview ? (
                 <div className="mt-3 p-2 sm:px-5 rounded min-h-80 h-fit bg-white dark:bg-gray-400 border border-indigo-900 dark:border-gray-300 shadow-md">
-                    <div className="mb-3 pb-2 border-b-2 border-indigo-900 dark:border-gray-300">
+                    <div className="mb-3 pb-2 border-b-2 border-inherit">
                         <h2 className="text-xl font-bold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-800">
                             {title}
                         </h2>
@@ -64,7 +64,7 @@ export default function NewPost() {
                 <form
                     id="newpost"
                     onSubmit={postContent}
-                    className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200  dark:bg-gray-400 border-blue-900 rounded shadow-md"
+                    className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 rounded shadow-md"
                 >
                     <input
                         placeholder="Titre"
@@ -82,7 +82,7 @@ export default function NewPost() {
             <div className="flex w-full gap-4 mt-3">
                 <button
                     type="submit"
-                    formTarget="newpost"
+                    form="newpost"
                     className="btn-blue flex-grow"
                 >
                     Publier

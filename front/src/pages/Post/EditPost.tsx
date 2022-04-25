@@ -97,7 +97,7 @@ export default function EditPost() {
             <div className="flex w-full gap-4 mt-3">
                 <button
                     type="submit"
-                    formTarget="editpost"
+                    form="editpost"
                     className="btn-blue flex-grow"
                 >
                     Publier
