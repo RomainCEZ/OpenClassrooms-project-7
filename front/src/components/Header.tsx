@@ -5,14 +5,14 @@ import { SessionContext } from "../pages/Auth/context/SessionContext";
 import { DropDownNav } from "./NavMenu/DropDownNav";
 
 export default function Header() {
-    const { loggedIn, user } = useContext(SessionContext);
+    const { loggedIn } = useContext(SessionContext);
 
     return (
         <header className="flex items-center justify-between bg-blue-800 dark:bg-gray-800 px-6">
             <Logo />
             <nav className="relative">
                 {loggedIn ? (
-                    <DropDownNav profilePicture={user.profilePicture} />
+                    <DropDownNav />
                 ) : (
                     <ul className="flex font-bold divide-x-2 dark:divide-gray-600 py-8">
                         <li>

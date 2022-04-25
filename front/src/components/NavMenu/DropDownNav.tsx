@@ -3,10 +3,10 @@ import { Menu, Transition } from "@headlessui/react";
 import { SessionContext } from "../../pages/Auth/context/SessionContext";
 import { NavLink } from "./NavLink";
 import ProfilePictureBox from "../../pages/UserProfile/ProfilePictureBox";
-import { DarkmodeContext } from "../DarkMode";
+import { DarkmodeContext } from "../DarkModeContext";
 import NavButton from "./NavButton";
 
-export function DropDownNav({ profilePicture }) {
+export function DropDownNav() {
     const { user, logout } = useContext(SessionContext);
     const { darkmode, setDarkmode } = useContext(DarkmodeContext);
 
@@ -30,7 +30,7 @@ export function DropDownNav({ profilePicture }) {
                     <NavLink path={`./`}>Accueil</NavLink>
                     <NavLink path="./profile">Mon profil</NavLink>
                     <NavButton handleClick={() => setDarkmode(!darkmode)}>
-                        Mode sombre
+                        Thème : {darkmode ? "sombre" : "clair"}
                     </NavButton>
                     <NavLink path={`./login`} handleClick={() => logout()}>
                         Déconnexion
