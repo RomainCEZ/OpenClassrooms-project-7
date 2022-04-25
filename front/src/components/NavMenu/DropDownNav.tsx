@@ -1,11 +1,14 @@
 import { useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { SessionContext } from "../../pages/Auth/context/SessionContext";
-import { NavOption } from "./NavOption";
+import { NavLink } from "./NavLink";
 import ProfilePictureBox from "../../pages/UserProfile/ProfilePictureBox";
+import { DarkmodeContext } from "../DarkMode";
+import NavButton from "./NavButton";
 
 export function DropDownNav({ profilePicture }) {
     const { user, logout } = useContext(SessionContext);
+    const { darkmode, setDarkmode } = useContext(DarkmodeContext);
 
     return (
         <Menu
@@ -23,12 +26,15 @@ export function DropDownNav({ profilePicture }) {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
             >
-                <Menu.Items className="absolute right-0 w-52 z-20 bg-white border-2 border-blue-600 py-2 rounded-lg shadow-lg mt-1">
-                    <NavOption path={`./`}>Accueil</NavOption>
-                    <NavOption path="./profile">Mon profil</NavOption>
-                    <NavOption path={`./login`} handleClick={() => logout()}>
+                <Menu.Items className="absolute mt-3 right-0 w-52 z-20 bg-white dark:bg-gray-800  border-2 border-blue-600 dark:border-slate-600 py-2 rounded-lg shadow-lg">
+                    <NavLink path={`./`}>Accueil</NavLink>
+                    <NavLink path="./profile">Mon profil</NavLink>
+                    <NavButton handleClick={() => setDarkmode(!darkmode)}>
+                        Mode sombre
+                    </NavButton>
+                    <NavLink path={`./login`} handleClick={() => logout()}>
                         Déconnexion
-                    </NavOption>
+                    </NavLink>
                 </Menu.Items>
             </Transition>
         </Menu>
