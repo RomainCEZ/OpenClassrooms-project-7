@@ -38,7 +38,7 @@ export default function PostView() {
                 commentId={comment.id}
                 content={comment.content}
                 author={comment.author}
-                authorId={comment.id}
+                authorId={comment.authorId}
                 timestamp={comment.timestamp}
                 getComments={getComments}
             />
