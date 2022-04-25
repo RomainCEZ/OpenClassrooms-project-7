@@ -3,12 +3,10 @@ import { Menu, Transition } from "@headlessui/react";
 import { SessionContext } from "../../pages/Auth/context/SessionContext";
 import { NavLink } from "./NavLink";
 import ProfilePictureBox from "../../pages/UserProfile/ProfilePictureBox";
-import { DarkmodeContext } from "../DarkModeContext";
-import NavButton from "./NavButton";
+import DarkModeToggle from "./DarkModeToggle";
 
 export function DropDownNav() {
     const { user, logout } = useContext(SessionContext);
-    const { darkmode, setDarkmode } = useContext(DarkmodeContext);
 
     return (
         <Menu
@@ -29,9 +27,7 @@ export function DropDownNav() {
                 <Menu.Items className="absolute mt-3 right-0 w-52 z-20 bg-white dark:bg-gray-800  border-2 border-blue-600 dark:border-slate-600 py-2 rounded-lg shadow-lg">
                     <NavLink path={`./`}>Accueil</NavLink>
                     <NavLink path="./profile">Mon profil</NavLink>
-                    <NavButton handleClick={() => setDarkmode(!darkmode)}>
-                        Thème : {darkmode ? "sombre" : "clair"}
-                    </NavButton>
+                    <DarkModeToggle />
                     <NavLink path={`./login`} handleClick={() => logout()}>
                         Déconnexion
                     </NavLink>
