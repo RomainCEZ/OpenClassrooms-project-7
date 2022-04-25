@@ -34,7 +34,7 @@ export default function PostPreview({
 
     return (
         <Link to={`/post/${id}`} aria-label={title}>
-            <article className="group flex flex-col px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 dark:hover:bg-gray-600 w-full border rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
+            <article className="group flex flex-col px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 dark:hover:bg-gray-600 w-full sm:border sm:rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
                 <div className="pb-2 border-b-2 border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition">
                     <h2 className="mb-2 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-300 transition">
                         {title}

@@ -1,7 +1,7 @@
 export default function CommentLoader() {
     return (
         <div className="flex flex-col mt-2 bg-white dark:bg-gray-400 gap-1 shadow-md">
-            <div className="flex divide-x divide-indigo-800 dark:divide-gray-300 border border-indigo-800 dark:border-gray-300 rounded-sm">
+            <div className="flex divide-x divide-indigo-800 dark:divide-gray-300 sm:border border-indigo-800 dark:border-gray-300 sm:rounded-sm">
                 <div className="flex flex-col items-center gap-1 p-2">
                     <div
                         className="border-[16px] border-transparent border-b-blue-700 dark:border-b-gray-700

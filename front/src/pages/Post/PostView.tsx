@@ -66,7 +66,7 @@ export default function PostView() {
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <article className=" mt-3 group flex flex-col px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full border rounded shadow-md border-blue-900 dark:border-gray-300 transition">
+                <article className=" mt-3 group flex flex-col px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 dark:border-gray-300 transition">
                     <div className="pb-2 border-b-2 border-indigo-900 dark:border-gray-300">
                         <h2 className="text-xl font-bold break-words p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
                             {post.title}

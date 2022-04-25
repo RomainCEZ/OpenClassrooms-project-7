@@ -34,7 +34,7 @@ export default function Comment({
     };
 
     return (
-        <div className="flex divide-x w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 border border-indigo-800 dark:border-gray-200 rounded-sm shadow-md overflow-hidden">
+        <div className="flex divide-x w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 sm:border border-indigo-800 dark:border-gray-200 sm:rounded-sm shadow-md overflow-hidden">
             <div className="flex flex-col w-[8.5%] md:w-1/12 xl:w-[7.2%] justify-center items-center gap-1 p-2">
                 <div
                     className="border-[16px] border-transparent border-b-blue-700 dark:border-b-gray-700
