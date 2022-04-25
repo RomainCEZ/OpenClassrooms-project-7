@@ -14,12 +14,8 @@ export function NavLink({ handleClick, path, children }: NavOptionProps) {
             {({ active }) => (
                 <Link
                     to={path ? path : ""}
-                    className={`flex justify-center items-center p-4 font-bold dark:text-white active:bg-blue-500 
-                        ${
-                            active
-                                ? "bg-blue-600 text-white dark:bg-slate-700"
-                                : "text-blue-800"
-                        }
+                    className={`flex justify-center items-center p-4 font-bold active:bg-blue-500 dark:active:bg-gray-600 
+                        ${active ? "bg-blue-600  dark:bg-slate-700" : ""}
                     `}
                     onClick={handleClick}
                 >

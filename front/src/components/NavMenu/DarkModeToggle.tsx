@@ -8,23 +8,17 @@ export default function DarkModeToggle() {
     return (
         <Menu.Item>
             {({ active }) => (
-                <div
-                    className={`
-                        flex justify-center items-center p-4 font-bold dark:text-white active:bg-blue-500 cursor-pointer
-                        ${
-                            active
-                                ? "bg-blue-600 text-white dark:bg-slate-700"
-                                : "text-blue-800"
-                        }
+                <Switch
+                    checked={darkmode}
+                    onChange={() => setDarkmode(!darkmode)}
+                    className={`flex justify-center items-center w-full py-4 active:bg-blue-500 dark:active:bg-gray-600 cursor-pointer
+                        ${active ? "bg-blue-600 dark:bg-gray-700" : ""}
                     `}
-                    onClick={() => setDarkmode(!darkmode)}
                 >
-                    <span className="mx-6">Thème</span>
-                    <Switch
-                        checked={darkmode}
-                        onChange={() => setDarkmode(!darkmode)}
+                    <span className="font-bold mr-4">Mode sombre</span>
+                    <div
                         className={`${
-                            darkmode ? "bg-gray-300" : "bg-blue-200"
+                            darkmode ? "bg-gray-300" : "bg-blue-100"
                         } relative inline-flex items-center h-6 rounded-full w-11 transition`}
                     >
                         <span className="sr-only">Changer le thème</span>
@@ -35,8 +29,8 @@ export default function DarkModeToggle() {
                                     : "translate-x-1 bg-blue-600"
                             } inline-block w-5 h-5 transform rounded-full transition`}
                         />
-                    </Switch>
-                </div>
+                    </div>
+                </Switch>
             )}
         </Menu.Item>
     );

@@ -24,7 +24,7 @@ export function DropDownNav() {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
             >
-                <Menu.Items className="absolute mt-3 right-0 w-52 z-20 bg-white dark:bg-gray-800  border-2 border-blue-600 dark:border-slate-600 py-2 rounded-lg shadow-lg">
+                <Menu.Items className="absolute mt-3 right-0 w-56 z-20 text-white bg-blue-800 dark:bg-gray-800 border-blue-500 dark:border-gray-600 divide-blue-500 dark:divide-gray-600 divide-y border rounded-lg shadow-lg">
                     <NavLink path={`./`}>Accueil</NavLink>
                     <NavLink path="./profile">Mon profil</NavLink>
                     <DarkModeToggle />
