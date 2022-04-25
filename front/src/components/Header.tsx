@@ -8,7 +8,7 @@ export default function Header() {
     const { loggedIn, user } = useContext(SessionContext);
 
     return (
-        <header className="flex items-center justify-between bg-blue-800 dark:bg-gray-900 px-6">
+        <header className="flex items-center justify-between bg-blue-800 dark:bg-gray-800 px-6">
             <Logo />
             <nav className="relative">
                 {loggedIn ? (
