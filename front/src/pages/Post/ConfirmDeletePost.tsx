@@ -16,15 +16,15 @@ export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
             leaveTo="opacity-0 scale-95"
         >
             <Dialog
-                className="flex flex-col justify-center items-center h-fit w-full sm:w-fit sm:px-20 m-auto py-14 fixed inset-0 z-10 bg-white/80 rounded border border-indigo-900"
+                className="flex flex-col justify-center items-center h-fit w-full sm:w-fit sm:px-20 m-auto fixed inset-0 z-10"
                 onClose={closeModal}
             >
                 <DarkmodeWrapper>
                     <Dialog.Overlay />
-                    <Dialog.Title className="font-bold mb-7">
+                    <Dialog.Title className="font-bold mt-14 mb-7">
                         Voulez-vous vraiment supprimer ce post ?
                     </Dialog.Title>
-                    <div className="flex justify-center items-center w-11/12 gap-8">
+                    <div className="flex justify-center items-center w-11/12 mb-14 gap-8">
                         <button onClick={deletePost} className="btn-red w-1/2">
                             Confirmer
                         </button>
