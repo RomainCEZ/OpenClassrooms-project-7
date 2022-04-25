@@ -19,7 +19,7 @@ export default function PostPreview({
     const [height, setHeight] = useState<number>(0);
     const contentOverlay =
         height > 478
-            ? `before:absolute before:bottom-4 before:left-[42%] sm:before:left-[45%] before:font-bold before:decoration-2 before:underline before:text-blue-800 before:z-20 before:content-['Afficher'] group-hover:before:text-blue-500 after:absolute after:content-[''] after:text-sm after:text-black after:bg-gradient-to-b after:from-transparent after:via-transparent after:to-white after:bottom-0 after:left-0 after:w-full after:h-1/2 after:z-10 group-hover:after:to-blue-100 group-hover:after:text-blue-600`
+            ? `before:absolute before:bottom-4 before:left-[42%] sm:before:left-[45%] before:font-bold before:decoration-2 before:underline before:text-blue-800 dark:before:text-gray-900 before:z-20 before:content-['Afficher'] group-hover:before:text-blue-500 dark:group-hover:before:text-gray-300 after:absolute after:content-[''] after:text-sm after:text-black after:bg-gradient-to-b after:from-transparent after:via-transparent after:to-white dark:after:to-gray-400 after:bottom-0 after:left-0 after:w-full after:h-1/2 after:z-10 group-hover:after:to-blue-100 dark:group-hover:after:to-gray-700 group-hover:after:text-blue-600`
             : "";
 
     const contentRef = useRef<HTMLDivElement>(null);
