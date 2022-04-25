@@ -33,32 +33,28 @@ export default function PostPreview({
     }, []);
 
     return (
-        <Link
-            to={`/post/${id}`}
-            aria-label={title}
-            className="group flex flex-col px-5 py-4 bg-white w-full border border-indigo-900 rounded shadow-md hover:border-blue-600 hover:shadow-blue-300/70 transition-all"
-        >
-            <article>
-                <div className="pb-2 border-b-2 border-indigo-900 group-hover:border-indigo-600 transition-all">
-                    <h2 className="flex mb-2 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 transition-all">
+        <Link to={`/post/${id}`} aria-label={title}>
+            <article className="group flex flex-col px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 dark:hover:bg-gray-600 w-full border rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
+                <div className="pb-2 border-b-2 border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition">
+                    <h2 className="mb-2 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-300 transition">
                         {title}
                     </h2>
-                    <p className="text-sm ml-2 group-hover:text-gray-600 transition-all first-letter:capitalize">
+                    <p className="text-sm ml-2 first-letter:capitalize">
                         <ReactTimeAgo
                             date={timestamp}
                             locale="fr-FR"
-                            className="font-bold group-hover:text-gray-600 transition-all"
+                            className="font-bold"
                         />{" "}
                         par <span className="font-bold">{author}</span>
                     </p>
                 </div>
                 <div
                     ref={contentRef}
-                    className={`relative max-h-[30rem] border-b border-indigo-900 group-hover:border-indigo-600 transition-all overflow-clip ${contentOverlay}`}
+                    className={`relative max-h-[30rem] border-b border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition overflow-clip ${contentOverlay}`}
                 >
                     <DraftjsView editorState={editorState} />
                 </div>
-                <p className="text-sm px-2 pt-4 group-hover:text-gray-600 transition-all">
+                <p className="text-sm px-2 pt-4 font-bold">
                     {commentsNumber > 1
                         ? `${commentsNumber} commentaires`
                         : `${commentsNumber} commentaire`}

@@ -22,7 +22,7 @@ export default function NewComment({ postId, getComments }) {
                     className="flex flex-col"
                 >
                     <div className="relative mt-10 shadow-md">
-                        <p className="absolute right-4 bottom-1 select-none text-gray-600">
+                        <p className="absolute right-4 bottom-1 select-none text-gray-700">
                             {newComment.content.length}/255
                         </p>
                         <textarea

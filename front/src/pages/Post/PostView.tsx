@@ -66,9 +66,9 @@ export default function PostView() {
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <div className="flex flex-col mt-3 p-2 sm:px-5 rounded h-fit bg-white border border-indigo-900 shadow-md">
-                    <div className="pb-2 border-b-2 border-indigo-900">
-                        <h2 className="text-xl font-bold break-words p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
+                <article className=" mt-3 group flex flex-col px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full border rounded shadow-md border-blue-900 dark:border-gray-300 transition">
+                    <div className="pb-2 border-b-2 border-indigo-900 dark:border-gray-300">
+                        <h2 className="text-xl font-bold break-words p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
                             {post.title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">
@@ -81,7 +81,7 @@ export default function PostView() {
                         </p>
                     </div>
                     <div className="flex flex-col w-full">
-                        <div className="border-b border-indigo-900">
+                        <div className="border-b border-indigo-900 dark:border-gray-300">
                             <DraftjsView editorState={post.content} />
                         </div>
                     </div>
@@ -89,7 +89,7 @@ export default function PostView() {
                         {(user.id === post.authorId ||
                             user.role === "admin") && <PostButtons />}
                     </div>
-                </div>
+                </article>
             )}
             <NewComment postId={id} getComments={getComments} />
             {isLoading ? (

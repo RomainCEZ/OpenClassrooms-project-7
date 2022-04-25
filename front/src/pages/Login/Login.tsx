@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { Link } from "react-router-dom";
 import FormInput from "../../components/Inputs/FormInput";
+import FormSection from "../../components/FormSection";
 
 export default function Login() {
     interface ILoginForm {
@@ -52,7 +53,7 @@ export default function Login() {
     }
 
     return (
-        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <FormSection>
             <form
                 id="login"
                 onSubmit={submitLogin}
@@ -93,6 +94,6 @@ export default function Login() {
                     Pas encore enregistré ? Cliquez ici pour créer un compte.
                 </Link>
             </form>
-        </section>
+        </FormSection>
     );
 }

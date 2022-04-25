@@ -34,16 +34,16 @@ export default function Comment({
     };
 
     return (
-        <div className="flex divide-x w-full bg-white divide-indigo-800 border border-indigo-800 rounded-sm shadow-md overflow-hidden">
+        <div className="flex divide-x w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 border border-indigo-800 dark:border-gray-200 rounded-sm shadow-md overflow-hidden">
             <div className="flex flex-col w-[8.5%] md:w-1/12 xl:w-[7.2%] justify-center items-center gap-1 p-2">
                 <div
-                    className="border-[16px] border-transparent border-b-blue-700
-                    hover:border-b-blue-500 focus:border-b-blue-500 active:border-b-blue-400 cursor-pointer transition-all"
+                    className="border-[16px] border-transparent border-b-blue-700 dark:border-b-gray-700
+                    hover:border-b-blue-500 dark:hover:border-b-gray-300 active:border-b-blue-400 dark:active:border-b-gray-400 cursor-pointer transition"
                 ></div>
                 <p>+2</p>
                 <div
-                    className="border-[16px] border-transparent border-t-blue-700
-                    hover:border-t-blue-500 focus:border-t-blue-500 active:border-t-blue-400 cursor-pointer transition-all"
+                    className="border-[16px] border-transparent border-t-blue-700 dark:border-t-gray-700
+                    hover:border-t-blue-500 dark:hover:border-t-gray-300 active:border-t-blue-400 dark:active:border-t-gray-400 cursor-pointer transition"
                 ></div>
             </div>
             <div className="flex flex-col w-[91.5%] md:w-11/12 xl:w-[92.8%] p-4 pb-0 break-words">
@@ -51,7 +51,7 @@ export default function Comment({
                     <div className="flex relative">
                         <textarea
                             maxLength={255}
-                            className="flex-grow mb-2 p-2 rounded-sm border border-indigo-900 shadow-inner"
+                            className="flex-grow mb-2 p-2 rounded-sm border border-indigo-900 dark:border-gray-200 shadow-inner"
                             placeholder="Laissez un commentaire !"
                             onChange={(e) =>
                                 setEditedComment({
@@ -67,7 +67,7 @@ export default function Comment({
                 ) : (
                     <p className="mb-2">{content}</p>
                 )}
-                <div className="flex text-sm mt-auto border-t border-gray-400 pl-2 py-2 divide-x divide-gray-400">
+                <div className="flex text-sm mt-auto border-t border-gray-400 dark:border-gray-200 pl-2 py-2 divide-x divide-gray-400 dark:divide-gray-200">
                     <p className="first-letter:capitalize">
                         <ReactTimeAgo
                             date={timestamp}

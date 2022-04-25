@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { SessionContext } from "../Auth/context/SessionContext";
 
@@ -88,7 +89,7 @@ export default function Signup() {
     }
 
     return (
-        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <FormSection>
             <form
                 id="signup"
                 onSubmit={submitSignup}
@@ -139,6 +140,6 @@ export default function Signup() {
                     Vous avez déjà un compte ? Cliquez ici pour vous connecter.
                 </Link>
             </form>
-        </section>
+        </FormSection>
     );
 }

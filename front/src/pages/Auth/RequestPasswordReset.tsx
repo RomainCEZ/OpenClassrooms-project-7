@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
 
@@ -19,7 +20,7 @@ export default function RequestPasswordReset() {
     }
 
     return (
-        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <FormSection>
             <form
                 id="requestpasswordreset"
                 onSubmit={requestpasswordreset}
@@ -37,18 +38,15 @@ export default function RequestPasswordReset() {
                     <button
                         type="submit"
                         formTarget="requestpasswordreset"
-                        className="btn-blue"
+                        className="btn-blue flex-grow"
                     >
                         Réinitialiser mon mot de passe
                     </button>
                 </div>
-                <Link
-                    to="/login"
-                    className="m-3 text-blue-700 hover:text-blue-400 font-bold"
-                >
+                <Link to="/login" className="m-3 btn-text-blue">
                     Retour à la page de connexion.
                 </Link>
             </form>
-        </section>
+        </FormSection>
     );
 }

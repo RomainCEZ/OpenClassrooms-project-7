@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
 
@@ -51,7 +52,7 @@ export default function ResetPassword() {
         }
     }
     return (
-        <section className="flex flex-col sm:min-w-[540px] sm:mx-auto content-center justify-center border bg-gray-200 border-blue-900 rounded shadow-md">
+        <FormSection>
             <form
                 id="resetpassword"
                 onSubmit={resetPassword}
@@ -83,6 +84,6 @@ export default function ResetPassword() {
                     </button>
                 </div>
             </form>
-        </section>
+        </FormSection>
     );
 }

@@ -1,6 +1,6 @@
 export default function ProfilePictureBox({ picture }) {
     return (
-        <div className="group relative flex flex-col justify-center items-center w-full h-full z-10 bg-gray-100 rounded-full border-4 border-blue-800 hover:border-blue-500 focus:border-blue-500 active:border-blue-400 overflow-hidden shadow-lg cursor-pointer transition">
+        <div className="group relative flex flex-col justify-center items-center w-full h-full z-10 bg-gray-100 rounded-full border-4 border-blue-800 hover:border-blue-500 focus:border-blue-500 active:border-blue-400 dark:border-gray-900 dark:hover:border-gray-600 dark:active:border-gray-500 overflow-hidden shadow-lg cursor-pointer transition">
             {picture && (
                 <img
                     src={picture}

@@ -8,7 +8,9 @@ export default function UserProfileSecurity() {
 
     return (
         <div className="flex flex-col py-8 px-2 sm:px-4 gap-3">
-            <h2 className="mb-4 text-2xl text-blue-800">Sécurité</h2>
+            <h2 className="mb-4 text-2xl text-blue-800 dark:text-gray-800">
+                Sécurité
+            </h2>
             <button
                 onClick={() => setChangePasswordModal(true)}
                 className="btn-blue w-11/12 sm:w-3/5 xl:w-1/2 self-center"

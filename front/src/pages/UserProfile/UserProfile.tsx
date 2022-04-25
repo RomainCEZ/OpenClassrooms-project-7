@@ -52,14 +52,14 @@ export default function UserProfile() {
     } ${date.getFullYear()}`;
 
     return (
-        <section className="relative flex flex-col items-center bg-white w-full border border-blue-800 sm:rounded-xl overflow-clip shadow-lg">
-            <div className="absolute w-full h-36 bg-blue-800 shadow-md"></div>
+        <section className="relative flex flex-col items-center bg-white dark:bg-gray-500 w-full border border-blue-800 dark:border-gray-900 sm:rounded-xl overflow-clip shadow-lg">
+            <div className="absolute w-full h-36 bg-blue-800 dark:bg-gray-900 shadow-md"></div>
             <button className="mt-16 w-36 h-36">
                 <ProfilePictureBox picture={profile.profilePicture} />
             </button>
-            <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full bg-white divide-blue-800 divide-y">
+            <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full divide-blue-800 dark:divide-gray-800 divide-y">
                 <div className="p-4 mb-2">
-                    <p className="mb-2 text-center text-4xl text-blue-800">
+                    <p className="mb-2 text-center text-4xl text-blue-800 dark:text-gray-800">
                         {profile.username}
                     </p>
                     <p className="text-center">

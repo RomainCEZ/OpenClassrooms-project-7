@@ -37,19 +37,13 @@ export default function Home() {
                     Nouveau post
                 </Link>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded bg-white border border-indigo-900 shadow-md">
+                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded dark:text-gray-200 bg-white dark:bg-gray-500 border-indigo-900 dark:border-gray-300 border shadow-md">
                     <span>
-                        <Link
-                            to="/login"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
-                        >
+                        <Link to="/login" className="btn-text-blue underline">
                             Connectez-vous
                         </Link>
                         &nbsp;ou&nbsp;
-                        <Link
-                            to="/signup"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
-                        >
+                        <Link to="/signup" className="btn-text-blue underline">
                             enregistrez-vous
                         </Link>
                     </span>
