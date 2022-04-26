@@ -5,7 +5,7 @@ import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './guard/local.strategy';
 import { AuthController } from './auth.controller';
 import { SessionSezializer } from './guard/session.serializer';
-import { MailerService } from '../common/MailerService/MailerService';
+import { MailerService } from '../utils/MailerService/MailerService';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({

@@ -5,7 +5,7 @@ import { Email } from '../users/entities/Email.entity';
 import { User } from '../users/entities/User';
 import { UserPassword } from '../users/entities/UserPassword.entity';
 import { UsersService } from '../users/users.service';
-import { MailerService } from '../common/MailerService/MailerService';
+import { MailerService } from '../utils/MailerService/MailerService';
 import { ResetPasswordDto } from './dto/RestPasswordDto';
 import { JwtService } from '@nestjs/jwt';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';

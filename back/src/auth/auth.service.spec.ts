@@ -5,7 +5,7 @@ import { LocalStrategy } from './guard/local.strategy';
 import { UsersRepository } from '../users/repositories/UsersRepository';
 import { InMemoryUsersRepository } from '../users/repositories/InMemoryUsersRepository';
 import { UsersService } from '../users/users.service';
-import { MailerService } from '../common/MailerService/MailerService';
+import { MailerService } from '../utils/MailerService/MailerService';
 import { JwtModule } from '@nestjs/jwt';
 
 describe('AuthService', () => {
