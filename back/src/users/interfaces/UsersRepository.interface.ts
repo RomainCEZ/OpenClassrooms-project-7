@@ -1,6 +1,7 @@
 import { User } from "../entities/User";
 
 export interface IUsersRepository {
+    updateProfileImage(userId: string, profilePictureUrl: string)
 
     saveUser(user: User)
 

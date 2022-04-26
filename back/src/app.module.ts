@@ -8,7 +8,6 @@ import * as passport from 'passport';
 import { Sequelize } from 'sequelize-typescript';
 import * as SequelizeStore from 'connect-session-sequelize'
 import { ForumModule } from './forum/forum.module';
-import { ImagesModule } from './images/images.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModel } from './Database/sequelizeModels/User.model';
 import { PostModel } from './Database/sequelizeModels/Post.model';
@@ -20,7 +19,7 @@ import sequelizeConfig from './Database/sequelize.config';
   imports: [
     SequelizeModule.forRoot({ ...sequelizeConfig, models: ([UserModel, PostModel, CommentModel]), sync: true }),
     ConfigModule.forRoot({ isGlobal: true }),
-    ForumModule, ImagesModule, AuthModule,
+    ForumModule, AuthModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', process.env.CLIENT_SERVE_FOLDER),
       exclude: ['/api*', '/auth*', '/images*'],

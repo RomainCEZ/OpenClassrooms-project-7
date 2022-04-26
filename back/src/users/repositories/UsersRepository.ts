@@ -3,6 +3,9 @@ import { User } from "../entities/User";
 import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 
 export class UsersRepository implements IUsersRepository {
+    updateProfileImage(userId: string, profilePictureUrl: string) {
+        throw new Error("Method not implemented.");
+    }
     disableAccount(id: string) {
         throw new Error("Method not implemented.");
     }

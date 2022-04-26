@@ -94,6 +94,14 @@ export class UserDBadapter implements IUsersRepository {
             commentsCount: user.getDataValue('commentsCount'),
         })
     }
+    async updateProfileImage(userId: string, profilePictureUrl: string) {
+        const user = await this.userModel.findOne({ where: { userId } })
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        user.update({ profilePicture: profilePictureUrl })
+
+    }
     async changePassword(id: string, password: string) {
         const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
         if (!user) {
