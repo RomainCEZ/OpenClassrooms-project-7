@@ -16,12 +16,12 @@ export default function Header() {
                 ) : (
                     <ul className="flex font-bold divide-x-2 divide-gray-100 dark:divide-gray-600">
                         <li>
-                            <Link to="/" className="mr-4 px-8 btn-blue">
+                            <Link to="/" className="mr-4 px-8 btn blue">
                                 Accueil
                             </Link>
                         </li>
                         <li>
-                            <Link to="./login" className="ml-4 px-6 btn-blue">
+                            <Link to="./login" className="ml-4 px-6 btn blue">
                                 Connexion
                             </Link>
                         </li>
