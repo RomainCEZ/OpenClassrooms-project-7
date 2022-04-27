@@ -26,6 +26,7 @@ const UserInitValues: IUserSession = {
 export const SessionContext = createContext({
     loggedIn: false,
     user: UserInitValues,
+    setUser: null,
     logout: null,
     disableAccount: null,
     checkLogin: null,
@@ -91,6 +92,7 @@ export const SessionProvider = ({ children }) => {
             value={{
                 loggedIn,
                 user,
+                setUser,
                 logout,
                 disableAccount,
                 checkLogin,
