@@ -5,7 +5,7 @@ import { User } from './entities/User';
 import { UserPassword } from './entities/UserPassword.entity';
 import { IUsersRepository } from './interfaces/UsersRepository.interface';
 import { UsersRepository } from './repositories/UsersRepository';
-import { CloudinaryService } from '../images/Cloudinary.service';
+import { CloudinaryService } from '../images/CloudinaryService';
 
 @Injectable()
 export class UsersService {
