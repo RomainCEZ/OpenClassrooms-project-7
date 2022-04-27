@@ -5,16 +5,17 @@ import { authProvider } from "../../providers/AuthProvider";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 
 export default function ChangePassword({ isOpen, closeModal }) {
+    const resetPasswordForm = {
+        currentPassword: "",
+        newPassword: "",
+    };
     const [currentPassword, setCurrentPassword] = useState<string>("");
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmNewPassword, setNewConfirmPassword] = useState<string>("");
-    const [formErrors, setFormErrors] = useState({
-        currentPassword: "",
-        newPassword: "",
-    });
+    const [formErrors, setFormErrors] = useState(resetPasswordForm);
 
     const resetFormErrors = () => {
-        if (formErrors !== { currentPassword: "", newPassword: "" }) {
+        if (formErrors !== resetPasswordForm) {
             setFormErrors({ currentPassword: "", newPassword: "" });
         }
     };
@@ -121,7 +122,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                             handleChange={() => changeNewConfirmPassword}
                             errorMessage={formErrors.newPassword}
                         />
-                        <button type="submit" className="btn-blue mx-2 my-10">
+                        <button type="submit" className="btn blue mx-2 my-10">
                             Changer le mot de passe
                         </button>
                     </form>

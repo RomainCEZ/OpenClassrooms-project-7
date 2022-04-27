@@ -128,7 +128,7 @@ export default function Signup() {
                     errorMessage={formErrors.confirmPassword}
                 />
                 <div className="flex mx-2 mt-8">
-                    <button type="submit" className="btn-blue flex-grow">
+                    <button type="submit" className="btn blue flex-grow">
                         Créer un compte
                     </button>
                 </div>

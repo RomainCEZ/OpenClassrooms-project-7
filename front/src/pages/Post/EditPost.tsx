@@ -53,7 +53,7 @@ export default function EditPost() {
 
     return (
         <section>
-            <Link to={`/post/${id}`} className="btn-blue">
+            <Link to={`/post/${id}`} className="btn blue">
                 Retour
             </Link>
             {preview ? (
@@ -98,13 +98,13 @@ export default function EditPost() {
                 <button
                     type="submit"
                     form="editpost"
-                    className="btn-blue flex-grow"
+                    className="btn blue flex-grow"
                 >
                     Publier
                 </button>
                 <button
                     onClick={() => setPreview(!preview)}
-                    className="btn-white w-2/5 sm:w-1/4"
+                    className="btn white w-2/5 sm:w-1/4"
                 >
                     {preview ? "Éditer" : "Aperçu"}
                 </button>

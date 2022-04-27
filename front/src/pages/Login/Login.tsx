@@ -82,7 +82,7 @@ export default function Login() {
                     Mot de passe oublié ?
                 </Link>
                 <div className="flex mx-2">
-                    <button type="submit" className="btn-blue flex-grow">
+                    <button type="submit" className="btn blue flex-grow">
                         Se connecter
                     </button>
                 </div>

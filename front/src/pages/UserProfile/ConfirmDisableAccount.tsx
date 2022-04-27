@@ -33,11 +33,11 @@ export default function ConfirmDisableAccount({ isOpen, closeModal }) {
                     <div className="flex justify-center items-center w-11/12 mb-14 gap-8">
                         <button
                             onClick={disableAccount}
-                            className="btn-red w-1/2"
+                            className="btn red w-1/2"
                         >
                             Confirmer
                         </button>
-                        <button onClick={closeModal} className="btn-blue w-1/2">
+                        <button onClick={closeModal} className="btn blue w-1/2">
                             Annuler
                         </button>
                     </div>

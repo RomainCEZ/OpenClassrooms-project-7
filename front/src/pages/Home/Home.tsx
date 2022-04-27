@@ -33,7 +33,7 @@ export default function Home() {
     return (
         <>
             {loggedIn ? (
-                <Link to="newpost" className="btn-blue">
+                <Link to="newpost" className="btn blue">
                     Nouveau post
                 </Link>
             ) : (

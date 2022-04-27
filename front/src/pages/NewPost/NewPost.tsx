@@ -39,7 +39,7 @@ export default function NewPost() {
 
     return (
         <section className="flex flex-col content-center justify-center rounded">
-            <Link to="/" className="btn-blue">
+            <Link to="/" className="btn blue">
                 Retour
             </Link>
             {preview ? (
@@ -83,13 +83,13 @@ export default function NewPost() {
                 <button
                     type="submit"
                     form="newpost"
-                    className="btn-blue flex-grow"
+                    className="btn blue flex-grow"
                 >
                     Publier
                 </button>
                 <button
                     onClick={() => setPreview(!preview)}
-                    className="btn-white w-2/5 sm:w-1/4"
+                    className="btn white w-2/5 sm:w-1/4"
                 >
                     {preview ? "Éditer" : "Aperçu"}
                 </button>

@@ -60,7 +60,7 @@ export default function PostView() {
 
     return (
         <section>
-            <Link to="/" className="btn-blue">
+            <Link to="/" className="btn blue">
                 Retour
             </Link>
             {isLoading ? (

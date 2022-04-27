@@ -20,10 +20,10 @@ export default function PostButtons() {
 
     return (
         <div className="flex justify-end items-center gap-3">
-            <Link to={`/post/${id}/edit`} className="btn-blue px-10 sm:w-1/4">
+            <Link to={`/post/${id}/edit`} className="btn blue px-10 sm:w-1/4">
                 Éditer
             </Link>
-            <button onClick={openModal} className="btn-red px-5 sm:w-1/4">
+            <button onClick={openModal} className="btn red px-5 sm:w-1/4">
                 Supprimer
             </button>
             <ConfirmDeletePost
