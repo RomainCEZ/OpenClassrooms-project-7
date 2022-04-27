@@ -62,6 +62,13 @@ class ApiProvider {
         const profileInfos = await axios.get("api/users/profile");
         return profileInfos.data;
     }
+    async uploadProfilePicture(profilePicture) {
+        const uploadResponse = await axios.post(
+            "api/users/profilepicture/upload",
+            { profilePicture }
+        );
+        return uploadResponse.data;
+    }
 }
 
 export const apiProvider = new ApiProvider();
