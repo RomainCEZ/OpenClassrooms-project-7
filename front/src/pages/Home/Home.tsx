@@ -18,6 +18,7 @@ export default function Home() {
             title={post.title}
             content={post.content}
             author={post.author}
+            authorPicture={post.authorPicture}
             timestamp={post.timestamp}
             commentsNumber={post.commentsNumber}
         />

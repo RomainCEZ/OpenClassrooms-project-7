@@ -19,6 +19,7 @@ export default function PostView() {
         id: "",
         title: "",
         content: "",
+        authorPicture: "",
         editorContent: "",
     });
     const [commentsData, setCommentsData] = useState([]);
@@ -66,19 +67,28 @@ export default function PostView() {
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <article className=" mt-3 group flex flex-col px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 dark:border-gray-300 transition">
-                    <div className="pb-2 border-b-2 border-indigo-900 dark:border-gray-300">
-                        <h2 className="text-xl font-bold break-words p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
-                            {post.title}
-                        </h2>
-                        <p className="text-sm ml-2 first-letter:capitalize">
-                            <ReactTimeAgo
-                                date={post.timestamp}
-                                locale="fr-FR"
-                                className="font-bold"
-                            />{" "}
-                            par <span className="font-bold">{post.author}</span>
-                        </p>
+                <article className=" mt-3 group flex flex-col px-2 sm:px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 dark:border-gray-300">
+                    <div className="flex items-center pb-2 border-b-2 border-blue-900 dark:border-gray-300">
+                        <div className="relative h-14 w-14 mr-2 sm:-ml-2 mt-2 border-2 border-blue-800 dark:border-gray-800 rounded-full overflow-hidden">
+                            <img
+                                src={post.authorPicture}
+                                className="absolute w-full h-full"
+                            />
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold break-words py-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
+                                {post.title}
+                            </h2>
+                            <p className="text-sm ml-2 first-letter:capitalize">
+                                <ReactTimeAgo
+                                    date={post.timestamp}
+                                    locale="fr-FR"
+                                    className="font-bold"
+                                />{" "}
+                                par{" "}
+                                <span className="font-bold">{post.author}</span>
+                            </p>
+                        </div>
                     </div>
                     <div className="flex flex-col w-full">
                         <div className="border-b border-indigo-900 dark:border-gray-300">
