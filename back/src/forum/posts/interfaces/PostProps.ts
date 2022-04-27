@@ -5,6 +5,7 @@ export interface PostProps {
     imageName?: string
     author: string
     authorId: string
+    authorPicture?: string
     timestamp?: number
     commentsNumber?: number
 }

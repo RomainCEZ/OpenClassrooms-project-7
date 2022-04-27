@@ -1,4 +1,4 @@
-import { Column, Model, Table, DataType, HasMany, BelongsTo, ForeignKey } from 'sequelize-typescript';
+import { Column, Model, Table, DataType, HasMany, ForeignKey, HasOne } from 'sequelize-typescript';
 import { CommentModel } from './Comment.model';
 import { UserModel } from './User.model';
 
@@ -30,13 +30,16 @@ export class PostModel extends Model {
     @Column({ type: DataType.BOOLEAN })
     isPublished: boolean
 
+    @HasOne(() => UserModel, { foreignKey: 'userId', sourceKey: 'authorId', as: 'postAuthor' })
+    user: UserModel
+
     @HasMany(() => CommentModel, { foreignKey: 'postId', sourceKey: 'postId', as: 'comments' })
     comments: CommentModel[]
 
-    @BelongsTo(() => UserModel, 'authorId')
-    userId: UserModel
+    // @BelongsTo(() => UserModel, { foreignKey: 'authorId' })
+    // postAuthor: UserModel
 
-    @BelongsTo(() => UserModel, 'author')
-    username: UserModel
+    // @BelongsTo(() => UserModel, 'author')
+    // username: UserModel
 
 }

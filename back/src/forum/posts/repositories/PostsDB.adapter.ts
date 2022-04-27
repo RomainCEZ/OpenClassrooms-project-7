@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 import { Sequelize } from "sequelize-typescript";
 import { CommentModel } from "../../../Database/sequelizeModels/Comment.model";
 import { PostModel } from "../../../Database/sequelizeModels/Post.model";
+import { UserModel } from "../../../Database/sequelizeModels/User.model";
 import { UpdatePostDto } from "../dto/update-post.dto";
 import { Post } from "../entities/post.entity";
 import { IPostsRepository } from "../interfaces/PostsRepository";
@@ -16,13 +17,16 @@ export class PostsDBAdapter implements IPostsRepository {
         const postModels = await this.postModel.findAll<PostModel>({
             where: { isPublished: true },
             order: [['timestamp', 'DESC']],
-            include: [{ model: CommentModel, attributes: [], where: { isPublished: true }, required: false }],
+            include: [
+                { model: CommentModel, attributes: [], where: { isPublished: true }, required: false },
+                { model: UserModel, attributes: ['profilePicture'] }
+            ],
             attributes: {
-                include: [
+                include: ['postAuthor.profilePicture',
                     [Sequelize.fn('COUNT', Sequelize.col('comments')), 'commentsCount'],
                 ],
             },
-            group: ['PostModel.id']
+            group: ['PostModel.id', 'postAuthor.id']
         })
         return postModels.map(postModel => {
             return Post.create({
@@ -32,6 +36,7 @@ export class PostsDBAdapter implements IPostsRepository {
                 imageName: postModel.imageName,
                 author: postModel.author,
                 authorId: postModel.authorId,
+                authorPicture: postModel.getDataValue("postAuthor").profilePicture,
                 timestamp: +postModel.timestamp,
                 commentsNumber: +postModel.getDataValue("commentsCount")
             })
@@ -51,6 +56,11 @@ export class PostsDBAdapter implements IPostsRepository {
     async getById(postId: string): Promise<Post> {
         const post = await this.postModel.findOne<PostModel>({
             where: { postId, isPublished: true },
+            include: [{ model: UserModel, attributes: ['profilePicture'] }],
+            attributes: {
+                include: ['postAuthor.profilePicture'],
+            },
+            group: ['PostModel.id', 'postAuthor.id']
         })
         return Post.create({
             id: post.postId,
@@ -59,6 +69,7 @@ export class PostsDBAdapter implements IPostsRepository {
             imageName: post.imageName,
             author: post.author,
             authorId: post.authorId,
+            authorPicture: post.getDataValue("postAuthor").profilePicture,
             timestamp: +post.timestamp,
             commentsNumber: +post.getDataValue('commentsCount')
         })
