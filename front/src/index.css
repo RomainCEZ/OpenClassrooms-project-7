@@ -25,4 +25,9 @@
         @apply text-blue-700 hover:text-blue-500 focus:text-blue-500 active:text-blue-400 font-bold transition
         dark:text-gray-800 dark:hover:text-gray-300 dark:active:text-gray-400
     }
+
+    .btn-text-red {
+        @apply text-red-800 hover:text-red-600 focus:text-red-600 active:text-red-500 font-bold transition
+        dark:text-red-900 dark:hover:text-red-700 dark:active:text-red-500
+    }
 }
