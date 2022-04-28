@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useState } from "react";
+import { IoCameraReverseSharp } from "react-icons/io5";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
@@ -47,8 +48,14 @@ export default function ProfilePictureInput() {
     };
     return (
         <>
-            <button className="mt-16 w-36 h-36" onClick={openModal}>
+            <button
+                className="group relative mt-16 w-36 h-36"
+                onClick={openModal}
+            >
                 <ProfilePictureBox picture={user.profilePicture} />
+                <span className="absolute ring ring-blue-800 dark:ring-gray-800 bg-white/80 dark:bg-gray-400/80 rounded-full p-0.5 text-blue-800 dark:text-gray-800 text-xl right-2.5 bottom-2.5 z-10 group-hover:scale-150 transition group-hover:opacity-0">
+                    <IoCameraReverseSharp />
+                </span>
             </button>
             {isOpen && (
                 <Transition
