@@ -43,18 +43,18 @@ export default function NewComment({ postId, getComments }) {
                     </div>
                 </form>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center my-4 p-2 rounded bg-white border border-indigo-900 px-6 shadow-md">
+                <p className="flex flex-col sm:flex-row items-center justify-center mt-4 p-2 px-6 rounded font-bold text-gray-800 bg-white dark:bg-gray-400 border-indigo-900 dark:border-gray-300 border shadow-md">
                     <span>
                         <Link
                             to="/login"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
                         >
                             Connectez-vous
                         </Link>
                         &nbsp;ou&nbsp;
                         <Link
                             to="/signup"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
                         >
                             enregistrez-vous
                         </Link>
