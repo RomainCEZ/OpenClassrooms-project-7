@@ -38,13 +38,19 @@ export default function Home() {
                     Nouveau post
                 </Link>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded dark:text-gray-200 bg-white dark:bg-gray-500 border-indigo-900 dark:border-gray-300 border shadow-md">
+                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 rounded font-bold text-gray-800 bg-white dark:bg-gray-400 border-indigo-900 dark:border-gray-300 border shadow-md">
                     <span>
-                        <Link to="/login" className="btn-text-blue underline">
+                        <Link
+                            to="/login"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
+                        >
                             Connectez-vous
                         </Link>
                         &nbsp;ou&nbsp;
-                        <Link to="/signup" className="btn-text-blue underline">
+                        <Link
+                            to="/signup"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
+                        >
                             enregistrez-vous
                         </Link>
                     </span>
