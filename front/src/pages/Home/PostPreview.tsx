@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
 import { EditorState, convertFromRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { useEffect, useRef, useState } from "react";
 import ReactTimeAgo from "react-time-ago";
+import { FaRegCommentDots } from "react-icons/fa";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
-import ProfilePictureBox from "../UserProfile/ProfilePictureBox";
 
 export default function PostPreview({
     id,
@@ -38,14 +38,14 @@ export default function PostPreview({
         <Link to={`/post/${id}`} aria-label={title}>
             <article className="group flex flex-col px-2 sm:px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 dark:hover:bg-gray-500 w-full sm:border sm:rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
                 <div className="flex items-center pb-2 border-b-2 border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition">
-                    <div className="relative h-14 w-14 mr-2 sm:-ml-2 border-2 border-blue-800 dark:border-gray-800 dark:group-hover:border-gray-300 rounded-full overflow-hidden">
+                    <div className="relative h-14 w-14 mr-2 sm:-ml-2 border-2 border-blue-800 group-hover:border-blue-500 dark:border-gray-800 dark:group-hover:border-gray-300 rounded-full overflow-hidden transition">
                         <img
                             src={authorPicture}
                             className="absolute w-full h-full"
                         />
                     </div>
                     <div>
-                        <h2 className="mb-2 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-300 transition">
+                        <h2 className="mb-1 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-300 transition">
                             {title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">
@@ -64,7 +64,10 @@ export default function PostPreview({
                 >
                     <DraftjsView editorState={editorState} />
                 </div>
-                <p className="text-sm px-2 pt-4 font-bold">
+                <p className="flex items-center text-sm px-2 pt-4 font-bold">
+                    <span className="text-xl mr-2 -scale-x-1">
+                        <FaRegCommentDots />
+                    </span>
                     {commentsNumber > 1
                         ? `${commentsNumber} commentaires`
                         : `${commentsNumber} commentaire`}
