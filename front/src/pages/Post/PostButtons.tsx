@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaPen } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
 import { apiProvider } from "../../providers/ApiProvider";
 import ConfirmDeletePost from "./ConfirmDeletePost";
 
@@ -20,11 +22,17 @@ export default function PostButtons() {
 
     return (
         <div className="flex justify-end items-center gap-3">
-            <Link to={`/post/${id}/edit`} className="btn blue px-10 sm:w-1/4">
-                Éditer
+            <Link to={`/post/${id}/edit`} className="btn blue sm:w-1/4">
+                <span className="flex items-center px-2 h-[30px] text-xl sm:hidden">
+                    <FaPen />
+                </span>
+                <span className="px-10 hidden sm:block">Éditer</span>
             </Link>
-            <button onClick={openModal} className="btn red px-5 sm:w-1/4">
-                Supprimer
+            <button onClick={openModal} className="btn red sm:w-1/4">
+                <span className="px-1 text-3xl sm:hidden">
+                    <MdDeleteForever />
+                </span>
+                <span className="px-5 hidden sm:block">Supprimer</span>
             </button>
             <ConfirmDeletePost
                 isOpen={isOpen}

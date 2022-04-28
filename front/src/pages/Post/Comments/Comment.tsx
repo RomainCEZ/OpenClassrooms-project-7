@@ -1,4 +1,9 @@
 import { useContext, useState } from "react";
+import { BsCheckLg } from "react-icons/bs";
+import { FaPen } from "react-icons/fa";
+import { MdDeleteForever } from "react-icons/md";
+import { TiCancel } from "react-icons/ti";
+import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import ReactTimeAgo from "react-time-ago";
 import { apiProvider } from "../../../providers/ApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
@@ -19,7 +24,7 @@ export default function Comment({
 
     const editComment = async () => {
         await apiProvider.updateComment(commentId, editedComment);
-        getComments();
+        await getComments();
         setEditing(false);
     };
 
@@ -30,23 +35,21 @@ export default function Comment({
 
     const deleteComment = async () => {
         await apiProvider.deleteComment(commentId);
-        getComments();
+        await getComments();
     };
 
     return (
-        <div className="flex divide-x w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 sm:border border-indigo-800 dark:border-gray-200 sm:rounded-sm shadow-md overflow-hidden">
-            <div className="flex flex-col w-[8.5%] md:w-1/12 xl:w-[7.2%] justify-center items-center gap-1 p-2">
-                <div
-                    className="border-[16px] border-transparent border-b-blue-700 dark:border-b-gray-700
-                    hover:border-b-blue-500 dark:hover:border-b-gray-300 active:border-b-blue-400 dark:active:border-b-gray-400 cursor-pointer transition"
-                ></div>
-                <p>+2</p>
-                <div
-                    className="border-[16px] border-transparent border-t-blue-700 dark:border-t-gray-700
-                    hover:border-t-blue-500 dark:hover:border-t-gray-300 active:border-t-blue-400 dark:active:border-t-gray-400 cursor-pointer transition"
-                ></div>
+        <div className="flex w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 sm:border border-indigo-800 dark:border-gray-200 sm:rounded-sm shadow-md overflow-hidden">
+            <div className="flex flex-col justify-center border-r border-gray-200 items-center p-1.5">
+                <button className="cursor-pointer scale-110 text-4xl text-blue-800 dark:text-gray-700 hover:text-blue-500 dark:hover:text-gray-500 active:text-blue-600 dark:active:text-gray-700 transition">
+                    <VscTriangleUp />
+                </button>
+                <span>+2</span>
+                <span className="cursor-pointer scale-110 text-4xl text-blue-800 dark:text-gray-700 hover:text-blue-500 dark:hover:text-gray-500 active:text-blue-600 dark:active:text-gray-700 transition">
+                    <VscTriangleDown />
+                </span>
             </div>
-            <div className="flex flex-col w-[91.5%] md:w-11/12 xl:w-[92.8%] p-4 pb-0 break-words">
+            <div className="flex flex-col mx-auto w-[86%] sm:w-11/12 xl:w-[92.8%] py-4 px-3 sm:px-4 pb-0 break-words">
                 {editing ? (
                     <div className="flex relative">
                         <textarea
@@ -67,7 +70,7 @@ export default function Comment({
                 ) : (
                     <p className="mb-2">{content}</p>
                 )}
-                <div className="flex text-sm mt-auto border-t border-gray-400 dark:border-gray-200 pl-2 py-2 divide-x divide-gray-400 dark:divide-gray-200">
+                <div className="flex items-center text-sm mt-auto border-t border-gray-400 dark:border-gray-200 pl-2 py-1 sm:py-2 sm:divide-x divide-gray-400 dark:divide-gray-200">
                     <p className="first-letter:capitalize">
                         <ReactTimeAgo
                             date={timestamp}
@@ -81,30 +84,50 @@ export default function Comment({
                             <>
                                 <button
                                     onClick={editComment}
-                                    className="btn-text-blue ml-auto px-4 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue ml-auto mr-4 sm:mr-0"
                                 >
-                                    Valider
+                                    <span className="w-10 text-2xl sm:hidden">
+                                        <BsCheckLg />
+                                    </span>
+                                    <span className="px-4 underline underline-offset-2 decoration-2 hidden sm:block">
+                                        Valider
+                                    </span>
                                 </button>
                                 <button
-                                    className="btn-text-blue px-4 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue"
                                     onClick={cancelUpdateComment}
                                 >
-                                    Annuler
+                                    <span className="text-4xl sm:hidden btn-text-red">
+                                        <TiCancel />
+                                    </span>
+                                    <span className="px-4 underline underline-offset-2 decoration-2 hidden sm:block">
+                                        Annuler
+                                    </span>
                                 </button>
                             </>
                         ) : (
                             <>
                                 <button
                                     onClick={() => setEditing(true)}
-                                    className="btn-text-blue ml-auto px-5 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue ml-auto mr-4 sm:mr-0"
                                 >
-                                    Éditer
+                                    <span className="text-2xl sm:hidden">
+                                        <FaPen />
+                                    </span>
+                                    <span className="px-5 underline underline-offset-2 decoration-2 hidden sm:block">
+                                        Éditer
+                                    </span>
                                 </button>
                                 <button
-                                    className="btn-text-blue px-3 underline underline-offset-2 decoration-2"
+                                    className="btn-text-blue"
                                     onClick={deleteComment}
                                 >
-                                    Supprimer
+                                    <span className="text-4xl sm:hidden btn-text-red">
+                                        <MdDeleteForever />
+                                    </span>
+                                    <span className="px-3 underline underline-offset-2 decoration-2 hidden sm:block">
+                                        Supprimer
+                                    </span>
                                 </button>
                             </>
                         ))}
