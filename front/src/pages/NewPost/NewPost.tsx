@@ -64,7 +64,7 @@ export default function NewPost() {
                 <form
                     id="newpost"
                     onSubmit={postContent}
-                    className="flex flex-col mt-2 p-4 gap-3 sm:border bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded shadow-md"
+                    className="flex flex-col mt-3 p-4 gap-3 sm:border bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded shadow-md"
                 >
                     <input
                         placeholder="Titre"
