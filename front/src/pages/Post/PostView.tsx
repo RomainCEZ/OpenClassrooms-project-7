@@ -76,7 +76,7 @@ export default function PostView() {
                             />
                         </div>
                         <div>
-                            <h2 className="text-xl font-bold break-words py-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
+                            <h2 className="text-xl font-bold break-words py-1 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
                                 {post.title}
                             </h2>
                             <p className="text-sm ml-2 first-letter:capitalize">
