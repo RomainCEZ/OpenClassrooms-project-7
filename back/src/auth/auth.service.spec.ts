@@ -7,6 +7,7 @@ import { InMemoryUsersRepository } from '../users/repositories/InMemoryUsersRepo
 import { UsersService } from '../users/users.service';
 import { MailerService } from '../utils/MailerService/MailerService';
 import { JwtModule } from '@nestjs/jwt';
+import { CloudinaryService } from '../images/CloudinaryService';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -18,6 +19,7 @@ describe('AuthService', () => {
         { provide: UsersRepository, useClass: InMemoryUsersRepository },
         UsersService,
         MailerService,
+        CloudinaryService
       ]
     }).compile();
 

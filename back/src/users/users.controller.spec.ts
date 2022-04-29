@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { CloudinaryService } from '../images/CloudinaryService';
 import { InMemoryUsersRepository } from './repositories/InMemoryUsersRepository';
 import { UsersRepository } from './repositories/UsersRepository';
 import { UsersController } from './users.controller';
@@ -12,7 +13,8 @@ describe('UsersController', () => {
       controllers: [UsersController],
       providers: [
         UsersService,
-        { provide: UsersRepository, useClass: InMemoryUsersRepository }
+        { provide: UsersRepository, useClass: InMemoryUsersRepository },
+        CloudinaryService
       ],
     }).compile();
 
