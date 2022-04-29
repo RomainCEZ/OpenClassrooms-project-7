@@ -55,7 +55,7 @@ export default function PostPreview({
                                 className="absolute w-full h-full"
                             />
                         ) : (
-                            <span className="absolute top-2 text-5xl rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-500 transition">
+                            <span className="absolute top-2 text-5xl rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-300 transition">
                                 <FaUser />
                             </span>
                         )}

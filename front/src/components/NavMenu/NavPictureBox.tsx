@@ -9,7 +9,7 @@ export default function NavPictureBox({ picture }) {
                     className="absolute h-full z-10 w-full object-cover group-hover:brightness-110 group-focus:brightness-110 group-active:brightness-125 transition"
                 />
             ) : (
-                <span className="absolute top-4 text-[5rem] rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-500 transition">
+                <span className="absolute top-4 text-[5rem] rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-300 transition">
                     <FaUser />
                 </span>
             )}
