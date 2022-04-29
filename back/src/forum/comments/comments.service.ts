@@ -29,4 +29,17 @@ export class CommentsService {
   async deleteCommentById(commentId: string) {
     return await this.commentsRepository.deleteCommentById(commentId)
   }
+
+  async like(userId: string, commentId: string) {
+    const comment = await this.commentsRepository.getCommentById(commentId)
+    const likes = comment.likes.includes(userId) ? comment.likes.filter(id => id !== userId) : [...comment.likes, userId]
+    const dislikes = comment.dislikes.includes(userId) ? comment.dislikes.filter(id => id !== userId) : comment.dislikes
+    await this.commentsRepository.updateCommentById(commentId, { likes, dislikes })
+  }
+  async dislike(userId: string, commentId: string) {
+    const comment = await this.commentsRepository.getCommentById(commentId)
+    const dislikes = comment.dislikes.includes(userId) ? comment.dislikes.filter(id => id !== userId) : [...comment.dislikes, userId]
+    const likes = comment.likes.includes(userId) ? comment.likes.filter(id => id !== userId) : comment.likes
+    await this.commentsRepository.updateCommentById(commentId, { likes, dislikes })
+  }
 }

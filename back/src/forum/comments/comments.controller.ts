@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException, Request } from '@nestjs/common';
 import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -46,5 +46,16 @@ export class CommentsController {
       return await this.commentsService.deleteCommentById(commentId);
     }
     throw new ForbiddenException("Requête non autorisée !")
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Post(':commentId/like')
+  async like(@Request() req, @Param('commentId') commentId: string) {
+    if (req.body.like === 1) {
+      await this.commentsService.like(req.user.id, commentId)
+    }
+    if (req.body.like === -1) {
+      await this.commentsService.dislike(req.user.id, commentId)
+    }
   }
 }

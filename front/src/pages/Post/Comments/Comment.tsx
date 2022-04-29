@@ -3,10 +3,10 @@ import { BsCheckLg } from "react-icons/bs";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TiCancel } from "react-icons/ti";
-import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import ReactTimeAgo from "react-time-ago";
 import { apiProvider } from "../../../providers/ApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
+import CommentLikes from "./CommentLikes";
 
 export default function Comment({
     commentId,
@@ -14,6 +14,8 @@ export default function Comment({
     author,
     authorId,
     timestamp,
+    likes,
+    dislikes,
     getComments,
 }) {
     const { user } = useContext(SessionContext);
@@ -40,15 +42,11 @@ export default function Comment({
 
     return (
         <div className="flex w-full bg-white dark:bg-gray-400 divide-indigo-800 dark:divide-gray-300 sm:border border-indigo-800 dark:border-gray-200 sm:rounded-sm shadow-md overflow-hidden">
-            <div className="flex flex-col justify-center border-r border-gray-200 items-center p-1.5">
-                <button className="cursor-pointer scale-110 text-4xl text-blue-800 dark:text-gray-700 hover:text-blue-500 dark:hover:text-gray-500 active:text-blue-600 dark:active:text-gray-700 transition">
-                    <VscTriangleUp />
-                </button>
-                <span>+2</span>
-                <span className="cursor-pointer scale-110 text-4xl text-blue-800 dark:text-gray-700 hover:text-blue-500 dark:hover:text-gray-500 active:text-blue-600 dark:active:text-gray-700 transition">
-                    <VscTriangleDown />
-                </span>
-            </div>
+            <CommentLikes
+                commentId={commentId}
+                likes={likes}
+                dislikes={dislikes}
+            />
             <div className="flex flex-col mx-auto w-[86%] sm:w-11/12 xl:w-[92.8%] py-4 px-3 sm:px-4 pb-0 break-words">
                 {editing ? (
                     <div className="flex relative">

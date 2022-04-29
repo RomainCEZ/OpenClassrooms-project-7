@@ -28,6 +28,12 @@ export class CommentModel extends Model {
     @Column({ type: DataType.BOOLEAN })
     isPublished: boolean
 
+    @Column({ type: DataType.ARRAY(DataType.STRING) })
+    likes: string[]
+
+    @Column({ type: DataType.ARRAY(DataType.STRING) })
+    dislikes: string[]
+
     @BelongsTo(() => PostModel, 'postId')
     post: PostModel
 

@@ -34,7 +34,9 @@ export default class CommentsDBAdapter implements ICommentsRepository {
             content: comment.content,
             author: comment.author,
             authorId: comment.authorId,
-            timestamp: +comment.timestamp
+            timestamp: +comment.timestamp,
+            likes: comment.likes,
+            dislikes: comment.dislikes
         })
         )
     }
@@ -45,7 +47,9 @@ export default class CommentsDBAdapter implements ICommentsRepository {
             content: comment.content,
             author: comment.author,
             authorId: comment.authorId,
-            timestamp: +comment.timestamp
+            timestamp: +comment.timestamp,
+            likes: comment.likes,
+            dislikes: comment.dislikes
         })
     }
     async updateCommentById(commentId: string, updatedContent: UpdateCommentDto) {

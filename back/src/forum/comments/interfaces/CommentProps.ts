@@ -4,4 +4,6 @@ export default interface CommentProps {
     author: string
     authorId: string
     timestamp?: number
+    likes?: string[]
+    dislikes?: string[]
 }

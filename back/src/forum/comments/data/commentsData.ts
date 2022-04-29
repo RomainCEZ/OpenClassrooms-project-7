@@ -8,6 +8,8 @@ export const commentsData = [
             author: "admin",
             authorId: "0",
             timestamp: 1649075642144,
+            likes: [],
+            dislikes: []
         },
         {
             id: "placeholderComment2",
@@ -15,6 +17,8 @@ export const commentsData = [
             author: "admin",
             authorId: "0",
             timestamp: 1648975642144,
+            likes: [],
+            dislikes: []
         }]
     }
 ]
