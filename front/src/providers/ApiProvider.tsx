@@ -69,6 +69,18 @@ class ApiProvider {
         );
         return uploadResponse.data;
     }
+    async likePost(postId) {
+        await axios.post(`/api/posts/${postId}/like`, { like: 1 });
+    }
+    async dislikePost(postId) {
+        await axios.post(`/api/posts/${postId}/like`, { like: -1 });
+    }
+    async likeComment(commentId) {
+        await axios.post(`/api/comments/${commentId}/like`, { like: 1 });
+    }
+    async dislikeComment(commentId) {
+        await axios.post(`/api/comments/${commentId}/like`, { like: -1 });
+    }
 }
 
 export const apiProvider = new ApiProvider();
