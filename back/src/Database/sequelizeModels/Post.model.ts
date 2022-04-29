@@ -30,16 +30,16 @@ export class PostModel extends Model {
     @Column({ type: DataType.BOOLEAN })
     isPublished: boolean
 
+    @Column({ type: DataType.ARRAY(DataType.STRING) })
+    likes: string[]
+
+    @Column({ type: DataType.ARRAY(DataType.STRING) })
+    dislikes: string[]
+
     @HasOne(() => UserModel, { foreignKey: 'userId', sourceKey: 'authorId', as: 'postAuthor' })
     user: UserModel
 
     @HasMany(() => CommentModel, { foreignKey: 'postId', sourceKey: 'postId', as: 'comments' })
     comments: CommentModel[]
-
-    // @BelongsTo(() => UserModel, { foreignKey: 'authorId' })
-    // postAuthor: UserModel
-
-    // @BelongsTo(() => UserModel, 'author')
-    // username: UserModel
 
 }
