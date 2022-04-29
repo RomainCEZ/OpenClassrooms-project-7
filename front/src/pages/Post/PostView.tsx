@@ -12,6 +12,7 @@ import CommentLoader from "./Comments/CommentLoader";
 import NewComment from "./Comments/NewComment";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import PostButtons from "./PostButtons";
+import PostLikes from "./PostLikes";
 
 export default function PostView() {
     const { user } = useContext(SessionContext);
@@ -20,10 +21,12 @@ export default function PostView() {
         title: "",
         content: "",
         authorPicture: "",
+        likes: [],
+        dislikes: [],
         editorContent: "",
     });
     const [commentsData, setCommentsData] = useState([]);
-
+    console.log(commentsData);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const id = document.location.pathname.split("/post/")[1];
 
@@ -41,6 +44,8 @@ export default function PostView() {
                 author={comment.author}
                 authorId={comment.authorId}
                 timestamp={comment.timestamp}
+                likes={comment.likes}
+                dislikes={comment.dislikes}
                 getComments={getComments}
             />
         );
@@ -95,9 +100,17 @@ export default function PostView() {
                             <DraftjsView editorState={post.content} />
                         </div>
                     </div>
-                    <div className="h-16 py-3 px-2">
-                        {(user.id === post.authorId ||
-                            user.role === "admin") && <PostButtons />}
+                    <div className="flex justify-between items-center">
+                        <PostLikes
+                            postId={post.id}
+                            likes={post.likes}
+                            dislikes={post.dislikes}
+                        />
+
+                        <div className="h-16 py-3 px-2 w-1/2">
+                            {(user.id === post.authorId ||
+                                user.role === "admin") && <PostButtons />}
+                        </div>
                     </div>
                 </article>
             )}

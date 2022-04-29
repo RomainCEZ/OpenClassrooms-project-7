@@ -7,5 +7,7 @@ export interface PostProps {
     authorId: string
     authorPicture?: string
     timestamp?: number
+    likes?: string[]
+    dislikes?: string[]
     commentsNumber?: number
 }

@@ -5,4 +5,6 @@ export class CreatePostDto {
     author: string
     authorId: string
     timestamp?: number
+    likes?: string[]
+    dislikes?: string[]
 }

@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { EditorState, convertFromRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ReactTimeAgo from "react-time-ago";
+import {
+    AiFillDislike,
+    AiFillLike,
+    AiOutlineDislike,
+    AiOutlineLike,
+} from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
+import { SessionContext } from "../Auth/context/SessionContext";
 
 export default function PostPreview({
     id,
@@ -13,8 +20,11 @@ export default function PostPreview({
     author,
     authorPicture,
     timestamp,
+    likes,
+    dislikes,
     commentsNumber,
 }) {
+    const { user } = useContext(SessionContext);
     const [editorState, setEditorState] = useState<EditorState>(() =>
         EditorState.createEmpty()
     );
@@ -60,18 +70,38 @@ export default function PostPreview({
                 </div>
                 <div
                     ref={contentRef}
-                    className={`relative max-h-[30rem] border-b border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition overflow-clip ${contentOverlay}`}
+                    className={`relative max-h-[30rem] border-b border-blue-900 group-hover:border-blue-500 dark:border-gray-300 dark:group-hover:border-gray-100 transition overflow-clip ${contentOverlay}`}
                 >
                     <DraftjsView editorState={editorState} />
                 </div>
-                <p className="flex items-center text-sm px-2 pt-4 font-bold">
-                    <span className="text-xl mr-2 -scale-x-1">
-                        <FaRegCommentDots />
-                    </span>
-                    {commentsNumber > 1
-                        ? `${commentsNumber} commentaires`
-                        : `${commentsNumber} commentaire`}
-                </p>
+                <div className="flex justify-between px-2 mt-4 font-bold ">
+                    <div className="flex items-center text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-300">
+                        <span className="mr-1 text-2xl sm:text-xl">
+                            {likes.includes(user.id) ? (
+                                <AiFillLike />
+                            ) : (
+                                <AiOutlineLike />
+                            )}
+                        </span>
+                        <span className="sm:text-sm">{likes.length}</span>
+                        <span className="ml-4 mr-1 text-2xl sm:text-xl">
+                            {dislikes.includes(user.id) ? (
+                                <AiFillDislike />
+                            ) : (
+                                <AiOutlineDislike />
+                            )}
+                        </span>
+                        <span className="sm:text-sm">{dislikes.length}</span>
+                    </div>
+                    <p className="flex items-center px-3 sm:text-sm text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-300">
+                        <span className="text-xl mr-2 -scale-x-1">
+                            <FaRegCommentDots />
+                        </span>
+                        {commentsNumber > 1
+                            ? `${commentsNumber} commentaires`
+                            : `${commentsNumber} commentaire`}
+                    </p>
+                </div>
             </article>
         </Link>
     );

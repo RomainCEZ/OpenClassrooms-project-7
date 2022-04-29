@@ -5,6 +5,8 @@ export interface PostProps {
     author?: string;
     authorId?: string;
     authorPicture?: string;
+    likes: string[];
+    dislikes: string[];
     timestamp?: Date;
     editorContent?: Object;
     commentsNumber?: number;

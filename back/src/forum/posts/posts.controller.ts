@@ -43,4 +43,16 @@ export class PostsController {
         }
         throw new ForbiddenException("Requête non autorisée !")
     }
+
+    @UseGuards(AuthenticationGuard)
+    @Post(':postId/like')
+    async like(@Request() req, @Param('postId') postId: string) {
+        if (req.body.like === 1) {
+            await this.postsService.like(req.user.id, postId)
+        }
+        if (req.body.like === -1) {
+            await this.postsService.dislike(req.user.id, postId)
+        }
+    }
+
 }

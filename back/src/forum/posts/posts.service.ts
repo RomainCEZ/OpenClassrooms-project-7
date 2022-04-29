@@ -27,4 +27,17 @@ export class PostsService {
   async delete(postId: string) {
     this.postsRepository.delete(postId)
   }
+
+  async like(userId: string, postId: string) {
+    const post = await this.postsRepository.getById(postId)
+    const likes = post.likes.includes(userId) ? post.likes.filter(id => id !== userId) : [...post.likes, userId]
+    const dislikes = post.dislikes.includes(userId) ? post.dislikes.filter(id => id !== userId) : post.dislikes
+    this.postsRepository.update(postId, { likes, dislikes })
+  }
+  async dislike(userId: string, postId: string) {
+    const post = await this.postsRepository.getById(postId)
+    const dislikes = post.dislikes.includes(userId) ? post.dislikes.filter(id => id !== userId) : [...post.dislikes, userId]
+    const likes = post.likes.includes(userId) ? post.likes.filter(id => id !== userId) : post.likes
+    this.postsRepository.update(postId, { likes, dislikes })
+  }
 }

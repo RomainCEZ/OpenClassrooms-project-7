@@ -38,6 +38,8 @@ export class PostsDBAdapter implements IPostsRepository {
                 authorId: postModel.authorId,
                 authorPicture: postModel.getDataValue("postAuthor").profilePicture,
                 timestamp: +postModel.timestamp,
+                likes: postModel.likes,
+                dislikes: postModel.dislikes,
                 commentsNumber: +postModel.getDataValue("commentsCount")
             })
         })
@@ -71,12 +73,14 @@ export class PostsDBAdapter implements IPostsRepository {
             authorId: post.authorId,
             authorPicture: post.getDataValue("postAuthor").profilePicture,
             timestamp: +post.timestamp,
+            likes: post.likes,
+            dislikes: post.dislikes,
             commentsNumber: +post.getDataValue('commentsCount')
         })
     }
     async update(postId: string, updatePostDto: UpdatePostDto) {
         const post = await this.postModel.findOne({ where: { postId } })
-        post.update({ ...updatePostDto })
+        await post.update({ ...updatePostDto })
     }
     async delete(postId: string) {
         const post = await this.postModel.findOne({ where: { postId } })
