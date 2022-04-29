@@ -2,8 +2,8 @@ import { useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { SessionContext } from "../../pages/Auth/context/SessionContext";
 import { NavLink } from "./NavLink";
-import ProfilePictureBox from "../../pages/UserProfile/ProfilePictureBox";
 import DarkModeToggle from "./DarkModeToggle";
+import NavPictureBox from "./NavPictureBox";
 
 export function DropDownNav() {
     const { user, logout } = useContext(SessionContext);
@@ -11,7 +11,7 @@ export function DropDownNav() {
     return (
         <Menu as="div" className="flex flex-col justify-center items-end w-52">
             <Menu.Button className="group h-24 w-24">
-                <ProfilePictureBox picture={user.profilePicture} />
+                <NavPictureBox picture={user.profilePicture} />
             </Menu.Button>
             <Transition
                 enter="transition duration-100 ease-out"

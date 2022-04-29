@@ -13,6 +13,7 @@ import NewComment from "./Comments/NewComment";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import PostButtons from "./PostButtons";
 import PostLikes from "./PostLikes";
+import { FaUser } from "react-icons/fa";
 
 export default function PostView() {
     const { user } = useContext(SessionContext);
@@ -74,11 +75,17 @@ export default function PostView() {
             ) : (
                 <article className=" mt-3 group flex flex-col px-2 sm:px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 dark:border-gray-300">
                     <div className="flex items-center pb-2 border-b-2 border-blue-900 dark:border-gray-300">
-                        <div className="relative h-14 w-14 mr-2 sm:-ml-2 mt-2 border-2 border-blue-800 dark:border-gray-800 rounded-full overflow-hidden">
-                            <img
-                                src={post.authorPicture}
-                                className="absolute w-full h-full"
-                            />
+                        <div className="flex justify-center relative h-14 w-14 mr-2 sm:-ml-2 mt-2 border-2 border-blue-800 dark:border-gray-800 rounded-full overflow-hidden">
+                            {post.authorPicture ? (
+                                <img
+                                    src={post.authorPicture}
+                                    className="absolute w-full h-full"
+                                />
+                            ) : (
+                                <span className="absolute top-2 text-5xl rounded-full text-blue-700 dark:text-gray-700 transition">
+                                    <FaUser />
+                                </span>
+                            )}
                         </div>
                         <div>
                             <h2 className="text-xl font-bold break-words py-1 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
