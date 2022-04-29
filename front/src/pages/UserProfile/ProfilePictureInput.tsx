@@ -49,7 +49,7 @@ export default function ProfilePictureInput() {
     return (
         <>
             <button
-                className="group relative mt-16 w-36 h-36"
+                className="group relative mt-16 w-36 h-36 rounded-full"
                 onClick={openModal}
             >
                 <ProfilePictureBox picture={user.profilePicture} />

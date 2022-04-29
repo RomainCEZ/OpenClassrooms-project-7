@@ -10,7 +10,7 @@ export function DropDownNav() {
 
     return (
         <Menu as="div" className="flex flex-col justify-center items-end w-52">
-            <Menu.Button className="h-24 w-24">
+            <Menu.Button className="group h-24 w-24">
                 <ProfilePictureBox picture={user.profilePicture} />
             </Menu.Button>
             <Transition
