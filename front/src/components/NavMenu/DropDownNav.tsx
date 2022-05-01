@@ -4,12 +4,14 @@ import { SessionContext } from "../../pages/Auth/context/SessionContext";
 import { NavLink } from "./NavLink";
 import DarkModeToggle from "./DarkModeToggle";
 import NavPictureBox from "./NavPictureBox";
+import { UserContext } from "../../pages/Auth/context/UserContext";
 
 export function DropDownNav() {
-    const { user, logout } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
+    const { logout } = useContext(SessionContext);
 
     return (
-        <Menu as="div" className="flex flex-col justify-center items-end w-52">
+        <Menu as="div" className="flex flex-col justify-center items-end">
             <Menu.Button className="group h-24 w-24">
                 <NavPictureBox picture={user.profilePicture} />
             </Menu.Button>
