@@ -76,7 +76,7 @@ export function MessageOverlay({ children }) {
                 }`}
             >
                 <span
-                    className={`py-2.5 px-8 border rounded font-bold max-w-full text-blue-800 dark:text-gray-800 bg-white dark:bg-gray-400 border-blue-800 dark:border-gray-200 transition-all ${
+                    className={`py-2.5 px-8 border rounded font-bold max-w-full text-lg text-blue-800 dark:text-gray-800 bg-white dark:bg-gray-400 border-blue-800 dark:border-gray-200 transition-all ${
                         visible ? "" : "opacity-0 scale-150"
                     }`}
                 >
