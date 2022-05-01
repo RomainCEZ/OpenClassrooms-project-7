@@ -5,7 +5,6 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ReactTimeAgo from "react-time-ago";
 import { PostProps } from "./interfaces/PostProps";
 import { apiProvider } from "../../providers/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
 import PostLoader from "./PostLoader";
 import Comment from "./Comments/Comment";
 import CommentLoader from "./Comments/CommentLoader";
@@ -14,9 +13,10 @@ import DraftjsView from "../../components/Draftjs/DraftjsView";
 import PostButtons from "./PostButtons";
 import PostLikes from "./PostLikes";
 import { FaUser } from "react-icons/fa";
+import { UserContext } from "../Auth/context/UserContext";
 
 export default function PostView() {
-    const { user } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
@@ -27,7 +27,6 @@ export default function PostView() {
         editorContent: "",
     });
     const [commentsData, setCommentsData] = useState([]);
-    console.log(commentsData);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const id = document.location.pathname.split("/post/")[1];
 
@@ -126,7 +125,7 @@ export default function PostView() {
                 <CommentLoader />
             ) : (
                 <div className="flex flex-col mt-2 gap-1">
-                    {commentsElements}
+                    {commentsData.length === 0 ? <></> : commentsElements}
                 </div>
             )}
         </section>

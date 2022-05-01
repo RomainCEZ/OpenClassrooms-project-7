@@ -6,10 +6,10 @@ import {
     AiOutlineLike,
 } from "react-icons/ai";
 import { apiProvider } from "../../providers/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { UserContext } from "../Auth/context/UserContext";
 
 export default function PostLikes({ likes, dislikes, postId }) {
-    const { user } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
     const [postLikes, setPostLikes] = useState(likes);
     const [postDislikes, setPostDislikes] = useState(dislikes);
 
@@ -49,15 +49,15 @@ export default function PostLikes({ likes, dislikes, postId }) {
                 <span className="text-xl sm:text-lg">{postLikes.length}</span>
             </button>
             <button onClick={handleDislike} className="flex ml-5 btn-text-red">
-                <span className="mr-1 text-3xl sm:text-[1.7rem]">
+                <span className="text-xl sm:text-lg">
+                    {postDislikes.length}
+                </span>
+                <span className="ml-1 text-3xl sm:text-[1.7rem]">
                     {postDislikes.includes(user.id) ? (
                         <AiFillDislike />
                     ) : (
                         <AiOutlineDislike />
                     )}
-                </span>
-                <span className="text-xl sm:text-lg">
-                    {postDislikes.length}
                 </span>
             </button>
         </div>

@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import { apiProvider } from "../../../providers/ApiProvider";
-import { SessionContext } from "../../Auth/context/SessionContext";
+import { UserContext } from "../../Auth/context/UserContext";
 
 export default function CommentLikes({ commentId, likes, dislikes }) {
-    const { user } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
     const [commentLikes, setCommentLikes] = useState(likes);
     const [commentDislikes, setCommentDislikes] = useState(dislikes);
 

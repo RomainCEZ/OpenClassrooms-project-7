@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { UserContext } from "../Auth/context/UserContext";
 
 export default function UserContent({ profile }) {
-    const { user } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
 
     return (
         <div className="flex flex-col py-8 px-2 sm:px-4 gap-3">
