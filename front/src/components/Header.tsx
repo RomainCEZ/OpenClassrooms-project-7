@@ -11,7 +11,7 @@ export default function Header() {
 
     return (
         <header className="flex items-center justify-between h-32 bg-blue-800 dark:bg-gray-800 pl-9 pr-6 sm:px-8">
-            <Link to="/" className="z-30">
+            <Link to="/" className="z-30 w-24">
                 <Logo />
             </Link>
             <nav className="relative z-20">
