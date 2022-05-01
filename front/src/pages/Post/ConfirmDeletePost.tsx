@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
     return (
@@ -25,9 +26,12 @@ export default function ConfirmDeletePost({ isOpen, closeModal, deletePost }) {
                         Voulez-vous vraiment supprimer ce post ?
                     </Dialog.Title>
                     <div className="flex justify-center items-center w-11/12 mb-14 gap-8">
-                        <button onClick={deletePost} className="btn red w-1/2">
+                        <SubmitButton
+                            onClick={deletePost}
+                            className="btn red w-1/2"
+                        >
                             Confirmer
-                        </button>
+                        </SubmitButton>
                         <button onClick={closeModal} className="btn blue w-1/2">
                             Annuler
                         </button>

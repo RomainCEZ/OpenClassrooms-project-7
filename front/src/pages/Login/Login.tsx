@@ -3,6 +3,7 @@ import { SessionContext } from "../Auth/context/SessionContext";
 import { Link } from "react-router-dom";
 import FormInput from "../../components/Inputs/FormInput";
 import FormSection from "../../components/FormSection";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function Login() {
     interface ILoginForm {
@@ -31,7 +32,6 @@ export default function Login() {
         setForm((form) => ({ ...form, password: value }));
     }
     async function submitLogin(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
         resetFormErrors();
         try {
             const loginInfo = {
@@ -54,11 +54,7 @@ export default function Login() {
 
     return (
         <FormSection>
-            <form
-                id="login"
-                onSubmit={submitLogin}
-                className="flex flex-col p-5 gap-2"
-            >
+            <form className="flex flex-col p-5 gap-2">
                 <FormInput
                     type="email"
                     name="email"
@@ -82,9 +78,12 @@ export default function Login() {
                     Mot de passe oublié ?
                 </Link>
                 <div className="flex mx-2">
-                    <button type="submit" className="btn blue flex-grow">
+                    <SubmitButton
+                        onClick={submitLogin}
+                        className="btn blue flex-grow"
+                    >
                         Se connecter
-                    </button>
+                    </SubmitButton>
                 </div>
                 <Link to="/signup" className="btn-text-blue m-3">
                     Pas encore enregistré ? Cliquez ici pour créer un compte.

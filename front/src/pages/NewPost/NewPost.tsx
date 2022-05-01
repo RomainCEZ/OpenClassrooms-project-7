@@ -8,6 +8,7 @@ import DraftjsView from "../../components/Draftjs/DraftjsView";
 import ReactTimeAgo from "react-time-ago";
 import { UserContext } from "../Auth/context/UserContext";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function NewPost() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -26,7 +27,6 @@ export default function NewPost() {
     }
 
     async function postContent(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
         if (title && editorState) {
             const post = {
                 title,
@@ -64,11 +64,7 @@ export default function NewPost() {
                     <DraftjsView editorState={editorState} />
                 </div>
             ) : (
-                <form
-                    id="newpost"
-                    onSubmit={postContent}
-                    className="flex flex-col mt-3 p-4 gap-3 sm:border bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded shadow-md"
-                >
+                <form className="flex flex-col mt-3 p-4 gap-3 sm:border bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded shadow-md">
                     <input
                         placeholder="Titre"
                         className="p-2 border border-gray-500 rounded shadow-inner"
@@ -83,13 +79,12 @@ export default function NewPost() {
                 </form>
             )}
             <div className="flex w-full gap-4 mt-3">
-                <button
-                    type="submit"
-                    form="newpost"
+                <SubmitButton
+                    onClick={postContent}
                     className="btn blue flex-grow"
                 >
                     Publier
-                </button>
+                </SubmitButton>
                 <button
                     onClick={() => setPreview(!preview)}
                     className="btn white w-2/5 sm:w-1/4"

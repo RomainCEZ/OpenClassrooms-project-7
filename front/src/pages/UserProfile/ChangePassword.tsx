@@ -3,6 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
 import { authProvider } from "../../providers/AuthProvider";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function ChangePassword({ isOpen, closeModal }) {
     const resetPasswordForm = {
@@ -37,7 +38,6 @@ export default function ChangePassword({ isOpen, closeModal }) {
 
     async function changePassword(e: React.FormEvent<HTMLFormElement>) {
         resetFormErrors();
-        e.preventDefault();
         if (newPassword !== confirmNewPassword) {
             setFormErrors({
                 ...formErrors,
@@ -93,11 +93,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                     <Dialog.Title className="mt-14 mb-4 font-bold text-xl">
                         Changement de mot de passe
                     </Dialog.Title>
-                    <form
-                        id="resetpassword"
-                        onSubmit={changePassword}
-                        className="flex flex-col p-2 gap-2"
-                    >
+                    <form className="flex flex-col p-2 gap-2">
                         <FormInput
                             type="password"
                             name="password"
@@ -122,9 +118,12 @@ export default function ChangePassword({ isOpen, closeModal }) {
                             handleChange={() => changeNewConfirmPassword}
                             errorMessage={formErrors.newPassword}
                         />
-                        <button type="submit" className="btn blue mx-2 my-10">
+                        <SubmitButton
+                            onClick={changePassword}
+                            className="btn blue mx-2 my-10"
+                        >
                             Changer le mot de passe
-                        </button>
+                        </SubmitButton>
                     </form>
                 </DarkmodeWrapper>
             </Dialog>

@@ -2,6 +2,7 @@ import { Fragment, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function ConfirmDisableAccount({ isOpen, closeModal }) {
     const { disableAccount } = useContext(SessionContext);
@@ -31,12 +32,12 @@ export default function ConfirmDisableAccount({ isOpen, closeModal }) {
                         Attention, cette action est définitive !
                     </Dialog.Description>
                     <div className="flex justify-center items-center w-11/12 mb-14 gap-8">
-                        <button
+                        <SubmitButton
                             onClick={disableAccount}
                             className="btn red w-1/2"
                         >
                             Confirmer
-                        </button>
+                        </SubmitButton>
                         <button onClick={closeModal} className="btn blue w-1/2">
                             Annuler
                         </button>

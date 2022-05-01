@@ -7,6 +7,7 @@ import ReactTimeAgo from "react-time-ago";
 import { apiProvider } from "../../providers/ApiProvider";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { UserContext } from "../Auth/context/UserContext";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function EditPost() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -37,7 +38,6 @@ export default function EditPost() {
     }
 
     async function editPost(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
         if (title) {
             const rawEditorContent = convertToRaw(
                 editorState.getCurrentContent()
@@ -78,11 +78,7 @@ export default function EditPost() {
                     <DraftjsView editorState={editorState} />
                 </div>
             ) : (
-                <form
-                    id="editpost"
-                    onSubmit={editPost}
-                    className="flex flex-col mt-2 p-4 gap-3 sm:border shadow-md bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded"
-                >
+                <form className="flex flex-col mt-2 p-4 gap-3 sm:border shadow-md bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded">
                     <input
                         name="title"
                         placeholder="Titre"
@@ -98,13 +94,9 @@ export default function EditPost() {
                 </form>
             )}
             <div className="flex w-full gap-4 mt-3">
-                <button
-                    type="submit"
-                    form="editpost"
-                    className="btn blue flex-grow"
-                >
+                <SubmitButton onClick={editPost} className="btn blue flex-grow">
                     Publier
-                </button>
+                </SubmitButton>
                 <button
                     onClick={() => setPreview(!preview)}
                     className="btn white w-2/5 sm:w-1/4"

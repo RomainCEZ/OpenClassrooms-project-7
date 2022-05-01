@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
@@ -30,7 +31,6 @@ export default function ResetPassword() {
 
     async function resetPassword(e: React.FormEvent<HTMLFormElement>) {
         resetFormErrors();
-        e.preventDefault();
         if (password !== confirmPassword) {
             setFormErrors("Veuillez saisir 2 mots de passe identiques !");
             return;
@@ -56,11 +56,7 @@ export default function ResetPassword() {
     }
     return (
         <FormSection>
-            <form
-                id="resetpassword"
-                onSubmit={resetPassword}
-                className="flex flex-col p-5 gap-2"
-            >
+            <form className="flex flex-col p-5 gap-2">
                 <FormInput
                     type="password"
                     name="password"
@@ -78,9 +74,9 @@ export default function ResetPassword() {
                     errorMessage={formErrors}
                 />
                 <div className="flex mx-2 my-4">
-                    <button type="submit" className="btn blue">
+                    <SubmitButton onClick={resetPassword} className="btn blue">
                         Réinitialiser mon mot de passe
-                    </button>
+                    </SubmitButton>
                 </div>
             </form>
         </FormSection>

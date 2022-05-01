@@ -1,6 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useState } from "react";
 import { IoCameraReverseSharp } from "react-icons/io5";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { apiProvider } from "../../providers/ApiProvider";
@@ -13,7 +14,6 @@ export default function ProfilePictureInput() {
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
     const [previewImage, setPreviewImage] = useState(null);
-
     const openModal = () => {
         setPreviewImage(user.profilePicture);
         setIsOpen(true);
@@ -40,7 +40,6 @@ export default function ProfilePictureInput() {
     };
 
     const uploadImage = async (e) => {
-        e.preventDefault();
         if (!selectedImage) return;
         const newProfilePicture = await apiProvider.uploadProfilePicture(
             previewImage
@@ -89,22 +88,19 @@ export default function ProfilePictureInput() {
                                     />
                                 )}
                             </div>
-                            <form
-                                onSubmit={uploadImage}
-                                className="flex flex-col p-2"
-                            >
+                            <form className="flex flex-col p-2">
                                 <input
                                     type="file"
                                     accept="image/*"
                                     value={selectedImage}
                                     onChange={handleFileChange}
                                 />
-                                <button
-                                    type="submit"
+                                <SubmitButton
+                                    onClick={uploadImage}
                                     className="btn blue mx-2 my-10"
                                 >
                                     Envoyer l'image
-                                </button>
+                                </SubmitButton>
                             </form>
                         </DarkmodeWrapper>
                     </Dialog>

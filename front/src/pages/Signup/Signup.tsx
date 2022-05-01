@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { SessionContext } from "../Auth/context/SessionContext";
@@ -50,7 +51,6 @@ export default function Signup() {
     }
     async function submitSignup(e: React.FormEvent<HTMLFormElement>) {
         resetFormErrors();
-        e.preventDefault();
         if (form.password !== form.confirmPassword) {
             setFormErrors({
                 ...formErrors,
@@ -90,11 +90,7 @@ export default function Signup() {
 
     return (
         <FormSection>
-            <form
-                id="signup"
-                onSubmit={submitSignup}
-                className="flex flex-col p-5 gap-2"
-            >
+            <form className="flex flex-col p-5 gap-2">
                 <FormInput
                     type="email"
                     name="email"
@@ -128,9 +124,12 @@ export default function Signup() {
                     errorMessage={formErrors.confirmPassword}
                 />
                 <div className="flex mx-2 mt-8">
-                    <button type="submit" className="btn blue flex-grow">
+                    <SubmitButton
+                        onClick={submitSignup}
+                        className="btn blue flex-grow"
+                    >
                         Créer un compte
-                    </button>
+                    </SubmitButton>
                 </div>
                 <Link to="/login" className="btn-text-blue m-3">
                     Vous avez déjà un compte ? Cliquez ici pour vous connecter.
