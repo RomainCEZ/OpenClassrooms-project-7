@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { apiProvider } from "../../providers/ApiProvider";
 import ConfirmDeletePost from "./ConfirmDeletePost";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 
 export default function PostButtons() {
+    const { setMessage } = useContext(ShowMessageOverlay);
     const navigate = useNavigate();
     const id = document.location.pathname.split("/post/")[1];
     const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +20,7 @@ export default function PostButtons() {
     const deletePost = async () => {
         await apiProvider.deletePost(id);
         navigate("/");
+        setMessage("delete post");
     };
 
     return (

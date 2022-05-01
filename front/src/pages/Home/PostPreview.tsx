@@ -11,7 +11,7 @@ import {
 } from "react-icons/ai";
 import { FaRegCommentDots, FaUser } from "react-icons/fa";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { UserContext } from "../Auth/context/UserContext";
 
 export default function PostPreview({
     id,
@@ -24,7 +24,7 @@ export default function PostPreview({
     dislikes,
     commentsNumber,
 }) {
-    const { user } = useContext(SessionContext);
+    const { user } = useContext(UserContext);
     const [editorState, setEditorState] = useState<EditorState>(() =>
         EditorState.createEmpty()
     );

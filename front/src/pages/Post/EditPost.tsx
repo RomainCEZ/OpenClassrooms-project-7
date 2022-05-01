@@ -5,10 +5,12 @@ import DraftjsView from "../../components/Draftjs/DraftjsView";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import ReactTimeAgo from "react-time-ago";
 import { apiProvider } from "../../providers/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
+import { UserContext } from "../Auth/context/UserContext";
 
 export default function EditPost() {
-    const { user } = useContext(SessionContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
+    const { user } = useContext(UserContext);
 
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
@@ -46,6 +48,7 @@ export default function EditPost() {
             };
             await apiProvider.editPost(id, post);
             navigate(`/post/${id}`);
+            setMessage("edit post");
         } else {
             console.log("erreur");
         }

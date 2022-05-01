@@ -5,11 +5,13 @@ import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
-import { SessionContext } from "../Auth/context/SessionContext";
 import ReactTimeAgo from "react-time-ago";
+import { UserContext } from "../Auth/context/UserContext";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 
 export default function NewPost() {
-    const { user } = useContext(SessionContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
+    const { user } = useContext(UserContext);
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
@@ -32,6 +34,7 @@ export default function NewPost() {
             };
             await apiProvider.createPost(post);
             navigate("/");
+            setMessage("new post");
         } else {
             console.log("erreur");
         }

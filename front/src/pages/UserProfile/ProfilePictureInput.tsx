@@ -2,12 +2,14 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useState } from "react";
 import { IoCameraReverseSharp } from "react-icons/io5";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { apiProvider } from "../../providers/ApiProvider";
-import { SessionContext } from "../Auth/context/SessionContext";
+import { UserContext } from "../Auth/context/UserContext";
 import ProfilePictureBox from "./ProfilePictureBox";
 
 export default function ProfilePictureInput() {
-    const { user, setUser } = useContext(SessionContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
+    const { user, setUser } = useContext(UserContext);
     const [isOpen, setIsOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState("");
     const [previewImage, setPreviewImage] = useState(null);
@@ -45,6 +47,7 @@ export default function ProfilePictureInput() {
         );
         setUser({ ...user, profilePicture: newProfilePicture });
         closeModal();
+        setMessage("change profile picture");
     };
     return (
         <>

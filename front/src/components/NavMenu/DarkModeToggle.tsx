@@ -1,16 +1,22 @@
 import { Menu, Switch } from "@headlessui/react";
 import { useContext } from "react";
 import { DarkmodeContext } from "../Darkmode/DarkModeContext";
+import { ShowMessageOverlay } from "../MessageOverlay";
 
 export default function DarkModeToggle() {
     const { darkmode, setDarkmode } = useContext(DarkmodeContext);
-
+    const { setMessage } = useContext(ShowMessageOverlay);
     return (
         <Menu.Item>
             {({ active }) => (
                 <Switch
                     checked={darkmode}
-                    onChange={() => setDarkmode(!darkmode)}
+                    onChange={() => {
+                        setDarkmode(!darkmode);
+                        darkmode
+                            ? setMessage("lightmode")
+                            : setMessage("darkmode");
+                    }}
                     className={`flex justify-center items-center w-full py-4 active:bg-blue-500 dark:active:bg-gray-600 cursor-pointer
                         ${active ? "bg-blue-600 dark:bg-gray-700" : ""}
                     `}

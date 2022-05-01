@@ -4,8 +4,9 @@ import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { TiCancel } from "react-icons/ti";
 import ReactTimeAgo from "react-time-ago";
+import { ShowMessageOverlay } from "../../../components/MessageOverlay";
 import { apiProvider } from "../../../providers/ApiProvider";
-import { SessionContext } from "../../Auth/context/SessionContext";
+import { UserContext } from "../../Auth/context/UserContext";
 import CommentLikes from "./CommentLikes";
 
 export default function Comment({
@@ -18,7 +19,8 @@ export default function Comment({
     dislikes,
     getComments,
 }) {
-    const { user } = useContext(SessionContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
+    const { user } = useContext(UserContext);
     const [editing, setEditing] = useState<boolean>(false);
     const [editedComment, setEditedComment] = useState<{ content: string }>({
         content,
@@ -28,6 +30,7 @@ export default function Comment({
         await apiProvider.updateComment(commentId, editedComment);
         await getComments();
         setEditing(false);
+        setMessage("edit comment");
     };
 
     const cancelUpdateComment = () => {
@@ -38,6 +41,7 @@ export default function Comment({
     const deleteComment = async () => {
         await apiProvider.deleteComment(commentId);
         await getComments();
+        setMessage("delete comment");
     };
 
     return (

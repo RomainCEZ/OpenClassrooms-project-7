@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { authProvider } from "../../providers/AuthProvider";
 
 export default function ResetPassword() {
     const navigate = useNavigate();
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [formErrors, setFormErrors] = useState("");
@@ -43,6 +45,7 @@ export default function ResetPassword() {
                     userId,
                 });
                 navigate("/login");
+                setMessage("change password");
             } catch (error) {
                 const messages = [error.message];
                 messages.forEach((message: string) => {

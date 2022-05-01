@@ -1,17 +1,20 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { ShowMessageOverlay } from "../../../components/MessageOverlay";
 import { apiProvider } from "../../../providers/ApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
 
 export default function NewComment({ postId, getComments }) {
+    const { setMessage } = useContext(ShowMessageOverlay);
     const { loggedIn } = useContext(SessionContext);
     const [newComment, setNewComment] = useState({ content: "" });
 
     const postComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await apiProvider.createComment(postId, newComment);
-        getComments();
+        await getComments();
         setNewComment({ content: "" });
+        setMessage("new comment");
     };
     return (
         <>
@@ -34,6 +37,7 @@ export default function NewComment({ postId, getComments }) {
                                 setNewComment({ content: e.target.value })
                             }
                             value={newComment.content}
+                            required
                         />
                     </div>
                     <div className="ml-auto m-2">

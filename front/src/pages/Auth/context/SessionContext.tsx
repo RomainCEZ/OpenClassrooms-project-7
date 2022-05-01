@@ -1,32 +1,12 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ShowMessageOverlay } from "../../../components/MessageOverlay";
 import { apiProvider } from "../../../providers/ApiProvider";
 import { authProvider } from "../../../providers/AuthProvider";
-
-interface IUserSession {
-    id: string;
-    username: string;
-    role: string;
-    timestamp: number;
-    postsCount: number;
-    commentsCount: number;
-    profilePicture: string;
-}
-
-const UserInitValues: IUserSession = {
-    id: null,
-    username: null,
-    role: null,
-    timestamp: null,
-    postsCount: null,
-    commentsCount: null,
-    profilePicture: "",
-};
+import { UserContext } from "./UserContext";
 
 export const SessionContext = createContext({
     loggedIn: false,
-    user: UserInitValues,
-    setUser: null,
     logout: null,
     disableAccount: null,
     checkLogin: null,
@@ -35,13 +15,10 @@ export const SessionContext = createContext({
 });
 
 export const SessionProvider = ({ children }) => {
+    const { resetUser, setUser } = useContext(UserContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState(UserInitValues);
     const navigate = useNavigate();
-
-    function createSession(sessionInfo: IUserSession) {
-        setUser(sessionInfo);
-    }
 
     useEffect(() => {
         if (!loggedIn) {
@@ -60,20 +37,22 @@ export const SessionProvider = ({ children }) => {
     async function signup(loginInfo) {
         await authProvider.signup(loginInfo);
         await login(loginInfo);
+        setMessage("signup");
     }
 
     async function login(loginInfo) {
         await authProvider.login(loginInfo);
         const sessionInfos = await apiProvider.getProfile();
         setLoggedIn(true);
-        createSession(sessionInfos);
+        setUser(sessionInfos);
         navigate("/");
+        setMessage("login");
     }
 
     async function logout() {
         await authProvider.logout();
         setLoggedIn(false);
-        setUser(UserInitValues);
+        resetUser();
         navigate("/");
     }
 
@@ -91,8 +70,6 @@ export const SessionProvider = ({ children }) => {
         <SessionContext.Provider
             value={{
                 loggedIn,
-                user,
-                setUser,
                 logout,
                 disableAccount,
                 checkLogin,

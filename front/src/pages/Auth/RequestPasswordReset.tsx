@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { authProvider } from "../../providers/AuthProvider";
 
 export default function RequestPasswordReset() {
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [email, setEmail] = useState("");
 
     function changeEmail(event: React.ChangeEvent<HTMLInputElement>) {
@@ -16,6 +18,7 @@ export default function RequestPasswordReset() {
         e.preventDefault();
         try {
             await authProvider.requestpasswordreset({ email });
+            setMessage("reset password");
         } catch (error) {}
     }
 
