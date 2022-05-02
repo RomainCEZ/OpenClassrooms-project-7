@@ -1,23 +1,9 @@
-import axios from "axios";
+import { axiosInstance as axios } from "./AxiosInstance";
 
 class AuthProvider {
-    private readonly protocol: string;
-    private readonly apiHostname: string;
-    private readonly apiPort: string;
-    private readonly apiUrl: string;
-    constructor() {
-        this.protocol = location.protocol;
-        this.apiHostname = location.hostname;
-        this.apiPort = location.port ? ":8000" : "";
-        this.apiUrl = this.protocol + "//" + this.apiHostname + this.apiPort;
-
-        axios.defaults.baseURL = this.apiUrl;
-        axios.defaults.withCredentials = true;
-    }
-
-    async login(loginInfo): Promise<any> {
+    async login(loginInfo: { email: string; password: string }): Promise<any> {
         try {
-            const loginResponse = await axios.post("/auth/login", loginInfo);
+            const loginResponse = await axios.post("auth/login", loginInfo);
             return loginResponse;
         } catch (error) {
             throw error.response.data;
@@ -26,7 +12,7 @@ class AuthProvider {
 
     async signup(userInfo): Promise<void> {
         try {
-            await axios.post("/auth/signup", userInfo);
+            await axios.post("auth/signup", userInfo);
         } catch (error) {
             throw error.response.data;
         }
@@ -43,6 +29,16 @@ class AuthProvider {
     async logout() {
         await axios.post("auth/logout");
     }
+
+    async changeUsername(username: { username: string }) {
+        try {
+            const response = await axios.patch("auth/changeusername", username);
+            return response.data;
+        } catch (error) {
+            throw error.response.data;
+        }
+    }
+
     async changePassword(payload: {
         currentPassword: string;
         newPassword: string;
