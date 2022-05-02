@@ -15,7 +15,7 @@ export const SessionContext = createContext({
 });
 
 export const SessionProvider = ({ children }) => {
-    const { resetUser, setUser } = useContext(UserContext);
+    const { clearUser, setUser } = useContext(UserContext);
     const { setMessage } = useContext(ShowMessageOverlay);
     const [loggedIn, setLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ export const SessionProvider = ({ children }) => {
     async function logout() {
         await authProvider.logout();
         setLoggedIn(false);
-        resetUser();
+        clearUser();
         navigate("/");
     }
 
