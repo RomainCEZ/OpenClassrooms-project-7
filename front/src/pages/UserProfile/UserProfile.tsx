@@ -1,33 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
+import { UserContext } from "../Auth/context/UserContext";
 import ProfilePictureInput from "./ProfilePictureInput";
 import UserContent from "./UserContent";
 import UserInfos from "./UserInfos";
 import UserProfileSecurity from "./UserProfileSecurity";
 
-interface IProfile {
-    username: string;
-    timestamp: number;
-    postsCount: number;
-    commentsCount: number;
-}
-
 export default function UserProfile() {
+    const { user } = useContext(UserContext);
     const { checkLogin } = useContext(SessionContext);
-    const [profile, setProfile] = useState<IProfile>({
-        username: "",
-        timestamp: 0,
-        postsCount: 0,
-        commentsCount: 0,
-    });
-    const date = new Date(profile.timestamp);
+    const date = new Date(user.timestamp);
 
     useEffect(() => {
         checkLogin();
-        apiProvider
-            .getProfile()
-            .then((profileInfos) => setProfile({ ...profileInfos }));
     }, []);
 
     const months = {
@@ -56,14 +42,14 @@ export default function UserProfile() {
             <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full divide-blue-800 dark:divide-gray-800 divide-y">
                 <div className="p-4 mb-2">
                     <p className="mb-2 text-center text-4xl text-blue-800 dark:text-gray-800">
-                        {profile.username}
+                        {user.username}
                     </p>
                     <p className="text-center">
                         Depuis le {accountCreationDate}
                     </p>
                 </div>
-                <UserContent profile={profile} />
-                <UserInfos profile={profile} />
+                <UserContent />
+                <UserInfos />
                 <UserProfileSecurity />
             </div>
         </section>
