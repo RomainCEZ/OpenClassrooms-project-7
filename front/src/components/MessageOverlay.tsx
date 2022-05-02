@@ -20,25 +20,31 @@ export function MessageOverlay({ children }) {
     function chooseMessage(message: string, action: string) {
         switch (action) {
             case "login":
-                return `Bonjour, ${user.username}`;
+                return `Bonjour, ${user.username} !`;
             case "signup":
-                return `Bienvenue, ${user.username}`;
+                return `Bienvenue, ${user.username} !`;
+
             case "darkmode":
                 return "Mode sombre";
             case "lightmode":
                 return "Mode clair";
+
             case "new post":
                 return "Message publié !";
             case "edit post":
                 return "Message édité !";
             case "delete post":
                 return "Message supprimé !";
+
             case "new comment":
                 return "Commentaire publié !";
             case "edit comment":
                 return "Commentaire édité !";
             case "delete comment":
                 return "Commentaire supprimé !";
+
+            case "change username":
+                return `Vous êtes maintenant ${user.username} !`;
             case "change password":
                 return "Mot de passe modifié !";
             case "reset password":
