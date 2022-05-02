@@ -37,22 +37,23 @@ export default function PostLikes({ likes, dislikes, postId }) {
     };
 
     return (
-        <div className="flex items-center ml-4 mt-3 sm:mt-2 font-bold text-blue-800 dark:text-gray-800">
-            <button onClick={handleLike} className="flex btn-text-blue">
-                <span className="mr-1 text-3xl sm:text-[1.7rem]">
+        <div className="flex items-center ml-2 mt-3 sm:mt-2 font-bold text-blue-800 dark:text-gray-800">
+            <button onClick={handleLike} className="flex p-2 btn-text-blue">
+                <span className="mr-1 text-2xl">
                     {postLikes.includes(user.id) ? (
                         <AiFillLike />
                     ) : (
                         <AiOutlineLike />
                     )}
                 </span>
-                <span className="text-xl sm:text-lg">{postLikes.length}</span>
+                <span className="text-lg">{postLikes.length}</span>
             </button>
-            <button onClick={handleDislike} className="flex ml-5 btn-text-red">
-                <span className="text-xl sm:text-lg">
-                    {postDislikes.length}
-                </span>
-                <span className="ml-1 text-3xl sm:text-[1.7rem]">
+            <button
+                onClick={handleDislike}
+                className="flex ml-3 p-2 btn-text-red"
+            >
+                <span className="text-lg">{postDislikes.length}</span>
+                <span className="ml-1 text-2xl">
                     {postDislikes.includes(user.id) ? (
                         <AiFillDislike />
                     ) : (
