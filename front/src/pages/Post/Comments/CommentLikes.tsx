@@ -7,6 +7,7 @@ export default function CommentLikes({ commentId, likes, dislikes }) {
     const { user } = useContext(UserContext);
     const [commentLikes, setCommentLikes] = useState(likes);
     const [commentDislikes, setCommentDislikes] = useState(dislikes);
+    const upvotes = commentLikes.length - commentDislikes.length;
 
     const handleLike = async () => {
         commentLikes.includes(user.id)
@@ -47,7 +48,10 @@ export default function CommentLikes({ commentId, likes, dislikes }) {
             >
                 <VscTriangleUp />
             </button>
-            <span>{commentLikes.length - commentDislikes.length}</span>
+            <span>
+                {upvotes >= 1 ? "+" : ""}
+                {upvotes}
+            </span>
             <button
                 onClick={handleDislike}
                 className={`${
