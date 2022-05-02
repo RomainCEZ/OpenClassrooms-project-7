@@ -9,6 +9,9 @@ export class InMemoryUsersRepository implements IUsersRepository {
     constructor() {
         this.data = UsersData
     }
+    changeUsername(userId: string, newUsername: string): Promise<{ newUsername: string; }> {
+        throw new Error('Method not implemented.');
+    }
     updateProfileImage(userId: string, profilePictureUrl: string) {
         throw new Error('Method not implemented.');
     }

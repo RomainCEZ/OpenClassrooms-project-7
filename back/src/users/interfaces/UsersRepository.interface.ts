@@ -11,5 +11,7 @@ export interface IUsersRepository {
 
     changePassword(id: string, password: string)
 
+    changeUsername(userId: string, newUsername: string): Promise<{ newUsername: string }>
+
     disableAccount(id: string)
 }

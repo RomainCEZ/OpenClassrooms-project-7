@@ -5,6 +5,7 @@ import { LocalAuthGuard } from './guard/local-auth.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { ResetPasswordDto } from './dto/RestPasswordDto';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';
+import { ChangeUsernameDto } from './dto/ChangeUsernameDto';
 
 @Controller('auth')
 export class AuthController {
@@ -42,6 +43,11 @@ export class AuthController {
     await this.authService.changePassword(req.user.id, changePasswordDto)
   }
 
+  @UseGuards(AuthenticationGuard)
+  @Patch('changeusername')
+  async changeUsername(@Body() changeUsernameDto: ChangeUsernameDto, @Request() req) {
+    return await this.authService.changeUsername(req.user.id, changeUsernameDto)
+  }
   @Post('requestpasswordreset')
   async requestpasswordreset(@Body("email") email: string) {
     await this.authService.sendPasswordRestEmail(email)

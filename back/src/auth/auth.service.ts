@@ -9,6 +9,7 @@ import { MailerService } from '../utils/MailerService/MailerService';
 import { ResetPasswordDto } from './dto/RestPasswordDto';
 import { JwtService } from '@nestjs/jwt';
 import { ChangePasswordDto } from './dto/ChangePasswordDto';
+import { ChangeUsernameDto } from './dto/ChangeUsernameDto';
 
 @Injectable()
 export class AuthService {
@@ -58,6 +59,10 @@ export class AuthService {
         const user = await this.usersService.findById(userId)
         this.verifyPassword(UserPassword.createPlainText(changePasswordDto.currentPassword).password, user.password)
         await this.usersService.changePassword(userId, UserPassword.createHash(changePasswordDto.newPassword))
+    }
+
+    async changeUsername(userId: string, changeUsernameDto: ChangeUsernameDto) {
+        return await this.usersService.changeUsername(userId, changeUsernameDto.username)
     }
 
     async sendPasswordRestEmail(email: string) {

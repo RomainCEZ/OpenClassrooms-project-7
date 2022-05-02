@@ -56,6 +56,10 @@ export class UsersService {
         await this.usersRepository.changePassword(userId, newPassword)
     }
 
+    async changeUsername(userId: string, newUsername: string) {
+        return await this.usersRepository.changeUsername(userId, newUsername)
+    }
+
     async disableAccount(id: string) {
         await this.usersRepository.disableAccount(id)
     }

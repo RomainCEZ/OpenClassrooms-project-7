@@ -109,6 +109,18 @@ export class UserDBadapter implements IUsersRepository {
         }
         await user.update({ password })
     }
+    async changeUsername(userId: string, newUsername: string) {
+        const userNameTaken = await this.userModel.findOne<UserModel>({ where: { username: newUsername } });
+        if (userNameTaken) {
+            throw new ConflictException("Ce nom d'utilisateur est déjà pris !")
+        }
+        const user = await this.userModel.findOne<UserModel>({ where: { userId } });
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        await user.update({ username: newUsername })
+        return { newUsername }
+    }
     async disableAccount(id: string) {
         const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
         if (!user) {
