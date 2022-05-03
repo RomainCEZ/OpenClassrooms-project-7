@@ -9,6 +9,7 @@ interface IUserSession {
     postsCount: number;
     commentsCount: number;
     profilePicture: string;
+    favorites: string[];
 }
 
 const UserInitValues: IUserSession = {
@@ -20,6 +21,7 @@ const UserInitValues: IUserSession = {
     postsCount: null,
     commentsCount: null,
     profilePicture: null,
+    favorites: [],
 };
 
 export const UserContext = createContext({

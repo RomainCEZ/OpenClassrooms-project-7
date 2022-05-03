@@ -29,6 +29,15 @@ export default function UserContent() {
                         Voir
                     </Link>
                 </div>
+                <div className="flex items-center w-full justify-between">
+                    <p>{user.favorites.length} favoris</p>
+                    <Link
+                        to={`/mycontent/favorites`}
+                        className="text-center w-1/5 btn-text-blue"
+                    >
+                        Voir
+                    </Link>
+                </div>
             </div>
         </div>
     );

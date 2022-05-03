@@ -14,10 +14,10 @@ export class UserModel extends Model {
     @Column({ unique: true })
     username: string;
 
-    @Column
+    @Column({ type: DataType.STRING })
     password: string;
 
-    @Column
+    @Column({ type: DataType.STRING })
     role: string
 
     @Column({ type: DataType.STRING })
@@ -25,6 +25,9 @@ export class UserModel extends Model {
 
     @Column({ type: DataType.BIGINT })
     timestamp: number;
+
+    @Column({ type: DataType.ARRAY(DataType.STRING) })
+    favorites: string[]
 
     @Column({ type: DataType.BOOLEAN })
     isActive: boolean

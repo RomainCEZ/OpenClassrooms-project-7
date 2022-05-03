@@ -8,4 +8,5 @@ export interface UserProps {
     postsCount?: number
     commentsCount?: number
     profilePicture?: string
+    favorites?: string[]
 }
