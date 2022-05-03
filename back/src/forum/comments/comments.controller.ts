@@ -20,7 +20,6 @@ export class CommentsController {
   @UseGuards(AuthenticationGuard)
   @Get("mycomments")
   async getMyComments(@Request() req) {
-    console.log(req.user.id)
     const posts = await this.commentsService.getByAuthorId(req.user.id);
     return posts
   }
