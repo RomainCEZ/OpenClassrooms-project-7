@@ -8,24 +8,26 @@ import MyPosts from "./MyPosts";
 const MyContent = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const navigate = useNavigate();
-    const [defaultIndex, setDefaultIndex] = useState(0);
     const [posts, setPosts] = useState([]);
     const [comments, setComments] = useState([]);
 
+    const handleChange = (index) => {
+        setSelectedIndex(index);
+        index === 0 ? openPosts() : openComments();
+    };
+
     const openPosts = () => {
-        console.log("posts");
         navigate("/mycontent/posts");
         if (posts.length === 0) {
-            apiProvider.getAllPosts().then((posts) => setPosts(posts));
+            apiProvider.getMyPosts().then((posts) => setPosts(posts));
         }
     };
 
     const openComments = () => {
-        console.log("comments");
         navigate("/mycontent/comments");
         if (comments.length === 0) {
             apiProvider
-                .getCommentsByPostId("HLJqgNXTfRiQHvwj4hDqa")
+                .getMyComments()
                 .then((comments) => setComments(comments));
         }
     };
@@ -33,18 +35,14 @@ const MyContent = () => {
     useEffect(() => {
         const page = document.location.pathname.split("/mycontent/")[1];
         if (page === "posts") {
-            setDefaultIndex(0);
-            // apiProvider.getMyPosts().then((posts) => setPosts(posts));
-            apiProvider.getAllPosts().then((posts) => setPosts(posts));
+            setSelectedIndex(0);
+            apiProvider.getMyPosts().then((posts) => setPosts(posts));
             return;
         }
         if (page === "comments") {
-            setDefaultIndex(1);
+            setSelectedIndex(1);
             apiProvider
                 .getMyComments()
-                .then((comments) => setComments(comments));
-            apiProvider
-                .getCommentsByPostId("HLJqgNXTfRiQHvwj4hDqa")
                 .then((comments) => setComments(comments));
             return;
         }
@@ -53,17 +51,12 @@ const MyContent = () => {
 
     return (
         <Tab.Group
-            defaultIndex={defaultIndex}
             selectedIndex={selectedIndex}
-            onChange={setSelectedIndex}
+            onChange={(index) => handleChange(index)}
         >
             <Tab.List className="flex gap-2 mb-2">
-                <Tab onChange={() => openPosts} className="btn white w-1/2">
-                    Publications
-                </Tab>
-                <Tab onChange={() => openComments} className="btn white w-1/2">
-                    Commentaires
-                </Tab>
+                <Tab className="btn white w-1/2">Publications</Tab>
+                <Tab className="btn white w-1/2">Commentaires</Tab>
             </Tab.List>
             <Tab.Panels>
                 <Tab.Panel>{<MyPosts posts={posts} />}</Tab.Panel>
