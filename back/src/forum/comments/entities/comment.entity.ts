@@ -3,6 +3,8 @@ import CommentProps from "../interfaces/CommentProps";
 
 export class Comment implements CommentProps {
     readonly id: string
+    readonly postId?: string
+    readonly postTitle?: string
     readonly content: string
     readonly author: string
     readonly authorId: string
@@ -10,8 +12,10 @@ export class Comment implements CommentProps {
     readonly likes: string[]
     readonly dislikes: string[]
 
-    constructor({ id, content, author, authorId, timestamp, likes, dislikes }: CommentProps) {
+    constructor({ id, postId, postTitle, content, author, authorId, timestamp, likes, dislikes }: CommentProps) {
         this.id = id
+        this.postId = postId
+        this.postTitle = postTitle
         this.content = content
         this.author = author
         this.authorId = authorId
