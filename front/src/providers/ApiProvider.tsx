@@ -16,7 +16,7 @@ class ApiProvider {
         return post.data;
     }
     async getMyPosts() {
-        const posts = await axios.get("api/myposts");
+        const posts = await axios.get("api/posts/myposts");
         return posts.data;
     }
     async editPost(id: string, post: PostProps) {
@@ -42,7 +42,7 @@ class ApiProvider {
         return comment.data;
     }
     async getMyComments() {
-        const comments = await axios.get("api/mycomments");
+        const comments = await axios.get("api/comments/mycomments");
         return comments.data;
     }
     async updateComment(commentId: string, content: { content: string }) {
