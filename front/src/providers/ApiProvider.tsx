@@ -55,6 +55,15 @@ class ApiProvider {
         const profileInfos = await axios.get("api/users/profile");
         return profileInfos.data;
     }
+    async getFavorites() {
+        const favorites = await axios.get("api/posts/myfavorites");
+        return favorites.data;
+    }
+
+    async favorite(postId: string) {
+        const favorites = await axios.post("api/posts/favorite", { postId });
+        return favorites.data;
+    }
     async uploadProfilePicture(profilePicture) {
         const uploadResponse = await axios.post(
             "api/users/profilepicture/upload",
