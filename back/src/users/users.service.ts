@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Email } from './entities/Email.entity';
 import { User } from './entities/User';
@@ -43,21 +43,35 @@ export class UsersService {
             timestamp: user.timestamp,
             profilePicture: user.profilePicture,
             postsCount: user.postsCount,
-            commentsCount: user.commentsCount
+            commentsCount: user.commentsCount,
+            favorites: user.favorites
         }
         return profile
     }
     async changeProfilePicture(userId: string, profilePicture: string) {
         const uploadResponse = await this.cloudinaryService.uploadImage(userId, profilePicture)
-        await this.usersRepository.updateProfileImage(userId, uploadResponse.secure_url)
+        await this.usersRepository.updateUser(userId, { profilePicture: uploadResponse.secure_url })
         return uploadResponse.secure_url
     }
+
+    async updateFavorites(userId: string, postId: string) {
+        const user = await this.usersRepository.getById(userId)
+        const favorites = user.favorites.include(postId) ? user.favorites.filter(favorite => favorite !== postId) : { ...user.favorites, postId }
+        await this.usersRepository.updateUser(userId, favorites)
+        return favorites
+    }
+
     async changePassword(userId: string, newPassword: string) {
-        await this.usersRepository.changePassword(userId, newPassword)
+        await this.usersRepository.updateUser(userId, { password: newPassword })
     }
 
     async changeUsername(userId: string, newUsername: string) {
-        return await this.usersRepository.changeUsername(userId, newUsername)
+        const userNameTaken = await this.usersRepository.findByUsername(userId, newUsername)
+        if (userNameTaken) {
+            throw new ConflictException("Ce nom d'utilisateur est déjà pris !")
+        }
+        await this.usersRepository.updateUser(userId, newUsername)
+        return newUsername
     }
 
     async disableAccount(id: string) {

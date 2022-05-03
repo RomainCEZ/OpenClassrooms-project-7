@@ -17,4 +17,8 @@ export class UsersController {
     return await this.usersService.changeProfilePicture(req.user.id, req.body.profilePicture)
   }
 
+  @Post("favorite")
+  async updateFavorites(@Request() req) {
+    return await this.usersService.updateFavorites(req.user.id, req.body.postId)
+  }
 }
