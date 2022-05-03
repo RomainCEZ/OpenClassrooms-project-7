@@ -9,6 +9,7 @@ import PostView from "../pages/Post/PostView";
 import RequestPasswordReset from "../pages/Auth/RequestPasswordReset";
 import ResetPassword from "../pages/Auth/ResetPassword";
 import UserProfile from "../pages/UserProfile/UserProfile";
+import MyContent from "../pages/MyContent.tsx/MyContent";
 
 export default function MainContent() {
     return (
@@ -25,6 +26,7 @@ export default function MainContent() {
                     element={<ResetPassword />}
                 />
                 <Route path="/profile/" element={<UserProfile />} />
+                <Route path="/mycontent/:type" element={<MyContent />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/post/:id" element={<PostView />} />
                 <Route path="newpost" element={<NewPost />} />
