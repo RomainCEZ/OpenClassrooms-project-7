@@ -35,21 +35,19 @@ export default function PostView() {
             return setCommentsData(commentsData);
         });
     };
-    const commentsElements = commentsData.map((comment) => {
-        return (
-            <Comment
-                key={comment.id}
-                commentId={comment.id}
-                content={comment.content}
-                author={comment.author}
-                authorId={comment.authorId}
-                timestamp={comment.timestamp}
-                likes={comment.likes}
-                dislikes={comment.dislikes}
-                getComments={getComments}
-            />
-        );
-    });
+    const commentsElements = commentsData.map((comment) => (
+        <Comment
+            key={comment.id}
+            commentId={comment.id}
+            content={comment.content}
+            author={comment.author}
+            authorId={comment.authorId}
+            timestamp={comment.timestamp}
+            likes={comment.likes}
+            dislikes={comment.dislikes}
+            getComments={getComments}
+        />
+    ));
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
