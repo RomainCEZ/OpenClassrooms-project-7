@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 
 interface IUserSession {
     id: string;
+    email: string;
     username: string;
     role: string;
     timestamp: number;
@@ -12,28 +13,29 @@ interface IUserSession {
 
 const UserInitValues: IUserSession = {
     id: null,
+    email: null,
     username: null,
     role: null,
     timestamp: null,
     postsCount: null,
     commentsCount: null,
-    profilePicture: "",
+    profilePicture: null,
 };
 
 export const UserContext = createContext({
     user: UserInitValues,
     setUser: null,
-    resetUser: null,
+    clearUser: null,
 });
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(UserInitValues);
-    const resetUser = () => {
+    const clearUser = () => {
         setUser(UserInitValues);
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, resetUser }}>
+        <UserContext.Provider value={{ user, setUser, clearUser }}>
             {children}
         </UserContext.Provider>
     );
