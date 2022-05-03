@@ -1,21 +1,7 @@
-import axios from "axios";
+import { axiosInstance as axios } from "./AxiosInstance";
 import { PostProps } from "../pages/Post/interfaces/PostProps";
 
 class ApiProvider {
-    private readonly protocol: string;
-    private readonly apiHostname: string;
-    private readonly apiPort: string;
-    private readonly apiUrl: string;
-    constructor() {
-        this.protocol = location.protocol;
-        this.apiHostname = location.hostname;
-        this.apiPort = location.port ? ":8000" : "";
-        this.apiUrl = this.protocol + "//" + this.apiHostname + this.apiPort;
-
-        axios.defaults.baseURL = this.apiUrl;
-        axios.defaults.withCredentials = true;
-    }
-
     async getAllPosts(): Promise<PostProps[]> {
         const response = await axios.get("/api/posts");
         return response.data;
@@ -29,7 +15,10 @@ class ApiProvider {
         const post = await axios.get(`/api/posts/${id}`);
         return post.data;
     }
-
+    async getMyPosts() {
+        const posts = await axios.get("api/myposts");
+        return posts.data;
+    }
     async editPost(id: string, post: PostProps) {
         await axios.patch(`/api/posts/${id}`, post);
     }
@@ -51,6 +40,10 @@ class ApiProvider {
             `/api/comments/${commentId.toString()}`
         );
         return comment.data;
+    }
+    async getMyComments() {
+        const comments = await axios.get("api/mycomments");
+        return comments.data;
     }
     async updateComment(commentId: string, content: { content: string }) {
         await axios.patch(`/api/comments/${commentId.toString()}`, content);
