@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript';
+import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { PostModel } from './Post.model';
 import { UserModel } from './User.model';
 
@@ -34,7 +34,7 @@ export class CommentModel extends Model {
     @Column({ type: DataType.ARRAY(DataType.STRING) })
     dislikes: string[]
 
-    @BelongsTo(() => PostModel, 'postId')
+    @HasOne(() => PostModel, { foreignKey: 'postId', sourceKey: 'postId', as: 'post' })
     post: PostModel
 
     @BelongsTo(() => UserModel, 'authorId')
