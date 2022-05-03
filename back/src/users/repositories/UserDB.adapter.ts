@@ -92,34 +92,28 @@ export class UserDBadapter implements IUsersRepository {
             profilePicture: user.profilePicture,
             postsCount: user.getDataValue('postsCount') / user.getDataValue('commentsCount'),
             commentsCount: user.getDataValue('commentsCount'),
+            favorites: user.favorites
         })
     }
-    async updateProfileImage(userId: string, profilePictureUrl: string) {
+    async updateUser(userId: string, params) {
         const user = await this.userModel.findOne({ where: { userId } })
         if (!user) {
             throw new NotFoundException("Utilisateur introuvable !")
         }
-        user.update({ profilePicture: profilePictureUrl })
+        await user.update({ ...params })
+    }
+    async updateProfileImage(userId: string, profilePicture: string) {
+        const user = await this.userModel.findOne({ where: { userId } })
+        if (!user) {
+            throw new NotFoundException("Utilisateur introuvable !")
+        }
+        await user.update({ profilePicture: profilePicture })
 
     }
-    async changePassword(id: string, password: string) {
-        const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });
-        if (!user) {
-            throw new NotFoundException("Utilisateur introuvable !")
-        }
-        await user.update({ password })
-    }
-    async changeUsername(userId: string, newUsername: string) {
-        const userNameTaken = await this.userModel.findOne<UserModel>({ where: { username: newUsername } });
-        if (userNameTaken) {
-            throw new ConflictException("Ce nom d'utilisateur est déjà pris !")
-        }
-        const user = await this.userModel.findOne<UserModel>({ where: { userId } });
-        if (!user) {
-            throw new NotFoundException("Utilisateur introuvable !")
-        }
-        await user.update({ username: newUsername })
-        return { newUsername }
+
+    async findByUsername(userId: string, username: string) {
+        const user = await this.userModel.findOne<UserModel>({ where: { username } });
+        return user
     }
     async disableAccount(id: string) {
         const user = await this.userModel.findOne<UserModel>({ where: { userId: id } });

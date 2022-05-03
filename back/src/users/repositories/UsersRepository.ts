@@ -1,27 +1,26 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { UserModel } from "../../Database/sequelizeModels/User.model";
 import { User } from "../entities/User";
 import { IUsersRepository } from "../interfaces/UsersRepository.interface";
 
 export class UsersRepository implements IUsersRepository {
-    changeUsername(userId: string, newUsername: string): Promise<{ newUsername: string; }> {
+    saveUser(user: User) {
         throw new Error("Method not implemented.");
     }
-    updateProfileImage(userId: string, profilePictureUrl: string) {
+    getByEmail(email: string) {
+        throw new Error("Method not implemented.");
+    }
+    getById(id: string) {
+        throw new Error("Method not implemented.");
+    }
+    updateUser(userId: string, params: any) {
+        throw new Error("Method not implemented.");
+    }
+    findByUsername(userId: string, newUsername: string): Promise<UserModel> {
         throw new Error("Method not implemented.");
     }
     disableAccount(id: string) {
         throw new Error("Method not implemented.");
     }
-    changePassword(id: string, password: string) {
-        throw new Error("Method not implemented.");
-    }
-    saveUser(): void {
-        throw new Error("Method not implemented.");
-    }
-    getByEmail(): User {
-        throw new Error("Method not implemented.");
-    }
-    getById(): User {
-        throw new Error("Method not implemented.");
-    }
+
 }

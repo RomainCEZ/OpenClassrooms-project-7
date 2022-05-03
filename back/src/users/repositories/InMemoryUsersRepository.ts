@@ -1,4 +1,5 @@
 import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { UserModel } from '../../Database/sequelizeModels/User.model';
 import { UsersData } from '../data/Users';
 import { User } from '../entities/User';
 import { IUsersRepository } from '../interfaces/UsersRepository.interface';
@@ -9,15 +10,17 @@ export class InMemoryUsersRepository implements IUsersRepository {
     constructor() {
         this.data = UsersData
     }
-    changeUsername(userId: string, newUsername: string): Promise<{ newUsername: string; }> {
+
+    updateUser(userId: string, params: any) {
         throw new Error('Method not implemented.');
     }
-    updateProfileImage(userId: string, profilePictureUrl: string) {
+    findByUsername(userId: string, newUsername: string): Promise<UserModel> {
         throw new Error('Method not implemented.');
     }
     disableAccount(id: string) {
         throw new Error('Method not implemented.');
     }
+
 
     saveUser(user: User) {
         this.isUnique(user)
