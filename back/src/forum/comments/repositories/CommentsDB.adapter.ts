@@ -52,6 +52,26 @@ export default class CommentsDBAdapter implements ICommentsRepository {
             dislikes: comment.dislikes
         })
     }
+
+    async getByAuthorId(userId: string): Promise<Comment[]> {
+        const comments = await this.commentModel.findAll({
+            where: { authorId: userId, isPublished: true },
+            include: [{ model: PostModel }],
+            group: ['CommentModel.id', 'post.id']
+        })
+        return comments.map(comment => Comment.create({
+            id: comment.commentId,
+            postId: comment.postId,
+            postTitle: comment.getDataValue("post").title,
+            content: comment.content,
+            author: comment.author,
+            authorId: comment.authorId,
+            timestamp: +comment.timestamp,
+            likes: comment.likes,
+            dislikes: comment.dislikes
+        })
+        )
+    }
     async updateCommentById(commentId: string, updatedContent: UpdateCommentDto) {
         const comment = await this.commentModel.findOne({ where: { commentId } })
         await comment.update({ ...updatedContent })

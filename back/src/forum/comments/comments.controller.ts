@@ -17,15 +17,18 @@ export class CommentsController {
     await this.commentsService.create(createCommentDto);
   }
 
+  @UseGuards(AuthenticationGuard)
+  @Get("mycomments")
+  async getMyComments(@Request() req) {
+    console.log(req.user.id)
+    const posts = await this.commentsService.getByAuthorId(req.user.id);
+    return posts
+  }
+
   @Get(":postId")
   async findAll(@Param("postId") postId: string) {
     const postComments = await this.commentsService.findAll(postId);
     return postComments
-  }
-
-  @Get(':commentId')
-  async findOne(@Param('commentId') commentId: string) {
-    return await this.commentsService.getCommentById(commentId);
   }
 
   @UseGuards(AuthenticationGuard)

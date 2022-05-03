@@ -6,7 +6,7 @@ import ICommentsRepository from "../interfaces/CommentsRepository";
 
 @Injectable()
 export default class CommentsRepository implements ICommentsRepository {
-    saveComment(postId: string, comment: Comment) {
+    saveComment(postId: string, comment: Comment): Promise<void> {
         throw new Error("Method not implemented.");
     }
     getCommentsByPostId(postId: string): Promise<Comment[]> {
@@ -15,13 +15,13 @@ export default class CommentsRepository implements ICommentsRepository {
     getCommentById(commentId: string): Promise<Comment> {
         throw new Error("Method not implemented.");
     }
-    updateCommentById(commentId: string, updateCommentDto: UpdateCommentDto) {
+    getByAuthorId(userId: string): Promise<Comment[]> {
         throw new Error("Method not implemented.");
     }
-    deleteCommentById(commentId: string) {
+    updateCommentById(commentId: string, updateCommentDto: UpdateCommentDto): Promise<void> {
         throw new Error("Method not implemented.");
     }
-
-
-
+    deleteCommentById(commentId: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
 }

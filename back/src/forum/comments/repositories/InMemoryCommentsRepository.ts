@@ -15,6 +15,10 @@ export default class InMemoryCommentsRepository implements ICommentsRepository {
     constructor() {
         this.data = commentsData
     }
+    async getByAuthorId(userId: string): Promise<Comment[]> {
+        throw new Error("Method not implemented.");
+    }
+
     async getCommentById(commentId: string): Promise<Comment> {
         const post = this.data.find(postComments => postComments.comments.find(comment => comment.id === commentId))
         const comment = post.comments.find(comment => comment.id === commentId)

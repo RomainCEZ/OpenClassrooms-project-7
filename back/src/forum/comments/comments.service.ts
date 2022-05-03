@@ -22,6 +22,10 @@ export class CommentsService {
     return await this.commentsRepository.getCommentById(commentId)
   }
 
+  async getByAuthorId(userId: string) {
+    return await this.commentsRepository.getByAuthorId(userId)
+  }
+
   async updateCommentById(commentId: string, updatedContent: UpdateCommentDto) {
     return await this.commentsRepository.updateCommentById(commentId, updatedContent)
   }
