@@ -20,6 +20,10 @@ export class PostsService {
     return await this.postsRepository.getById(postId);
   }
 
+  async findByAuthorId(userId: string) {
+    return await this.postsRepository.getByAuthorId(userId)
+  }
+
   async update(postId: string, updatePostDto: UpdatePostDto) {
     return this.postsRepository.update(postId, updatePostDto)
   }

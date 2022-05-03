@@ -2,23 +2,27 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PostsData } from '../data/Posts';
 import { UpdatePostDto } from '../dto/update-post.dto';
 import { Post } from '../entities/post.entity';
+import { IPostsRepository } from '../interfaces/PostsRepository';
 
 @Injectable()
-export class InMemoryPostsRepository {
+export class InMemoryPostsRepository implements IPostsRepository {
     data: Post[]
     constructor() {
         this.data = PostsData
     }
+    async getByAuthorId(userId: string): Promise<Post[]> {
+        return this.data.filter(post => post.authorId === userId)
+    }
 
-    getAllPosts(): Post[] {
+    async getAllPosts(): Promise<Post[]> {
         return this.data
     }
 
-    savePost(postData: Post) {
+    async savePost(postData: Post): Promise<void> {
         this.data.unshift(postData)
     }
 
-    getById(postId: string): Post {
+    async getById(postId: string): Promise<Post> {
         const post = this.data.find(post => post.id === postId)
         if (!post) {
             throw new NotFoundException("Ce post n'existe pas !")
@@ -26,17 +30,17 @@ export class InMemoryPostsRepository {
         return this.data.find(post => post.id === postId)
     }
 
-    update(postId: string, updatePostDto: UpdatePostDto) {
-        const post = this.getById(postId)
-        this.delete(postId)
+    async update(postId: string, updatePostDto: UpdatePostDto): Promise<void> {
+        const post = await this.getById(postId)
+        await this.delete(postId)
         const updatedPost = {
             ...post,
             ...updatePostDto
         }
-        this.savePost(updatedPost)
+        await this.savePost(updatedPost)
     }
 
-    delete(postId: string) {
+    async delete(postId: string): Promise<void> {
         this.data = this.data.filter(post => post.id !== postId)
     }
 }

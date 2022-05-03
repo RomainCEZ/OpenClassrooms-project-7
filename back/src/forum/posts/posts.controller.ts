@@ -18,6 +18,14 @@ export class PostsController {
         return allPosts
     }
 
+    @UseGuards(AuthenticationGuard)
+    @Get("myposts")
+    async getMyPosts(@Request() req) {
+        console.log(req.user.id)
+        const posts = await this.postsService.findByAuthorId(req.user.id);
+        return posts
+    }
+
     @Get(':postId')
     async getPostById(@Param('postId') postId: string) {
         const post = await this.postsService.findOne(postId);

@@ -1,22 +1,27 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { UpdatePostDto } from "../dto/update-post.dto";
 import { Post } from "../entities/post.entity";
 import { IPostsRepository } from "../interfaces/PostsRepository";
 
 export class PostsRepository implements IPostsRepository {
-    getAllPosts(): Post[] | Promise<Post[]> {
+    async getAllPosts(): Promise<Post[]> {
         throw new Error("Method not implemented.");
     }
-    savePost(postData: Post) {
+    async savePost(postData: Post): Promise<void> {
         throw new Error("Method not implemented.");
     }
-    getById(postId: string): Post | Promise<Post> {
+    async getById(postId: string): Promise<Post> {
         throw new Error("Method not implemented.");
     }
-    update(postId: string, updatePostDto: UpdatePostDto) {
+    async getByAuthorId(userId: string): Promise<Post[]> {
         throw new Error("Method not implemented.");
     }
-    delete(postId: string) {
+    async update(postId: string, updatePostDto: UpdatePostDto): Promise<void> {
         throw new Error("Method not implemented.");
     }
+    async delete(postId: string): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
+
 
 }
