@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../Auth/context/UserContext";
 
-export default function UserContent({ profile }) {
+export default function UserContent() {
     const { user } = useContext(UserContext);
 
     return (
@@ -12,18 +12,18 @@ export default function UserContent({ profile }) {
             </h2>
             <div className="flex flex-col px-2 sm:px-4 gap-4">
                 <div className="flex items-center w-full justify-between">
-                    <p>{profile.postsCount} publications</p>
+                    <p>{user.postsCount} publications</p>
                     <Link
-                        to={`/profile/${user.id}/posts`}
+                        to={`/mycontent/posts`}
                         className="text-center w-1/5 btn-text-blue"
                     >
                         Voir
                     </Link>
                 </div>
                 <div className="flex items-center w-full justify-between">
-                    <p>{profile.commentsCount} commentaires</p>
+                    <p>{user.commentsCount} commentaires</p>
                     <Link
-                        to={`/profile/${user.id}/comments`}
+                        to={`/mycontent/comments`}
                         className="text-center w-1/5 btn-text-blue"
                     >
                         Voir

@@ -93,7 +93,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                     <Dialog.Title className="mt-14 mb-4 font-bold text-xl">
                         Changement de mot de passe
                     </Dialog.Title>
-                    <form className="flex flex-col p-2 gap-2">
+                    <form className="flex flex-col w-11/12 min-w-fit sm:w-fit p-2 gap-3">
                         <FormInput
                             type="password"
                             name="password"
