@@ -5,6 +5,7 @@ const MyComments = ({ comments }) => {
         <MyComment
             key={comment.id}
             postId={comment.postId}
+            postTitle={comment.postTitle}
             commentId={comment.id}
             content={comment.content}
             author={comment.author}
