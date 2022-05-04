@@ -24,6 +24,12 @@ export class PostsService {
     return await this.postsRepository.getByAuthorId(userId)
   }
 
+  async getFavorites(postIdsArray: string[]): Promise<Post[]> {
+    const posts = await this.postsRepository.getAllPosts()
+    const favorites = posts.filter(post => postIdsArray.includes(post.id))
+    return favorites
+  }
+
   async update(postId: string, updatePostDto: UpdatePostDto) {
     return this.postsRepository.update(postId, updatePostDto)
   }

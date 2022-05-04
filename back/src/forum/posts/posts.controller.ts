@@ -21,8 +21,14 @@ export class PostsController {
     @UseGuards(AuthenticationGuard)
     @Get("myposts")
     async getMyPosts(@Request() req) {
-        console.log(req.user.id)
         const posts = await this.postsService.findByAuthorId(req.user.id);
+        return posts
+    }
+
+    @UseGuards(AuthenticationGuard)
+    @Get("myfavorites")
+    async getFavorites(@Request() req) {
+        const posts = await this.postsService.findByAuthorId(req.user.favorites);
         return posts
     }
 
