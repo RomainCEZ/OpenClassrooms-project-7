@@ -35,6 +35,10 @@ export function MessageOverlay({ children }) {
                 return "Message édité !";
             case "delete post":
                 return "Message supprimé !";
+            case "add favorite":
+                return "Ajouté aux favoris !";
+            case "remove favorite":
+                return "Supprimé des favoris !";
 
             case "new comment":
                 return "Commentaire publié !";
