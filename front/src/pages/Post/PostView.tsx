@@ -14,9 +14,12 @@ import PostButtons from "./PostButtons";
 import PostLikes from "./PostLikes";
 import { FaUser } from "react-icons/fa";
 import { UserContext } from "../Auth/context/UserContext";
+import FavoriteStar from "./FavoriteStar";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 
 export default function PostView() {
-    const { user } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
@@ -29,6 +32,13 @@ export default function PostView() {
     const [commentsData, setCommentsData] = useState([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const id = document.location.pathname.split("/post/")[1];
+    const isFavorite = user.favorites.includes(id);
+
+    const favorite = async () => {
+        const favorites = await apiProvider.favorite(id);
+        setUser({ ...user, favorites: [...favorites] });
+        isFavorite ? setMessage("remove favorite") : setMessage("add favorite");
+    };
 
     const getComments = () => {
         apiProvider.getCommentsByPostId(id).then((commentsData) => {
@@ -109,6 +119,11 @@ export default function PostView() {
                             postId={post.id}
                             likes={post.likes}
                             dislikes={post.dislikes}
+                        />
+                        <FavoriteStar
+                            onClick={() => favorite()}
+                            isActive={isFavorite}
+                            className="mt-1 ml-4 mr-auto p-2 text-3xl"
                         />
 
                         <div className="h-16 py-3 px-2 w-1/2">
