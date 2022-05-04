@@ -13,7 +13,7 @@ export class UsersController {
   }
 
   @Post('profilepicture/upload')
-  async updatePostById(@Request() req) {
+  async updateProfilePicture(@Request() req) {
     return await this.usersService.changeProfilePicture(req.user.id, req.body.profilePicture)
   }
 
