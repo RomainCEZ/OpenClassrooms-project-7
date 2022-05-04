@@ -38,7 +38,7 @@ const MyComment = ({
                     </div>
                 </div>
             </Link>
-            <div className="flex justify-between mb-4 px-4 font-bold text-blue-800 dark:text-gray-300">
+            <div className="flex justify-between flex-wrap mb-4 px-4 font-bold text-blue-800 dark:text-gray-300 gap-2">
                 <span className="">
                     Dans{" "}
                     <Link
