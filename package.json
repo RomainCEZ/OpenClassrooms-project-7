@@ -11,7 +11,8 @@
     "start:dev": "nest start --watch",
     "build": "vite build && nest build",
     "test": "jest",
-    "logs": "heroku logs --tail --app groupomania-socials"
+    "logs": "heroku logs --tail --app groupomania-socials",
+    "deploy": "git push heroku dev:main"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
@@ -25,16 +26,20 @@
     "@nestjs/platform-express": "^8.4.3",
     "@nestjs/sequelize": "^8.0.0",
     "@nestjs/serve-static": "^2.2.2",
+    "@nestjs/throttler": "^2.0.1",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cloudinary": "^1.29.1",
     "connect-session-sequelize": "^7.1.3",
+    "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
     "draft-js": "^0.11.7",
     "draftjs-to-html": "^0.9.1",
+    "express-rate-limit": "^6.4.0",
     "express-session": "^1.17.2",
+    "helmet": "^5.0.2",
     "javascript-time-ago": "^2.3.13",
     "nanoid": "^3.3.1",
     "nestjs-session": "^2.0.0",
@@ -98,7 +103,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
