@@ -56,8 +56,8 @@ export class UsersService {
 
     async updateFavorites(userId: string, postId: string) {
         const user = await this.usersRepository.getById(userId)
-        const favorites = user.favorites.include(postId) ? user.favorites.filter(favorite => favorite !== postId) : { ...user.favorites, postId }
-        await this.usersRepository.updateUser(userId, favorites)
+        const favorites = user.favorites.includes(postId) ? [...user.favorites.filter(favorite => favorite !== postId)] : [...user.favorites, postId]
+        await this.usersRepository.updateUser(userId, { favorites })
         return favorites
     }
 
@@ -70,8 +70,8 @@ export class UsersService {
         if (userNameTaken) {
             throw new ConflictException("Ce nom d'utilisateur est déjà pris !")
         }
-        await this.usersRepository.updateUser(userId, newUsername)
-        return newUsername
+        await this.usersRepository.updateUser(userId, { username: newUsername })
+        return { newUsername }
     }
 
     async disableAccount(id: string) {
