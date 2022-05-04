@@ -61,7 +61,7 @@ class ApiProvider {
     }
 
     async favorite(postId: string) {
-        const favorites = await axios.post("api/posts/favorite", { postId });
+        const favorites = await axios.post("api/users/favorite", { postId });
         return favorites.data;
     }
     async uploadProfilePicture(profilePicture) {
