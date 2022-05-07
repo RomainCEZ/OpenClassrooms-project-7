@@ -12,7 +12,10 @@ async function bootstrap() {
     origin: `${process.env.CLIENT_ADDRESS}`,
     credentials: true
   });
-  app.use(helmet({ contentSecurityPolicy: false }));
+  app.use(helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+  }));
   const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 min
     max: 50,
