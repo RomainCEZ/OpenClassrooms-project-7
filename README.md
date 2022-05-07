@@ -26,29 +26,27 @@ Voici les exigences émises par le comité de pilotage :
 
 ## Installer et lancer l'application
 
+`npm install` ou `yarn install` depuis la racine du projet pour l'installer.  
+
 ### Front-end et back-end séparés
 
 #### Lancer le front-end
-`npm install` ou `yarn install` depuis le dossier `front` pour l'installer. 
 
-`npm run dev` ou `yarn dev` depuis le dossier `front` pour le lancer.  
+`npm run dev` ou `yarn dev` depuis la racine pour lancer le front-end.  
 
 *http://localhost:3000/* pour y accéder.  
 
 #### Lancer le back-end
-`npm install` ou `yarn install` depuis le dossier `back` pour l'installer.  
 
-`npm run start:dev` ou `yarn start:dev` depuis le dossier `back` pour le lancer.  
+`npm run start:dev` ou `yarn start:dev` depuis la racine pour lancer le back-end.  
 
 *http://localhost:8000/* pour y accéder. 
 
 ### Application complète servie par le back-end
 
-`npm install` ou `yarn install` depuis la racine du projet pour l'installer.  
+`npm run build` ou `yarn build` pour la compliler.  
 
-`npm run build` ou `yarn build` pour le compliler.  
-
-`npm run start` ou `yarn start` pour le lancer.
+`npm run start` ou `yarn start` pour la lancer.
 
 *http://localhost:8000/* pour y accéder.
 
