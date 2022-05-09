@@ -37,6 +37,7 @@ export default function NewComment({ postId, getComments }) {
                                 setNewComment({ content: e.target.value })
                             }
                             value={newComment.content}
+                            aria-label="Laisser un commentaire"
                             required
                         />
                     </div>
