@@ -5,13 +5,13 @@ import { PostModel } from './Post.model';
 @Table
 export class UserModel extends Model {
 
-    @Column({ unique: true })
+    @Column({ type: DataType.STRING, unique: true })
     userId: string;
 
-    @Column({ unique: true })
+    @Column({ type: DataType.STRING, unique: true })
     email: string;
 
-    @Column({ unique: true })
+    @Column({ type: DataType.STRING, unique: true })
     username: string;
 
     @Column({ type: DataType.STRING })
