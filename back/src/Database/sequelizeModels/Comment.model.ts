@@ -1,4 +1,4 @@
-import { BelongsTo, Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, ForeignKey, HasOne, Model, Table } from 'sequelize-typescript';
 import { PostModel } from './Post.model';
 import { UserModel } from './User.model';
 
@@ -8,18 +8,18 @@ export class CommentModel extends Model {
     @Column({ type: DataType.STRING })
     postId: string;
 
-    @Column
+    @Column({ type: DataType.STRING, unique: true })
     commentId: string;
 
-    @Column
+    @Column({ type: DataType.STRING })
     content: string;
 
     @ForeignKey(() => UserModel)
-    @Column
+    @Column({ type: DataType.STRING })
     author: string;
 
     @ForeignKey(() => UserModel)
-    @Column
+    @Column({ type: DataType.STRING })
     authorId: string;
 
     @Column({ type: DataType.BIGINT })
@@ -37,9 +37,6 @@ export class CommentModel extends Model {
     @HasOne(() => PostModel, { foreignKey: 'postId', sourceKey: 'postId', as: 'post' })
     post: PostModel
 
-    @BelongsTo(() => UserModel, 'authorId')
-    userId: UserModel
-
-    @BelongsTo(() => UserModel, 'author')
-    username: UserModel
+    @HasOne(() => UserModel, { foreignKey: 'userId', sourceKey: 'authorId', as: 'commentAuthor' })
+    user: UserModel
 }

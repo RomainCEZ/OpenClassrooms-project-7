@@ -5,7 +5,7 @@ import {
     AiOutlineDislike,
     AiOutlineLike,
 } from "react-icons/ai";
-import { apiProvider } from "../../providers/ApiProvider";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 import { UserContext } from "../Auth/context/UserContext";
 
 export default function PostLikes({ likes, dislikes, postId }) {
@@ -22,7 +22,7 @@ export default function PostLikes({ likes, dislikes, postId }) {
                 postDislikes.filter((userId) => userId !== user.id)
             );
         }
-        await apiProvider.likePost(postId);
+        await postsApiProvider.likePost(postId);
     };
     const handleDislike = async () => {
         postDislikes.includes(user.id)
@@ -33,7 +33,7 @@ export default function PostLikes({ likes, dislikes, postId }) {
         if (postLikes.includes(user.id)) {
             setPostLikes(postLikes.filter((userId) => userId !== user.id));
         }
-        await apiProvider.dislikePost(postId);
+        await postsApiProvider.dislikePost(postId);
     };
 
     return (

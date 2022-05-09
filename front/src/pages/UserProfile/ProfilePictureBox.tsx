@@ -6,6 +6,7 @@ export default function ProfilePictureBox({ picture }) {
             {picture ? (
                 <img
                     src={picture}
+                    alt="Image de profil"
                     className="absolute h-full z-10 w-full object-cover group-hover:brightness-110 group-focus:brightness-110 group-active:brightness-125 transition"
                 />
             ) : (

@@ -4,10 +4,10 @@ import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
 import ReactTimeAgo from "react-time-ago";
-import { apiProvider } from "../../providers/ApiProvider";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import { UserContext } from "../Auth/context/UserContext";
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 
 export default function EditPost() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -24,7 +24,7 @@ export default function EditPost() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        apiProvider.getPostById(id).then((postData) => {
+        postsApiProvider.getPostById(id).then((postData) => {
             const contentState = convertFromRaw(postData.content);
             const editorState = EditorState.createWithContent(contentState);
             setEditorState(editorState);
@@ -46,7 +46,7 @@ export default function EditPost() {
                 title,
                 content: rawEditorContent,
             };
-            await apiProvider.editPost(id, post);
+            await postsApiProvider.editPost(id, post);
             navigate(`/post/${id}`);
             setMessage("edit post");
         } else {

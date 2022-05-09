@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { apiProvider } from "../../providers/ApiProvider";
+import { useContext, useEffect } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { UserContext } from "../Auth/context/UserContext";
 import ProfilePictureInput from "./ProfilePictureInput";
@@ -41,9 +40,9 @@ export default function UserProfile() {
             <ProfilePictureInput />
             <div className="flex flex-col font-bold justify-center py-6 px-3 sm:px-6 pt-0 w-full divide-blue-800 dark:divide-gray-800 divide-y">
                 <div className="p-4 mb-2">
-                    <p className="mb-2 text-center text-4xl text-blue-800 dark:text-gray-800">
+                    <h2 className="mb-2 text-center text-4xl text-blue-800 dark:text-gray-800">
                         {user.username}
-                    </p>
+                    </h2>
                     <p className="text-center">
                         Depuis le {accountCreationDate}
                     </p>

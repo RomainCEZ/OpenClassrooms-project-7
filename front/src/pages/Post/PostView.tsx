@@ -4,7 +4,7 @@ import { EditorState, convertFromRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ReactTimeAgo from "react-time-ago";
 import { PostProps } from "./interfaces/PostProps";
-import { apiProvider } from "../../providers/ApiProvider";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 import PostLoader from "./PostLoader";
 import Comment from "./Comments/Comment";
 import CommentLoader from "./Comments/CommentLoader";
@@ -14,8 +14,10 @@ import PostButtons from "./PostButtons";
 import PostLikes from "./PostLikes";
 import { FaUser } from "react-icons/fa";
 import { UserContext } from "../Auth/context/UserContext";
-import FavoriteStar from "./FavoriteStar";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
+import FavoriteStarButton from "./FavoriteStarButton";
+import { usersApiProvider } from "../../providers/UsersApiProvider";
+import { commentsApiProvider } from "../../providers/CommentsApiProvider";
 
 export default function PostView() {
     const { user, setUser } = useContext(UserContext);
@@ -35,13 +37,13 @@ export default function PostView() {
     const isFavorite = user.favorites.includes(id);
 
     const favorite = async () => {
-        const favorites = await apiProvider.favorite(id);
+        const favorites = await usersApiProvider.favorite(id);
         setUser({ ...user, favorites: [...favorites] });
         isFavorite ? setMessage("remove favorite") : setMessage("add favorite");
     };
 
     const getComments = () => {
-        apiProvider.getCommentsByPostId(id).then((commentsData) => {
+        commentsApiProvider.getCommentsByPostId(id).then((commentsData) => {
             return setCommentsData(commentsData);
         });
     };
@@ -60,7 +62,7 @@ export default function PostView() {
     ));
 
     useEffect(() => {
-        apiProvider.getPostById(id).then((postData) => {
+        postsApiProvider.getPostById(id).then((postData) => {
             const contentState = convertFromRaw(postData.content);
             const editorState = EditorState.createWithContent(contentState);
             setPost({
@@ -86,6 +88,7 @@ export default function PostView() {
                             {post.authorPicture ? (
                                 <img
                                     src={post.authorPicture}
+                                    alt="Image de profil de l'auteur"
                                     className="absolute w-full h-full"
                                 />
                             ) : (
@@ -120,7 +123,7 @@ export default function PostView() {
                             likes={post.likes}
                             dislikes={post.dislikes}
                         />
-                        <FavoriteStar
+                        <FavoriteStarButton
                             onClick={() => favorite()}
                             isActive={isFavorite}
                             className="mt-1 ml-4 mr-auto p-2 text-3xl"

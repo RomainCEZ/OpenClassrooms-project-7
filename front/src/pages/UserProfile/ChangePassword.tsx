@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
-import { authProvider } from "../../providers/AuthProvider";
+import { authApiProvider } from "../../providers/AuthApiProvider";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 
@@ -51,7 +51,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
             newPassword === confirmNewPassword
         ) {
             try {
-                await authProvider.changePassword({
+                await authApiProvider.changePassword({
                     currentPassword,
                     newPassword,
                 });
@@ -96,6 +96,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                     <form className="flex flex-col w-11/12 min-w-fit sm:w-fit p-2 gap-3">
                         <FormInput
                             type="password"
+                            autoComplete="current-password"
                             name="password"
                             label="Mot de passe actuel"
                             inputValue={currentPassword}
@@ -104,6 +105,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                         />
                         <FormInput
                             type="password"
+                            autoComplete="new-password"
                             name="password"
                             label="Nouveau mot de passe"
                             inputValue={newPassword}
@@ -112,6 +114,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
                         />
                         <FormInput
                             type="password"
+                            autoComplete="new-password"
                             name="password"
                             label="Confirmez le nouveau mot de passe"
                             inputValue={confirmNewPassword}

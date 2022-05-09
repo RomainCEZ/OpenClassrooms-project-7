@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShowMessageOverlay } from "../../../components/MessageOverlay";
-import { apiProvider } from "../../../providers/ApiProvider";
-import { authProvider } from "../../../providers/AuthProvider";
+import { authApiProvider } from "../../../providers/AuthApiProvider";
+import { usersApiProvider } from "../../../providers/UsersApiProvider";
 import { UserContext } from "./UserContext";
 
 export const SessionContext = createContext({
@@ -23,9 +23,9 @@ export const SessionProvider = ({ children }) => {
     useEffect(() => {
         if (!loggedIn) {
             const relog = async () => {
-                const relog = await authProvider.relog();
+                const relog = await authApiProvider.relog();
                 if (relog !== 401 && relog !== 403) {
-                    const sessionInfos = await apiProvider.getProfile();
+                    const sessionInfos = await usersApiProvider.getProfile();
                     setUser(sessionInfos);
                     setLoggedIn(true);
                 }
@@ -35,14 +35,14 @@ export const SessionProvider = ({ children }) => {
     }, []);
 
     async function signup(loginInfo) {
-        await authProvider.signup(loginInfo);
+        await authApiProvider.signup(loginInfo);
         await login(loginInfo);
         setMessage("signup");
     }
 
     async function login(loginInfo) {
-        await authProvider.login(loginInfo);
-        const sessionInfos = await apiProvider.getProfile();
+        await authApiProvider.login(loginInfo);
+        const sessionInfos = await usersApiProvider.getProfile();
         setLoggedIn(true);
         setUser(sessionInfos);
         navigate("/");
@@ -50,14 +50,14 @@ export const SessionProvider = ({ children }) => {
     }
 
     async function logout() {
-        await authProvider.logout();
+        await authApiProvider.logout();
         setLoggedIn(false);
         clearUser();
         navigate("/");
     }
 
     async function disableAccount() {
-        await authProvider.disableAccount();
+        await authApiProvider.disableAccount();
         await logout();
     }
 

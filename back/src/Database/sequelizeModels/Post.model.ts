@@ -4,24 +4,21 @@ import { UserModel } from './User.model';
 
 @Table
 export class PostModel extends Model {
-    @Column({ type: DataType.STRING })
+    @Column({ type: DataType.STRING, unique: true })
     postId: string;
 
-    @Column
+    @Column({ type: DataType.STRING })
     title: string;
 
     @Column({ type: DataType.JSON })
     content: string;
 
-    @Column
-    imageName: string;
-
     @ForeignKey(() => UserModel)
-    @Column
+    @Column({ type: DataType.STRING })
     author: string;
 
     @ForeignKey(() => UserModel)
-    @Column
+    @Column({ type: DataType.STRING })
     authorId: string;
 
     @Column({ type: DataType.BIGINT })

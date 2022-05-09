@@ -2,9 +2,9 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaPen } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { apiProvider } from "../../providers/ApiProvider";
 import ConfirmDeletePost from "./ConfirmDeletePost";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 
 export default function PostButtons() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -18,7 +18,7 @@ export default function PostButtons() {
         setIsOpen(false);
     };
     const deletePost = async () => {
-        await apiProvider.deletePost(id);
+        await postsApiProvider.deletePost(id);
         navigate("/");
         setMessage("delete post");
     };

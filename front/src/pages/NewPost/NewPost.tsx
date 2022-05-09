@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { apiProvider } from "../../providers/ApiProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -9,6 +8,7 @@ import ReactTimeAgo from "react-time-ago";
 import { UserContext } from "../Auth/context/UserContext";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
 import SubmitButton from "../../components/Buttons/SubmitButton";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 
 export default function NewPost() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -32,7 +32,7 @@ export default function NewPost() {
                 title,
                 content: rawEditorContent,
             };
-            await apiProvider.createPost(post);
+            await postsApiProvider.createPost(post);
             navigate("/");
             setMessage("new post");
         } else {

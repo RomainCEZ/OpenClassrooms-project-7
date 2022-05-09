@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import PostPreview from "./PostPreview";
 import { PostProps } from "../Post/interfaces/PostProps";
-import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostPreviewLoader from "./PostPreviewLoader";
 import { Link } from "react-router-dom";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 
 export default function Home() {
     const [posts, setPosts] = useState<PostProps[]>([]);
@@ -27,7 +27,7 @@ export default function Home() {
     ));
 
     useEffect(() => {
-        apiProvider.getAllPosts().then((postsData) => {
+        postsApiProvider.getAllPosts().then((postsData) => {
             setPosts(postsData);
             setIsLoading(false);
         });

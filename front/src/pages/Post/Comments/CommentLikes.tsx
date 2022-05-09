@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
-import { apiProvider } from "../../../providers/ApiProvider";
+import { commentsApiProvider } from "../../../providers/CommentsApiProvider";
 import { UserContext } from "../../Auth/context/UserContext";
 
 export default function CommentLikes({ commentId, likes, dislikes }) {
@@ -20,7 +20,7 @@ export default function CommentLikes({ commentId, likes, dislikes }) {
                 commentDislikes.filter((userId) => userId !== user.id)
             );
         }
-        await apiProvider.likeComment(commentId);
+        await commentsApiProvider.likeComment(commentId);
     };
     const handleDislike = async () => {
         commentDislikes.includes(user.id)
@@ -33,7 +33,7 @@ export default function CommentLikes({ commentId, likes, dislikes }) {
                 commentLikes.filter((userId) => userId !== user.id)
             );
         }
-        await apiProvider.dislikeComment(commentId);
+        await commentsApiProvider.dislikeComment(commentId);
     };
 
     return (

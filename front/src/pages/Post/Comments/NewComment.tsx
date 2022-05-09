@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShowMessageOverlay } from "../../../components/MessageOverlay";
-import { apiProvider } from "../../../providers/ApiProvider";
+import { commentsApiProvider } from "../../../providers/CommentsApiProvider";
 import { SessionContext } from "../../Auth/context/SessionContext";
 
 export default function NewComment({ postId, getComments }) {
@@ -11,7 +11,7 @@ export default function NewComment({ postId, getComments }) {
 
     const postComment = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await apiProvider.createComment(postId, newComment);
+        await commentsApiProvider.createComment(postId, newComment);
         await getComments();
         setNewComment({ content: "" });
         setMessage("new comment");
@@ -37,6 +37,7 @@ export default function NewComment({ postId, getComments }) {
                                 setNewComment({ content: e.target.value })
                             }
                             value={newComment.content}
+                            aria-label="Laisser un commentaire"
                             required
                         />
                     </div>

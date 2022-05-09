@@ -4,7 +4,7 @@ import { IoCameraReverseSharp } from "react-icons/io5";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
-import { apiProvider } from "../../providers/ApiProvider";
+import { usersApiProvider } from "../../providers/UsersApiProvider";
 import { UserContext } from "../Auth/context/UserContext";
 import ProfilePictureBox from "./ProfilePictureBox";
 
@@ -41,7 +41,7 @@ export default function ProfilePictureInput() {
 
     const uploadImage = async (e) => {
         if (!selectedImage) return;
-        const newProfilePicture = await apiProvider.uploadProfilePicture(
+        const newProfilePicture = await usersApiProvider.uploadProfilePicture(
             previewImage
         );
         setUser({ ...user, profilePicture: newProfilePicture });
@@ -84,6 +84,7 @@ export default function ProfilePictureInput() {
                                 {previewImage && (
                                     <img
                                         src={previewImage}
+                                        alt="Aperçu de l'image de profil"
                                         className="h-full w-full object-cover"
                                     />
                                 )}

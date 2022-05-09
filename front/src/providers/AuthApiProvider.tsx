@@ -1,6 +1,10 @@
 import { axiosInstance as axios } from "./AxiosInstance";
 
-class AuthProvider {
+class AuthApiProvider {
+    private readonly authApiPrefix: string;
+    constructor() {
+        this.authApiPrefix = "auth";
+    }
     async login(loginInfo: { email: string; password: string }): Promise<any> {
         try {
             const loginResponse = await axios.post("auth/login", loginInfo);
@@ -12,7 +16,7 @@ class AuthProvider {
 
     async signup(userInfo): Promise<void> {
         try {
-            await axios.post("auth/signup", userInfo);
+            await axios.post(`${this.authApiPrefix}/signup`, userInfo);
         } catch (error) {
             throw error.response.data;
         }
@@ -20,19 +24,22 @@ class AuthProvider {
 
     async relog() {
         try {
-            await axios.post("auth");
+            await axios.post(this.authApiPrefix);
         } catch (error) {
             return error.response.status;
         }
     }
 
     async logout() {
-        await axios.post("auth/logout");
+        await axios.post(`${this.authApiPrefix}/logout`);
     }
 
     async changeUsername(username: { username: string }) {
         try {
-            const response = await axios.patch("auth/changeusername", username);
+            const response = await axios.patch(
+                `${this.authApiPrefix}/changeusername`,
+                username
+            );
             return response.data;
         } catch (error) {
             throw error.response.data;
@@ -44,14 +51,14 @@ class AuthProvider {
         newPassword: string;
     }) {
         try {
-            await axios.patch("auth/changepassword", payload);
+            await axios.patch(`${this.authApiPrefix}/changepassword`, payload);
         } catch (error) {
             throw error.response.data;
         }
     }
 
     async requestpasswordreset(email: { email: string }) {
-        await axios.post("auth/requestpasswordreset", email);
+        await axios.post(`${this.authApiPrefix}/requestpasswordreset`, email);
     }
     async resetPassword(resetInfos: {
         password: string;
@@ -59,14 +66,14 @@ class AuthProvider {
         userId: string;
     }) {
         try {
-            await axios.post("auth/resetpassword", resetInfos);
+            await axios.post(`${this.authApiPrefix}/resetpassword`, resetInfos);
         } catch (error) {
             throw error.response.data;
         }
     }
     async disableAccount() {
-        await axios.delete("auth/disableaccount");
+        await axios.delete(`${this.authApiPrefix}/disableaccount`);
     }
 }
 
-export const authProvider = new AuthProvider();
+export const authApiProvider = new AuthApiProvider();
