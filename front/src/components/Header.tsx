@@ -11,9 +11,16 @@ export default function Header() {
 
     return (
         <header className="flex items-center justify-between h-32 bg-blue-800 dark:bg-gray-800 pl-9 pr-6 sm:px-8">
-            <Link to="/" className="z-30 w-24">
-                <Logo />
-            </Link>
+            <h1>
+                <p className="hidden">Groupomania - Espace d'échanges</p>
+                <Link
+                    to="/"
+                    className="z-30 w-24"
+                    aria-label="Retour à l'accueil"
+                >
+                    <Logo />
+                </Link>
+            </h1>
             <nav className="relative z-20">
                 {loggedIn ? (
                     <DropDownNav />
