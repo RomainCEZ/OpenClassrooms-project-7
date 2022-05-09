@@ -7,16 +7,6 @@ import fr from "javascript-time-ago/locale/fr.json";
 
 TimeAgo.addDefaultLocale(fr);
 
-// const rootContainer = document.getElementById("root");
-// const root = ReactDOM.createRoot(rootContainer);
-// root.render(
-//     <React.StrictMode>
-//         <BrowserRouter>
-//             <App />
-//         </BrowserRouter>
-//     </React.StrictMode>
-// );
-
 ReactDOM.render(
     <React.StrictMode>
         <App />
