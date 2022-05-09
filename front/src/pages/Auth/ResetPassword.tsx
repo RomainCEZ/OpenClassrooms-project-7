@@ -4,7 +4,7 @@ import SubmitButton from "../../components/Buttons/SubmitButton";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
-import { authProvider } from "../../providers/AuthProvider";
+import { authApiProvider } from "../../providers/AuthApiProvider";
 
 export default function ResetPassword() {
     const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function ResetPassword() {
         const userId = new URLSearchParams(location.search).get("id");
         if (resetToken && userId && password && password === confirmPassword) {
             try {
-                await authProvider.resetPassword({
+                await authApiProvider.resetPassword({
                     password,
                     resetToken,
                     userId,

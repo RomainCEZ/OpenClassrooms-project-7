@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import FormInput from "../../components/Inputs/FormInput";
-import { authProvider } from "../../providers/AuthProvider";
+import { authApiProvider } from "../../providers/AuthApiProvider";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import SubmitButton from "../../components/Buttons/SubmitButton";
 
@@ -51,7 +51,7 @@ export default function ChangePassword({ isOpen, closeModal }) {
             newPassword === confirmNewPassword
         ) {
             try {
-                await authProvider.changePassword({
+                await authApiProvider.changePassword({
                     currentPassword,
                     newPassword,
                 });

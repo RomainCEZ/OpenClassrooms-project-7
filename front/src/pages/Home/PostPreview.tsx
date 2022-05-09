@@ -12,7 +12,7 @@ import {
 import { FaRegCommentDots, FaUser } from "react-icons/fa";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import { UserContext } from "../Auth/context/UserContext";
-import FavoriteStar from "../Post/FavoriteStar";
+import FavoriteStar from "./FavoriteStar";
 
 export default function PostPreview({
     id,
@@ -100,10 +100,9 @@ export default function PostPreview({
                             )}
                         </span>
                         <span className="sm:text-sm">{dislikes.length}</span>
-                    </div>{" "}
+                    </div>
                     <FavoriteStar
-                        onClick={() => {}}
-                        isActive={user.favorites.includes(id)}
+                        isFavorite={user.favorites.includes(id)}
                         className="ml-auto mr-4 text-2xl"
                     />
                     <p className="flex items-center px-3 sm:text-sm text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-300">

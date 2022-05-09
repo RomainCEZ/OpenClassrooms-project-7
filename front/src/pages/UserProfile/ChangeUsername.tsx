@@ -4,7 +4,7 @@ import SubmitButton from "../../components/Buttons/SubmitButton";
 import DarkmodeWrapper from "../../components/Darkmode/DarkmodeWrapper";
 import FormInput from "../../components/Inputs/FormInput";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
-import { authProvider } from "../../providers/AuthProvider";
+import { authApiProvider } from "../../providers/AuthApiProvider";
 import { UserContext } from "../Auth/context/UserContext";
 
 const ChangeUsername = ({ isOpen, closeModal }) => {
@@ -28,7 +28,7 @@ const ChangeUsername = ({ isOpen, closeModal }) => {
         resetErrorMessage();
         if (newUsername) {
             try {
-                const responseData = await authProvider.changeUsername({
+                const responseData = await authApiProvider.changeUsername({
                     username: newUsername,
                 });
                 await setUser({ ...user, username: responseData.newUsername });

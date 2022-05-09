@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { apiProvider } from "../../providers/ApiProvider";
+import { useContext, useEffect } from "react";
 import { SessionContext } from "../Auth/context/SessionContext";
 import { UserContext } from "../Auth/context/UserContext";
 import ProfilePictureInput from "./ProfilePictureInput";

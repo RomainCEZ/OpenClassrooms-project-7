@@ -1,5 +1,6 @@
 import { Tab } from "@headlessui/react";
-import { apiProvider } from "../../providers/ApiProvider";
+import { commentsApiProvider } from "../../providers/CommentsApiProvider";
+import { postsApiProvider } from "../../providers/PostsApiProvider";
 import MyComments from "./MyComments";
 import MyFavorites from "./MyFavorites";
 import MyPosts from "./MyPosts";
@@ -11,17 +12,17 @@ const MyContent = () => {
             {
                 id: "0",
                 slug: "posts",
-                api: apiProvider.getMyPosts,
+                api: postsApiProvider.getMyPosts,
             },
             {
                 id: "1",
                 slug: "comments",
-                api: apiProvider.getMyComments,
+                api: commentsApiProvider.getMyComments,
             },
             {
                 id: "2",
                 slug: "favorites",
-                api: apiProvider.getFavorites,
+                api: postsApiProvider.getFavorites,
             },
         ],
         { posts: [], comments: [], favorites: [] }

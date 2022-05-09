@@ -4,7 +4,7 @@ import SubmitButton from "../../components/Buttons/SubmitButton";
 import FormSection from "../../components/FormSection";
 import FormInput from "../../components/Inputs/FormInput";
 import { ShowMessageOverlay } from "../../components/MessageOverlay";
-import { authProvider } from "../../providers/AuthProvider";
+import { authApiProvider } from "../../providers/AuthApiProvider";
 
 export default function RequestPasswordReset() {
     const { setMessage } = useContext(ShowMessageOverlay);
@@ -17,7 +17,7 @@ export default function RequestPasswordReset() {
 
     async function requestpasswordreset(e: React.FormEvent<HTMLFormElement>) {
         try {
-            await authProvider.requestpasswordreset({ email });
+            await authApiProvider.requestpasswordreset({ email });
             setEmail("");
             setMessage("reset password");
         } catch (error) {}

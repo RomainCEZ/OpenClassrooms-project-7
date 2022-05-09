@@ -5,7 +5,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { TiCancel } from "react-icons/ti";
 import ReactTimeAgo from "react-time-ago";
 import { ShowMessageOverlay } from "../../../components/MessageOverlay";
-import { apiProvider } from "../../../providers/ApiProvider";
+import { commentsApiProvider } from "../../../providers/CommentsApiProvider";
 import { UserContext } from "../../Auth/context/UserContext";
 import CommentLikes from "./CommentLikes";
 
@@ -27,7 +27,7 @@ export default function Comment({
     });
 
     const editComment = async () => {
-        await apiProvider.updateComment(commentId, editedComment);
+        await commentsApiProvider.updateComment(commentId, editedComment);
         await getComments();
         setEditing(false);
         setMessage("edit comment");
@@ -39,7 +39,7 @@ export default function Comment({
     };
 
     const deleteComment = async () => {
-        await apiProvider.deleteComment(commentId);
+        await commentsApiProvider.deleteComment(commentId);
         await getComments();
         setMessage("delete comment");
     };
@@ -87,6 +87,7 @@ export default function Comment({
                                 <button
                                     onClick={editComment}
                                     className="btn-text-blue ml-auto mr-4 sm:mr-0"
+                                    value="J'aime"
                                 >
                                     <span className="w-10 text-2xl sm:hidden">
                                         <BsCheckLg />
@@ -98,6 +99,7 @@ export default function Comment({
                                 <button
                                     className="btn-text-blue"
                                     onClick={cancelUpdateComment}
+                                    value="Je n'aime pas"
                                 >
                                     <span className="text-4xl sm:hidden btn-text-red">
                                         <TiCancel />
