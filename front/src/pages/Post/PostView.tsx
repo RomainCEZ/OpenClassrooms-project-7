@@ -86,6 +86,7 @@ export default function PostView() {
                             {post.authorPicture ? (
                                 <img
                                     src={post.authorPicture}
+                                    alt="Image de profil de l'auteur"
                                     className="absolute w-full h-full"
                                 />
                             ) : (

@@ -53,6 +53,7 @@ export default function PostPreview({
                         {authorPicture ? (
                             <img
                                 src={authorPicture}
+                                alt="Image de profil de l'auteur"
                                 className="absolute w-full h-full"
                             />
                         ) : (

@@ -84,6 +84,7 @@ export default function ProfilePictureInput() {
                                 {previewImage && (
                                     <img
                                         src={previewImage}
+                                        alt="Aperçu de l'image de profil"
                                         className="h-full w-full object-cover"
                                     />
                                 )}
