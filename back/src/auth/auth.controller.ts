@@ -1,8 +1,11 @@
-import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Request, Delete, Patch } from '@nestjs/common';
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guard/local-auth.guard';
 import { AuthenticationGuard } from './guard/authentication.guard';
+import { ResetPasswordDto } from './dto/RestPasswordDto';
+import { ChangePasswordDto } from './dto/ChangePasswordDto';
+import { ChangeUsernameDto } from './dto/ChangeUsernameDto';
 
 @Controller('auth')
 export class AuthController {
@@ -32,5 +35,33 @@ export class AuthController {
   @Post('logout')
   async logout(@Request() req: any) {
     req.logout()
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Patch('changepassword')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto, @Request() req) {
+    await this.authService.changePassword(req.user.id, changePasswordDto)
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Patch('changeusername')
+  async changeUsername(@Body() changeUsernameDto: ChangeUsernameDto, @Request() req) {
+    return await this.authService.changeUsername(req.user.id, changeUsernameDto)
+  }
+  @Post('requestpasswordreset')
+  async requestpasswordreset(@Body("email") email: string) {
+    await this.authService.sendPasswordRestEmail(email)
+    return "Un email re réinitialisation a été envoyé à cette adresse."
+  }
+
+  @Post('resetpassword')
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    await this.authService.resetPassword(resetPasswordDto)
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Delete('disableaccount')
+  async disableAccount(@Request() req) {
+    await this.authService.disableAccount(req.user.id);
   }
 }

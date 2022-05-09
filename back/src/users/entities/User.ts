@@ -8,24 +8,37 @@ export class User {
     readonly password: string
     readonly role: string
     readonly timestamp: number
+    readonly postsCount?: number
+    readonly commentsCount?: number
+    readonly profilePicture?: string
+    readonly favorites?: string[]
 
-    constructor({ id, email, username, password, role, timestamp }: UserProps) {
+
+    constructor({ id, email, username, password, role, timestamp, postsCount, commentsCount, profilePicture, favorites }: UserProps) {
         this.id = id
         this.email = email
         this.username = username
         this.password = password
         this.role = role
         this.timestamp = timestamp
+        this.postsCount = postsCount
+        this.commentsCount = commentsCount
+        this.profilePicture = profilePicture
+        this.favorites = favorites
     }
 
-    public static create({ id, email, username, password, role }: UserProps) {
+    public static create({ id, email, username, password, role, postsCount, commentsCount, profilePicture, favorites }: UserProps) {
         return new User({
             id: id || nanoid(),
             email,
             username,
             password,
             role: role || "user",
-            timestamp: Date.now()
+            timestamp: Date.now(),
+            profilePicture: profilePicture || null,
+            postsCount: postsCount || 0,
+            commentsCount: commentsCount || 0,
+            favorites: favorites || []
         })
     }
 }

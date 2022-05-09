@@ -1,0 +1,14 @@
+.rdw-link-decorator-wrapper {
+    color: blue;
+    text-decoration: underline
+  }
+  .rdw-link-decorator-wrapper:hover, .rdw-link-decorator-wrapper:focus {
+      color: darkblue
+  }
+  .rdw-link-decorator-wrapper:active {
+      color: teal
+  }
+  
+  .rdw-link-decorator-icon {
+      display: none
+  }

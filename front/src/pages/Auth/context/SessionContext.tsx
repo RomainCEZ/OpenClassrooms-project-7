@@ -1,48 +1,80 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authProvider } from "../../../domain/AuthProvider";
+import { ShowMessageOverlay } from "../../../components/MessageOverlay";
+import { apiProvider } from "../../../providers/ApiProvider";
+import { authProvider } from "../../../providers/AuthProvider";
+import { UserContext } from "./UserContext";
 
 export const SessionContext = createContext({
     loggedIn: false,
-    setLoggedIn: null,
-    user: { id: null, username: null, role: null },
-    createSession: null,
     logout: null,
-    navigate: null,
+    disableAccount: null,
+    checkLogin: null,
+    signup: null,
+    login: null,
 });
 
 export const SessionProvider = ({ children }) => {
+    const { clearUser, setUser } = useContext(UserContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [loggedIn, setLoggedIn] = useState(false);
-    const [user, setUser] = useState({ id: null, username: null, role: null });
     const navigate = useNavigate();
-    function createSession(sessionInfo) {
-        setUser(sessionInfo);
-    }
+
     useEffect(() => {
-        const relog = async () => {
-            const userInfo = await authProvider.relog();
-            if (userInfo !== 401 && userInfo !== 403) {
-                setUser(userInfo);
-                setLoggedIn(true);
-            }
-        };
-        relog().catch((error) => {});
+        if (!loggedIn) {
+            const relog = async () => {
+                const relog = await authProvider.relog();
+                if (relog !== 401 && relog !== 403) {
+                    const sessionInfos = await apiProvider.getProfile();
+                    setUser(sessionInfos);
+                    setLoggedIn(true);
+                }
+            };
+            relog().catch((error) => {});
+        }
     }, []);
 
-    function logout() {
-        authProvider.logout();
-        setLoggedIn(false);
+    async function signup(loginInfo) {
+        await authProvider.signup(loginInfo);
+        await login(loginInfo);
+        setMessage("signup");
     }
 
+    async function login(loginInfo) {
+        await authProvider.login(loginInfo);
+        const sessionInfos = await apiProvider.getProfile();
+        setLoggedIn(true);
+        setUser(sessionInfos);
+        navigate("/");
+        setMessage("login");
+    }
+
+    async function logout() {
+        await authProvider.logout();
+        setLoggedIn(false);
+        clearUser();
+        navigate("/");
+    }
+
+    async function disableAccount() {
+        await authProvider.disableAccount();
+        await logout();
+    }
+
+    function checkLogin() {
+        if (!loggedIn) {
+            navigate("/");
+        }
+    }
     return (
         <SessionContext.Provider
             value={{
                 loggedIn,
-                setLoggedIn,
-                user,
-                createSession,
                 logout,
-                navigate,
+                disableAccount,
+                checkLogin,
+                signup,
+                login,
             }}
         >
             {children}

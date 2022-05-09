@@ -5,30 +5,39 @@ export class Post {
     id: string;
     title: string;
     content: any;
-    imageName?: string;
     author: string;
     authorId: string;
+    authorPicture?: string
     timestamp: number
+    likes?: string[]
+    dislikes?: string[]
+    commentsNumber?: number
 
-    constructor({ id, title, content, imageName, author, authorId, timestamp }: PostProps) {
+    constructor({ id, title, content, author, authorId, authorPicture, timestamp, likes, dislikes, commentsNumber }: PostProps) {
         this.id = id
         this.title = title
         this.content = content
-        this.imageName = imageName
         this.author = author
         this.authorId = authorId
+        this.authorPicture = authorPicture
         this.timestamp = timestamp
+        this.likes = likes
+        this.dislikes = dislikes
+        this.commentsNumber = commentsNumber
     }
 
-    public static create({ id, title, content, imageName, author, authorId, timestamp }: PostProps) {
+    public static create({ id, title, content, author, authorId, authorPicture, timestamp, likes, dislikes, commentsNumber }: PostProps) {
         return new Post({
             id: id || nanoid(),
             title,
             content: content || null,
-            imageName: imageName || null,
             author,
             authorId,
-            timestamp: timestamp || Date.now()
+            authorPicture,
+            timestamp: timestamp || Date.now(),
+            likes: likes || [],
+            dislikes: dislikes || [],
+            commentsNumber: commentsNumber || 0
         })
     }
 }

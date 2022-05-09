@@ -1,32 +1,19 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { SessionContext } from "../../pages/Auth/context/SessionContext";
-import { NavOption } from "./NavOption";
+import { NavLink } from "./NavLink";
+import DarkModeToggle from "./DarkModeToggle";
+import NavPictureBox from "./NavPictureBox";
+import { UserContext } from "../../pages/Auth/context/UserContext";
 
-export function DropDownNav({ username }) {
+export function DropDownNav() {
+    const { user } = useContext(UserContext);
     const { logout } = useContext(SessionContext);
 
     return (
-        <Menu as="div" className="flex flex-col justify-center relative">
-            <Menu.Button
-                className="px-6 py-2.5 bg-blue-700 text-white font-bold rounded shadow-md
-                        hover:bg-blue-600 hover:shadow-lg
-                        focus:bg-blue-600 focus:shadow-lg
-                        active:bg-blue-500 active:shadow-lg
-                        transition duration-150 ease-in-out
-                    "
-            >
-                {/* <Menu.Button
-                className="group overflow-hidden p-12 relative bg-blue-700 text-white font-bold rounded-full shadow-md border-2 border-blue-400
-                        hover:bg-blue-600 hover:border-blue-200 hover:shadow-blue-400
-                        focus:bg-blue-700 focus:shadow-md focus:outline-none focus:ring-0
-                        active:bg-blue-600 active:shadow-md
-                        transition-all
-                    "
-            >
-                <div className="absolute top-6 right-7 p-5 bg-blue-600 group-hover:bg-blue-500 hover:shadow-lg rounded-full transition-all"></div>
-                <div className="absolute top-2/3 right-0 p-12 bg-blue-600 group-hover:bg-blue-500 hover:shadow-lg rounded-full transition-all"></div> */}
-                {`Bienvenue, ${username} !`}
+        <Menu as="div" className="flex flex-col justify-center items-end">
+            <Menu.Button className="group h-24 w-24">
+                <NavPictureBox picture={user.profilePicture} />
             </Menu.Button>
             <Transition
                 enter="transition duration-100 ease-out"
@@ -36,11 +23,13 @@ export function DropDownNav({ username }) {
                 leaveFrom="transform scale-100 opacity-100"
                 leaveTo="transform scale-95 opacity-0"
             >
-                <Menu.Items className="absolute w-full bg-blue-700 py-2 rounded-lg shadow-lg mt-1">
-                    <NavOption path={`./`}>Accueil</NavOption>
-                    <NavOption path={`./login`} handleClick={() => logout()}>
+                <Menu.Items className="overflow-hidden absolute mt-8 right-0 w-56 z-20 text-white bg-blue-700 dark:bg-gray-800 border-blue-500 dark:border-gray-600 divide-blue-500 dark:divide-gray-600 divide-y  rounded-lg shadow-lg">
+                    <NavLink path={`./`}>Accueil</NavLink>
+                    <NavLink path="./profile">Mon profil</NavLink>
+                    <DarkModeToggle />
+                    <NavLink path={`./login`} handleClick={() => logout()}>
                         Déconnexion
-                    </NavOption>
+                    </NavLink>
                 </Menu.Items>
             </Transition>
         </Menu>

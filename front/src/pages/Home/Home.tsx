@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
 import PostPreview from "./PostPreview";
-import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
+import { PostProps } from "../Post/interfaces/PostProps";
+import { apiProvider } from "../../providers/ApiProvider";
 import { SessionContext } from "../Auth/context/SessionContext";
 import PostPreviewLoader from "./PostPreviewLoader";
 import { Link } from "react-router-dom";
@@ -17,10 +16,13 @@ export default function Home() {
             key={post.id}
             id={post.id}
             title={post.title}
-            src={post.imageUrl}
             content={post.content}
             author={post.author}
+            authorPicture={post.authorPicture}
             timestamp={post.timestamp}
+            likes={post.likes}
+            dislikes={post.dislikes}
+            commentsNumber={post.commentsNumber}
         />
     ));
 
@@ -34,20 +36,22 @@ export default function Home() {
     return (
         <>
             {loggedIn ? (
-                <BlueLinkButton path="newPost">Nouveau post</BlueLinkButton>
+                <Link to="newpost" className="btn blue">
+                    Nouveau post
+                </Link>
             ) : (
-                <p className="flex flex-col sm:flex-row items-center justify-center p-2 rounded bg-white border border-indigo-900 px-6">
+                <p className="flex flex-col sm:flex-row items-center justify-center p-2 px-6 sm:rounded font-bold text-gray-800 bg-white dark:bg-gray-400 border-indigo-900 dark:border-gray-300 sm:border shadow-md">
                     <span>
                         <Link
                             to="/login"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
                         >
                             Connectez-vous
                         </Link>
                         &nbsp;ou&nbsp;
                         <Link
                             to="/signup"
-                            className="text-blue-700 hover:text-blue-400 underline font-bold transition-all"
+                            className="btn-text-blue underline decoration-2 underline-offset-1"
                         >
                             enregistrez-vous
                         </Link>
@@ -55,7 +59,7 @@ export default function Home() {
                     &nbsp;pour publier votre contenu !
                 </p>
             )}
-            <section className="flex flex-col mt-2 gap-1 w-full">
+            <section className="flex flex-col mt-3 gap-2 w-full">
                 {isLoading ? (
                     <>
                         <PostPreviewLoader />

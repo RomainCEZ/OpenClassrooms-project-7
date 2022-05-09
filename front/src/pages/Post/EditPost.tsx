@@ -1,36 +1,23 @@
-import { useState, useEffect } from "react";
-import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
-import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
-import { useNavigate } from "react-router-dom";
-import {
-    EditorState,
-    convertToRaw,
-    convertFromRaw,
-    ContentState,
-} from "draft-js";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { EditorState, convertToRaw, convertFromRaw } from "draft-js";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
 import DraftjsEditor from "../../components/Draftjs/DraftjsEditor";
+import ReactTimeAgo from "react-time-ago";
+import { apiProvider } from "../../providers/ApiProvider";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
+import { UserContext } from "../Auth/context/UserContext";
+import SubmitButton from "../../components/Buttons/SubmitButton";
 
 export default function EditPost() {
+    const { setMessage } = useContext(ShowMessageOverlay);
+    const { user } = useContext(UserContext);
+
     const [editorState, setEditorState] = useState(() =>
         EditorState.createEmpty()
     );
-    const rawEditorContent = convertToRaw(editorState.getCurrentContent());
 
-    const [post, setPost] = useState<PostProps>({
-        title: "",
-        content: "",
-        imageUrl: "",
-    });
-    const [form, setForm] = useState<PostProps>({
-        title: "",
-        content: "",
-        file: null,
-        imageUrl: null,
-    });
-    const [image, setImage] = useState(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [title, setTitle] = useState<string>("");
     const [preview, setPreview] = useState(false);
 
     const id = document.location.pathname.split("/")[2];
@@ -38,80 +25,30 @@ export default function EditPost() {
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
-            setPost({
-                title: postData.title,
-                content: postData.content,
-                imageUrl: postData.imageUrl,
-            });
-            setForm({
-                title: postData.title,
-                content: postData.content,
-                imageUrl: postData.imageUrl,
-            });
-            setIsLoading(false);
-        });
-        apiProvider.getPostById(id).then((postData) => {
-            if (typeof postData.content === "string") {
-                const contentState = ContentState.createFromText(
-                    postData.content
-                );
-                const editorState = EditorState.createWithContent(contentState);
-                setEditorState(editorState);
-                setPost({
-                    id: postData.id,
-                    title: postData.title,
-                    content: "",
-                    imageUrl: postData.imageUrl,
-                });
-            } else {
-                const contentState = convertFromRaw(postData.content);
-                const editorState = EditorState.createWithContent(contentState);
-                setEditorState(editorState);
-                setPost({
-                    id: postData.id,
-                    title: postData.title,
-                    content: "",
-                    imageUrl: postData.imageUrl,
-                });
-            }
-            setIsLoading(false);
+            const contentState = convertFromRaw(postData.content);
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState);
+            setTitle(postData.title);
         });
         return;
     }, []);
 
     function changeTitle(event: React.ChangeEvent<HTMLInputElement>) {
-        const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, title: value }));
-    }
-
-    function changeBody(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        const value = event.target.value;
-        setForm((form: PostProps) => ({ ...form, content: value }));
-    }
-
-    function changeImage(event: React.ChangeEvent<HTMLInputElement>) {
-        const file = event.target.files[0];
-        const imageUrl = URL.createObjectURL(event.target.files[0]);
-        setImage(file);
-        setForm((form: PostProps) => ({ ...form, imageUrl }));
+        setTitle(event.target.value);
     }
 
     async function editPost(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        if (form.title && form.content) {
-            let data = new FormData();
-            data.append(
-                "data",
-                JSON.stringify({
-                    title: form.title,
-                    content: rawEditorContent,
-                })
+        if (title) {
+            const rawEditorContent = convertToRaw(
+                editorState.getCurrentContent()
             );
-            if (image) {
-                data.append("file", image);
-            }
-            await apiProvider.editPost(id, data);
+            const post = {
+                title,
+                content: rawEditorContent,
+            };
+            await apiProvider.editPost(id, post);
             navigate(`/post/${id}`);
+            setMessage("edit post");
         } else {
             console.log("erreur");
         }
@@ -119,58 +56,54 @@ export default function EditPost() {
 
     return (
         <section>
-            <BlueLinkButton path={`/post/${id}`}>Retour</BlueLinkButton>
-            <form
-                onSubmit={editPost}
-                className="flex flex-col mt-2 p-4 gap-3 border bg-gray-200 border-blue-900 rounded"
-            >
-                <input
-                    name="title"
-                    placeholder="Titre"
-                    className="p-2 border border-blue-900 rounded"
-                    onChange={(event) => changeTitle(event)}
-                    value={form.title}
-                    required
-                />
-                <DraftjsEditor
-                    editorState={editorState}
-                    setEditorState={setEditorState}
-                />
-                {form.imageUrl && (
-                    <img src={form.imageUrl} className="pt-3 w-full" />
-                )}
-                <input
-                    name="image"
-                    type="file"
-                    className=""
-                    accept="image/png, image/jpeg"
-                    onChange={(event) => changeImage(event)}
-                />
-                <div className="flex justify-between gap-2">
-                    <button className="text-white bg-blue-900 p-2 w-3/4 rounded">
-                        Éditer
-                    </button>
-                    <div
-                        className="text-center flex-grow p-2 border bg-white border-blue-900 rounded cursor-pointer"
-                        onClick={() =>
-                            setPreview((prevPreview) => !prevPreview)
-                        }
-                    >
-                        Aperçu
+            <Link to={`/post/${id}`} className="btn blue">
+                Retour
+            </Link>
+            {preview ? (
+                <div className="mt-3 p-2 sm:px-5 sm:rounded min-h-80 h-fit bg-white dark:bg-gray-400 sm:border border-indigo-900 shadow-md">
+                    <div className="mb-3 pb-2 border-b-2 border-indigo-900 dark:border-gray-300">
+                        <h2 className="text-xl font-bold overflow-hidden p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-800">
+                            {title}
+                        </h2>
+                        <p className="text-sm ml-2 first-letter:capitalize">
+                            <ReactTimeAgo
+                                date={Date.now()}
+                                locale="fr-FR"
+                                className="font-bold"
+                            />{" "}
+                            par{" "}
+                            <span className="font-bold">{user.username}</span>
+                        </p>
                     </div>
-                </div>
-            </form>
-            {preview && (
-                <div className="mt-2 p-2 rounded min-h-80 h-fit bg-white border border-blue-900 divide-blue-900 divide-y-2">
-                    <h2 className="text-xl font-semibold p-2 border-blue-900">
-                        {form.title}
-                    </h2>
-                    {form.imageUrl && (
-                        <img src={form.imageUrl} className="pt-3 w-full" />
-                    )}
                     <DraftjsView editorState={editorState} />
                 </div>
+            ) : (
+                <form className="flex flex-col mt-2 p-4 gap-3 sm:border shadow-md bg-gray-200 dark:bg-gray-400 border-blue-900 dark:border-gray-300 sm:rounded">
+                    <input
+                        name="title"
+                        placeholder="Titre"
+                        className="p-2 border border-blue-900 dark:border-gray-300 rounded shadow-inner"
+                        onChange={(event) => changeTitle(event)}
+                        value={title}
+                        required
+                    />
+                    <DraftjsEditor
+                        editorState={editorState}
+                        setEditorState={setEditorState}
+                    />
+                </form>
             )}
+            <div className="flex w-full gap-4 mt-3">
+                <SubmitButton onClick={editPost} className="btn blue flex-grow">
+                    Publier
+                </SubmitButton>
+                <button
+                    onClick={() => setPreview(!preview)}
+                    className="btn white w-2/5 sm:w-1/4"
+                >
+                    {preview ? "Éditer" : "Aperçu"}
+                </button>
+            </div>
         </section>
     );
 }

@@ -1,6 +1,5 @@
-import { Controller, Get, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards, Post, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthenticationGuard } from '../auth/guard/authentication.guard';
 
 @UseGuards(AuthenticationGuard)
@@ -8,23 +7,18 @@ import { AuthenticationGuard } from '../auth/guard/authentication.guard';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @Get('profile')
+  async getUserProfile(@Request() req) {
+    return await this.usersService.getProfile(req.user.id);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findByEmail(id);
+  @Post('profilepicture/upload')
+  async updateProfilePicture(@Request() req) {
+    return await this.usersService.changeProfilePicture(req.user.id, req.body.profilePicture)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @Post("favorite")
+  async updateFavorites(@Request() req) {
+    return await this.usersService.updateFavorites(req.user.id, req.body.postId)
   }
 }

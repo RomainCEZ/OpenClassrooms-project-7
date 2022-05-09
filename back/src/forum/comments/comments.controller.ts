@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req, ForbiddenException, Request } from '@nestjs/common';
 import { AuthenticationGuard } from '../../auth/guard/authentication.guard';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -17,15 +17,17 @@ export class CommentsController {
     await this.commentsService.create(createCommentDto);
   }
 
+  @UseGuards(AuthenticationGuard)
+  @Get("mycomments")
+  async getMyComments(@Request() req) {
+    const posts = await this.commentsService.getByAuthorId(req.user.id);
+    return posts
+  }
+
   @Get(":postId")
   async findAll(@Param("postId") postId: string) {
     const postComments = await this.commentsService.findAll(postId);
     return postComments
-  }
-
-  @Get(':commentId')
-  async findOne(@Param('commentId') commentId: string) {
-    return await this.commentsService.getCommentById(commentId);
   }
 
   @UseGuards(AuthenticationGuard)
@@ -33,8 +35,9 @@ export class CommentsController {
   async update(@Param('commentId') commentId: string, @Req() req) {
     const comment = await this.commentsService.getCommentById(commentId)
     if (req.user.id === comment.authorId || req.user.role === 'admin') {
-      return this.commentsService.updateCommentById(commentId, { ...req.body });
+      return await this.commentsService.updateCommentById(commentId, { ...req.body });
     }
+    throw new ForbiddenException("Requête non autorisée !")
   }
 
   @UseGuards(AuthenticationGuard)
@@ -42,7 +45,19 @@ export class CommentsController {
   async remove(@Param('commentId') commentId: string, @Req() req) {
     const comment = await this.commentsService.getCommentById(commentId)
     if (req.user.id === comment.authorId || req.user.role === 'admin') {
-      return this.commentsService.deleteCommentById(commentId);
+      return await this.commentsService.deleteCommentById(commentId);
+    }
+    throw new ForbiddenException("Requête non autorisée !")
+  }
+
+  @UseGuards(AuthenticationGuard)
+  @Post(':commentId/like')
+  async like(@Request() req, @Param('commentId') commentId: string) {
+    if (req.body.like === 1) {
+      await this.commentsService.like(req.user.id, commentId)
+    }
+    if (req.body.like === -1) {
+      await this.commentsService.dislike(req.user.id, commentId)
     }
   }
 }

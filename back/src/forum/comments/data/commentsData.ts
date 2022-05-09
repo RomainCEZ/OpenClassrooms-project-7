@@ -1,6 +1,5 @@
-import PostComments from "../interfaces/PostComments";
 
-export const commentsData: PostComments[] = [
+export const commentsData = [
     {
         postId: "1646256698879",
         comments: [{
@@ -9,6 +8,8 @@ export const commentsData: PostComments[] = [
             author: "admin",
             authorId: "0",
             timestamp: 1649075642144,
+            likes: [],
+            dislikes: []
         },
         {
             id: "placeholderComment2",
@@ -16,6 +17,8 @@ export const commentsData: PostComments[] = [
             author: "admin",
             authorId: "0",
             timestamp: 1648975642144,
+            likes: [],
+            dislikes: []
         }]
     }
 ]

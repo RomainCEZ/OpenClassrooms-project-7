@@ -3,40 +3,44 @@ import { Link } from "react-router-dom";
 import { Logo } from "../assets/Logo";
 import { SessionContext } from "../pages/Auth/context/SessionContext";
 import { DropDownNav } from "./NavMenu/DropDownNav";
+import { FaHome } from "react-icons/fa";
+import { BiLogIn } from "react-icons/bi";
 
 export default function Header() {
-    const { loggedIn, user } = useContext(SessionContext);
+    const { loggedIn } = useContext(SessionContext);
 
     return (
-        <header className="flex items-center justify-between bg-blue-800 p-5">
-            <Logo />
-            <nav className="mr-6 text-white relative">
+        <header className="flex items-center justify-between h-32 bg-blue-800 dark:bg-gray-800 pl-9 pr-6 sm:px-8">
+            <Link to="/" className="z-30 w-24">
+                <Logo />
+            </Link>
+            <nav className="relative z-20">
                 {loggedIn ? (
-                    <DropDownNav username={user.username} />
+                    <DropDownNav />
                 ) : (
-                    <ul className="flex font-bold divide-x-2">
+                    <ul className="flex font-bold divide-x-2 divide-gray-100 dark:divide-gray-600">
                         <li>
                             <Link
                                 to="/"
-                                className="mr-4 px-8 py-3.5 bg-blue-700 rounded shadow-lg
-                                hover:bg-blue-600 hover:shadow-lg
-                                focus:bg-blue-600 focus:shadow-lg
-                                active:bg-blue-500 active:shadow-lg
-                                transition-all duration-150 ease-in-out"
+                                className="flex items-center mr-4 px-3 lg:px-7 btn blue gap-2"
                             >
-                                Accueil
+                                <span className="text-3xl md:text-2xl lg:hidden">
+                                    <FaHome />
+                                </span>{" "}
+                                <span className="hidden lg:block">Accueil</span>
                             </Link>
                         </li>
                         <li>
                             <Link
                                 to="./login"
-                                className="ml-4 px-6 py-3.5 bg-blue-700 text-white rounded shadow-md
-                                        hover:bg-blue-600 hover:shadow-lg
-                                        focus:bg-blue-600 focus:shadow-lg
-                                        active:bg-blue-500 active:shadow-lg
-                                        transition duration-150 ease-in-out"
+                                className="flex items-center ml-4 pl-2 pr-4 md:px-6 btn blue gap-2"
                             >
-                                Connexion
+                                <span className="text-3xl md:text-2xl md:hidden">
+                                    <BiLogIn />
+                                </span>{" "}
+                                <span className="hidden md:block">
+                                    Connexion
+                                </span>
                             </Link>
                         </li>
                     </ul>

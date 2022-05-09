@@ -5,9 +5,10 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { CommentModel } from '../../Database/sequelizeModels/Comment.model';
 import CommentsRepository from './repositories/CommentsRepository';
 import CommentsDBAdapter from './repositories/CommentsDB.adapter';
+import { PostModel } from '../../Database/sequelizeModels/Post.model';
 
 @Module({
-  imports: [SequelizeModule.forFeature([CommentModel])],
+  imports: [SequelizeModule.forFeature([CommentModel, PostModel])],
   controllers: [CommentsController],
   providers: [CommentsService,
     { provide: CommentsRepository, useClass: CommentsDBAdapter }

@@ -1,75 +1,72 @@
 import { useState, useEffect, useContext } from "react";
-import BlueLinkButton from "../../components/Buttons/BlueLinkButton";
-import { PostProps } from "../../utils/interfaces/PostProps";
-import { apiProvider } from "../../domain/ApiProvider";
 import { Link } from "react-router-dom";
-import { SessionContext } from "../Auth/context/SessionContext";
-import PostLoader from "./PostLoader";
-import { EditorState, convertFromRaw, ContentState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import { EditorState, convertFromRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import Comment from "./Comment";
-import CommentLoader from "./CommentLoader";
 import ReactTimeAgo from "react-time-ago";
-import NewComment from "./NewComment";
+import { PostProps } from "./interfaces/PostProps";
+import { apiProvider } from "../../providers/ApiProvider";
+import PostLoader from "./PostLoader";
+import Comment from "./Comments/Comment";
+import CommentLoader from "./Comments/CommentLoader";
+import NewComment from "./Comments/NewComment";
 import DraftjsView from "../../components/Draftjs/DraftjsView";
+import PostButtons from "./PostButtons";
+import PostLikes from "./PostLikes";
+import { FaUser } from "react-icons/fa";
+import { UserContext } from "../Auth/context/UserContext";
+import FavoriteStar from "./FavoriteStar";
+import { ShowMessageOverlay } from "../../components/MessageOverlay";
 
 export default function PostView() {
-    const { user, navigate } = useContext(SessionContext);
+    const { user, setUser } = useContext(UserContext);
+    const { setMessage } = useContext(ShowMessageOverlay);
     const [post, setPost] = useState<PostProps>({
         id: "",
         title: "",
         content: "",
+        authorPicture: "",
+        likes: [],
+        dislikes: [],
         editorContent: "",
-        imageUrl: "",
     });
     const [commentsData, setCommentsData] = useState([]);
-
-    const commentsElements = commentsData.map((comment) => {
-        return (
-            <Comment
-                key={comment.id}
-                content={comment.content}
-                author={comment.author}
-                authorId={comment.id}
-                timestamp={comment.timestamp}
-                deleteComment={() => deleteComment(comment.id)}
-            />
-        );
-    });
-
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const id = document.location.pathname.split("/post/")[1];
+    const isFavorite = user.favorites.includes(id);
+
+    const favorite = async () => {
+        const favorites = await apiProvider.favorite(id);
+        setUser({ ...user, favorites: [...favorites] });
+        isFavorite ? setMessage("remove favorite") : setMessage("add favorite");
+    };
 
     const getComments = () => {
         apiProvider.getCommentsByPostId(id).then((commentsData) => {
             return setCommentsData(commentsData);
         });
     };
-    const deleteComment = async (id) => {
-        await apiProvider.deleteComment(id);
-        getComments();
-    };
+    const commentsElements = commentsData.map((comment) => (
+        <Comment
+            key={comment.id}
+            commentId={comment.id}
+            content={comment.content}
+            author={comment.author}
+            authorId={comment.authorId}
+            timestamp={comment.timestamp}
+            likes={comment.likes}
+            dislikes={comment.dislikes}
+            getComments={getComments}
+        />
+    ));
 
     useEffect(() => {
         apiProvider.getPostById(id).then((postData) => {
-            if (typeof postData.content === "string") {
-                const contentState = ContentState.createFromText(
-                    postData.content
-                );
-                const editorState = EditorState.createWithContent(contentState);
-                setPost({
-                    ...postData,
-                    content: editorState,
-                });
-            } else {
-                const contentState = convertFromRaw(postData.content);
-                const editorState = EditorState.createWithContent(contentState);
-                setPost({
-                    ...postData,
-                    content: editorState,
-                });
-            }
+            const contentState = convertFromRaw(postData.content);
+            const editorState = EditorState.createWithContent(contentState);
+            setPost({
+                ...postData,
+                content: editorState,
+            });
             setIsLoading(false);
         });
         getComments();
@@ -77,56 +74,71 @@ export default function PostView() {
 
     return (
         <section>
-            <BlueLinkButton path="/">Retour</BlueLinkButton>
+            <Link to="/" className="btn blue">
+                Retour
+            </Link>
             {isLoading ? (
                 <PostLoader />
             ) : (
-                <div className="flex flex-col mt-2 p-2 sm:px-5 rounded min-h-80 h-fit bg-white border border-indigo-900">
-                    <div className="mb-3 pb-2 border-b-2 border-indigo-900">
-                        <h2 className="text-xl font-semibold p-2 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800">
-                            {post.title}
-                        </h2>
-                        <p className="text-sm ml-2 first-letter:capitalize">
-                            <ReactTimeAgo
-                                date={post.timestamp}
-                                locale="fr-FR"
-                                className="font-bold"
-                            />{" "}
-                            par <span className="font-bold">{post.author}</span>
-                        </p>
+                <article className=" mt-3 group flex flex-col px-2 sm:px-5 py-2 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 dark:border-gray-300">
+                    <div className="flex items-center pb-2 border-b-2 border-blue-900 dark:border-gray-300">
+                        <div className="flex justify-center relative h-14 w-14 mr-2 sm:-ml-2 mt-2 border-2 border-blue-800 dark:border-gray-800 rounded-full overflow-hidden">
+                            {post.authorPicture ? (
+                                <img
+                                    src={post.authorPicture}
+                                    className="absolute w-full h-full"
+                                />
+                            ) : (
+                                <span className="absolute top-2 text-5xl rounded-full text-blue-700 dark:text-gray-700 transition">
+                                    <FaUser />
+                                </span>
+                            )}
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-bold break-words py-1 sm:px-0 decoration-2 underline underline-offset-2 text-blue-800 dark:text-gray-900">
+                                {post.title}
+                            </h2>
+                            <p className="text-sm ml-2 first-letter:capitalize">
+                                <ReactTimeAgo
+                                    date={post.timestamp}
+                                    locale="fr-FR"
+                                    className="font-bold"
+                                />{" "}
+                                par{" "}
+                                <span className="font-bold">{post.author}</span>
+                            </p>
+                        </div>
                     </div>
                     <div className="flex flex-col w-full">
-                        {post.imageUrl && (
-                            <img src={post.imageUrl} className="py-3 w-full " />
-                        )}
-                        <div className=" border-b border-indigo-900">
+                        <div className="border-b border-indigo-900 dark:border-gray-300">
                             <DraftjsView editorState={post.content} />
                         </div>
                     </div>
-                    {(user.id === post.authorId || user.role === "admin") && (
-                        <div className="flex justify-end items-center pt-2 m-1 mr-2 gap-2">
-                            <BlueLinkButton path={`/post/${id}/edit`}>
-                                Éditer
-                            </BlueLinkButton>
-                            <button
-                                className="flex justify-center p-2 px-6 text-white font-bold rounded bg-red-800 hover:bg-red-600 hover:shadow focus:bg-red-600 focus:shadow active:bg-red-500 transition-all"
-                                onClick={async () => {
-                                    await apiProvider.deletePost(id);
-                                    navigate("/");
-                                }}
-                            >
-                                Supprimer
-                            </button>
+                    <div className="flex justify-between items-center">
+                        <PostLikes
+                            postId={post.id}
+                            likes={post.likes}
+                            dislikes={post.dislikes}
+                        />
+                        <FavoriteStar
+                            onClick={() => favorite()}
+                            isActive={isFavorite}
+                            className="mt-1 ml-4 mr-auto p-2 text-3xl"
+                        />
+
+                        <div className="h-16 py-3 px-2 w-1/2">
+                            {(user.id === post.authorId ||
+                                user.role === "admin") && <PostButtons />}
                         </div>
-                    )}
-                </div>
+                    </div>
+                </article>
             )}
             <NewComment postId={id} getComments={getComments} />
             {isLoading ? (
                 <CommentLoader />
             ) : (
                 <div className="flex flex-col mt-2 gap-1">
-                    {commentsElements}
+                    {commentsData.length === 0 ? <></> : commentsElements}
                 </div>
             )}
         </section>
