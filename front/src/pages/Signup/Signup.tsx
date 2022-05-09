@@ -109,6 +109,7 @@ export default function Signup() {
                 />
                 <FormInput
                     type="password"
+                    autoComplete="new-password"
                     name="password"
                     label="Mot de passe"
                     inputValue={form.password}
@@ -117,6 +118,7 @@ export default function Signup() {
                 />
                 <FormInput
                     type="password"
+                    autoComplete="new-password"
                     name="confirmPassword"
                     label="Confirmez le mot de passe"
                     inputValue={form.confirmPassword}

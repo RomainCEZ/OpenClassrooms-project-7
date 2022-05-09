@@ -1,3 +1,13 @@
+interface IFormInput {
+    type: string;
+    name: string;
+    label: string;
+    inputValue: string;
+    handleChange: Function;
+    errorMessage: string;
+    autoComplete?: string;
+}
+
 export default function FormInput({
     type,
     name,
@@ -5,7 +15,8 @@ export default function FormInput({
     inputValue,
     handleChange,
     errorMessage,
-}) {
+    autoComplete,
+}: IFormInput) {
     return (
         <>
             <label
@@ -16,6 +27,7 @@ export default function FormInput({
             </label>
             <input
                 type={type}
+                autoComplete={autoComplete ? autoComplete : "on"}
                 name={name}
                 className="mx-2 p-2 border border-blue-900 dark:border-gray-800 rounded focus:bg-blue-100/80 outline-none shadow-inner"
                 onChange={handleChange(event)}

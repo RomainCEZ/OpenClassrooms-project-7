@@ -59,6 +59,7 @@ export default function ResetPassword() {
             <form className="flex flex-col p-5 gap-2">
                 <FormInput
                     type="password"
+                    autoComplete="new-password"
                     name="password"
                     label="Nouveau mot de passe"
                     inputValue={password}
@@ -67,6 +68,7 @@ export default function ResetPassword() {
                 />
                 <FormInput
                     type="password"
+                    autoComplete="new-password"
                     name="password"
                     label="Confirmez le nouveau mot de passe"
                     inputValue={confirmPassword}
