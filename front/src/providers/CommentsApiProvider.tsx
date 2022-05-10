@@ -26,9 +26,7 @@ class CommentsApiProvider {
         return comment.data;
     }
     async getMyComments() {
-        const comments = await axios.get(
-            `${this.commentsApiPrefix}/mycomments`
-        );
+        const comments = await axios.get(`api/comments/mycomments`);
         return comments.data;
     }
     async updateComment(commentId: string, content: { content: string }) {

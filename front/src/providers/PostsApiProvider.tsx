@@ -20,7 +20,7 @@ class PostsApiProvider {
         return post.data;
     }
     async getMyPosts() {
-        const posts = await axios.get(`${this.postsApiPrefix}/myposts`);
+        const posts = await axios.get(`api/posts/myposts`);
         return posts.data;
     }
     async editPost(id: string, post: PostProps) {
@@ -32,7 +32,7 @@ class PostsApiProvider {
     }
 
     async getFavorites() {
-        const favorites = await axios.get(`${this.postsApiPrefix}/myfavorites`);
+        const favorites = await axios.get(`api/posts/myfavorites`);
         return favorites.data;
     }
 
