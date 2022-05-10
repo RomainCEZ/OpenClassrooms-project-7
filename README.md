@@ -30,17 +30,17 @@ Voici les exigences émises par le comité de pilotage :
 
 ### Front-end et back-end séparés
 
+#### Lancer le back-end
+
+`npm run start:dev` ou `yarn start:dev` depuis la racine pour lancer le back-end.  
+
+*http://localhost:8000/* pour y accéder.
+
 #### Lancer le front-end
 
 `npm run dev` ou `yarn dev` depuis la racine pour lancer le front-end.  
 
 *http://localhost:3000/* pour y accéder.  
-
-#### Lancer le back-end
-
-`npm run start:dev` ou `yarn start:dev` depuis la racine pour lancer le back-end.  
-
-*http://localhost:8000/* pour y accéder. 
 
 ### Application complète servie par le back-end
 
