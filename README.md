@@ -24,9 +24,15 @@ Voici les exigences émises par le comité de pilotage :
 
 **L'utilisation d'un framework javascript pour le front-end est obligatoire.**
 
+
+**Prérequis**
+
+Nécessite une base de donnée Postgresql pour le fonctionnement du back-end.
+
 ## Installer et lancer l'application
 
-`npm install` ou `yarn install` depuis la racine du projet pour l'installer.  
+`npm install` ou `yarn install` depuis la racine du projet pour l'installer.
+Renommer le fichier `.env.sample` en `.env` et compléter les variables d'environnement pour la base de donnée.
 
 ### Front-end et back-end séparés
 
