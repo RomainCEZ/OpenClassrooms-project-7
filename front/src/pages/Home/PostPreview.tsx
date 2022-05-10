@@ -47,9 +47,9 @@ export default function PostPreview({
 
     return (
         <Link to={`/post/${id}`} aria-label={title}>
-            <article className="group flex flex-col px-2 sm:px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 dark:hover:bg-gray-500 w-full sm:border sm:rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
+            <article className="group flex flex-col px-2 sm:px-5 py-4 dark:text-gray-900 bg-white dark:bg-gray-400 w-full sm:border sm:rounded shadow-md border-blue-900 hover:border-blue-600 dark:border-gray-300 dark:hover:border-gray-100 hover:shadow-blue-300/70 dark:hover:shadow-none transition">
                 <div className="flex items-center pb-2 border-b-2 border-blue-900 group-hover:border-blue-600 dark:border-gray-300 dark:group-hover:border-gray-100 transition">
-                    <div className="flex items-center justify-center relative h-14 w-14 mr-2 sm:-ml-2 border-2 border-blue-800 group-hover:border-blue-500 dark:border-gray-800 dark:group-hover:border-gray-300 rounded-full overflow-hidden transition">
+                    <div className="flex items-center justify-center relative h-14 w-14 mr-2 sm:-ml-2 border-2 border-blue-800 group-hover:border-blue-500 dark:border-gray-800 dark:group-hover:border-gray-600 rounded-full overflow-hidden transition">
                         {authorPicture ? (
                             <img
                                 src={authorPicture}
@@ -57,13 +57,13 @@ export default function PostPreview({
                                 className="absolute w-full h-full"
                             />
                         ) : (
-                            <span className="absolute top-2 text-5xl rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-300 transition">
+                            <span className="absolute top-2 text-5xl rounded-full text-blue-700 group-hover:text-blue-500 dark:text-gray-700 dark:group-hover:text-gray-600 transition">
                                 <FaUser />
                             </span>
                         )}
                     </div>
                     <div>
-                        <h2 className="mb-1 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-300 transition">
+                        <h2 className="mb-1 text-xl font-semibold decoration-2 underline underline-offset-2 break-words text-blue-800 group-hover:text-blue-500 dark:text-gray-900 dark:group-hover:text-gray-600 transition">
                             {title}
                         </h2>
                         <p className="text-sm ml-2 first-letter:capitalize">
@@ -83,7 +83,7 @@ export default function PostPreview({
                     <DraftjsView editorState={editorState} />
                 </div>
                 <div className="flex justify-between px-2 mt-4 font-bold ">
-                    <div className="flex items-center text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-300">
+                    <div className="flex items-center text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-600">
                         <span className="mr-1 text-2xl sm:text-xl">
                             {likes.includes(user.id) ? (
                                 <AiFillLike />
@@ -105,7 +105,7 @@ export default function PostPreview({
                         isFavorite={user.favorites.includes(id)}
                         className="ml-auto mr-4 text-2xl"
                     />
-                    <p className="flex items-center px-3 sm:text-sm text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-300">
+                    <p className="flex items-center px-3 sm:text-sm text-blue-800 group-hover:text-blue-500 dark:text-gray-800 dark:group-hover:text-gray-600">
                         <span className="text-xl mr-2 -scale-x-1">
                             <FaRegCommentDots />
                         </span>

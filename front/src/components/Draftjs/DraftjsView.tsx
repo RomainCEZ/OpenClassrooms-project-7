@@ -9,7 +9,7 @@ export default function DraftjsView({ editorState }) {
             toolbarHidden
             editorState={editorState}
             wrapperClassName="flex flex-col w-full"
-            editorClassName="px-3 py-5 w-full leading-3 break-words"
+            editorClassName="px-3 w-full leading-5 break-words"
         />
     );
 }

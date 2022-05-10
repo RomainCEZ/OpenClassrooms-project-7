@@ -7,15 +7,14 @@ export default function FavoriteStar({ onClick, isActive, className }) {
             className={className}
             value={isActive ? "Retirer des favoris" : "Ajouter aux favoris"}
         >
-            {isActive ? (
-                <span className="text-yellow-400 hover:text-yellow-500 transition">
+            {isActive && (
+                <span className="absolute ml-[-15px] text-yellow-400 transition">
                     <FaStar />
                 </span>
-            ) : (
-                <span className="text-blue-700 dark:text-gray-700 hover:text-yellow-500 dark:hover:text-yellow-500 transition">
-                    <FaRegStar />
-                </span>
             )}
+            <span className="relative text-blue-700 dark:text-gray-700 hover:text-yellow-400 dark:hover:text-yellow-400 transition">
+                <FaRegStar />
+            </span>
         </button>
     );
 }
