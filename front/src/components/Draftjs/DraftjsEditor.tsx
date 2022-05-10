@@ -1,4 +1,6 @@
 import { Editor } from "react-draft-wysiwyg";
+import { RichUtils } from "draft-js";
+import { insertNewUnstyledBlock } from "draftjs-utils";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "./DraftjsEditor.css";
 
@@ -50,6 +52,22 @@ export default function DraftjsEditor({ editorState, setEditorState }) {
                         width: "100%",
                     },
                 },
+            }}
+            handleReturn={(event) => {
+                // override behavior for enter key
+                var newEditorState = null;
+                if (event.keyCode === 13 && event.shiftKey) {
+                    // with shift, make a new block
+                    newEditorState = insertNewUnstyledBlock(editorState);
+                } else if (event.keyCode === 13 && !event.shiftKey) {
+                    // without shift, just a normal line break
+                    newEditorState = RichUtils.insertSoftNewline(editorState);
+                }
+                if (newEditorState) {
+                    setEditorState(newEditorState);
+                    return true;
+                }
+                return false;
             }}
         />
     );
